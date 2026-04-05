@@ -1,0 +1,7 @@
+node_modules/
+output/
+dist/
+*.jsonl
+*.jsonl.gz
+.DS_Store
+Thumbs.db
