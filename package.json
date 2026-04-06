@@ -1,0 +1,35 @@
+{
+  "name": "mesharkade-database",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "DAT file compiler - transforms XML DATs into signed JSONL artifacts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "validate": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "keygen": "tsx scripts/keygen.ts",
+    "compile": "node dist/scripts/compile.js",
+    "sign": "node dist/scripts/sign.js"
+  },
+  "keywords": [
+    "dat",
+    "rom",
+    "catalog",
+    "jsonl"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "ajv": "^8.18.0",
+    "ajv-formats": "^3.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.5.10",
+    "hypercore-crypto": "^3.6.1"
+  }
+}

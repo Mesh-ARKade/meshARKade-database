@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mesharkade.dev/schemas/manifest.schema.json",
+  "title": "Manifest",
+  "description": "Schema for manifest.json - the signed catalog index distributed to clients",
+  "type": "object",
+  "required": ["version", "generated", "publicKey", "signature", "systems"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the manifest format"
+    },
+    "generated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the manifest was generated"
+    },
+    "publicKey": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
+      "description": "Ed25519 public key in hex used to verify the signature"
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{128}$",
+      "description": "Ed25519 signature of the manifest in hex"
+    },
+    "systems": {
+      "type": "array",
+      "description": "Array of system entries in the catalog",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "datVersion", "file", "sha256", "size", "url", "entries"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "System identifier (e.g., 'n64', 'psx')"
+          },
+          "datVersion": {
+            "type": "string",
+            "description": "Version of the source DAT file"
+          },
+          "file": {
+            "type": "string",
+            "description": "Filename of the JSONL artifact"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "description": "SHA256 hash of the JSONL artifact in hex"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Size in bytes of the JSONL artifact"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to download the JSONL artifact"
+          },
+          "entries": {
+            "type": "integer",
+            "description": "Number of game entries in this system"
+          },
+          "urlFallback": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional fallback URL if primary URL fails"
+          },
+          "deltaFrom": {
+            "type": "string",
+            "description": "Optional previous manifest version this is a delta from"
+          }
+        }
+      }
+    }
+  }
+}
