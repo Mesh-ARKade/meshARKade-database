@@ -98,7 +98,7 @@ jobs:
       # and writes one .jsonl.zst file per system to output/.
       # Also writes output/compile-manifest.json with metadata for sign.ts.
       - name: Compile DAT files
-        run: npm run compile
+        run: npm run compile 2>&1 | tee /tmp/compile.log
 
       # -----------------------------------------------------------------------
       # Auto-merge (update-dats/** branches only)
@@ -235,10 +235,30 @@ jobs:
           TAG="${RELEASE_TAG}"
           JSONL_COUNT=$(ls -1 output/*.jsonl.zst 2>/dev/null | wc -l)
           ENTRIES=$(jq '.systems | map(.entries) | add' output/manifest.json 2>/dev/null || echo "?")
+          TOTAL_SIZE=$(du -sh output/*.jsonl.zst 2>/dev/null | tail -1 | awk '{print $1}')
+          DICT_SIZE=$(stat -c%s output/catalog.dict 2>/dev/null || echo "0")
+          DICT_KB=$((DICT_SIZE / 1024))
+
+          # Parse per-source stats from compile log
+          # Format: [compile] no-intro: 369/377 DATs (8 skipped)
+          STATS=""
+          while IFS= read -r line; do
+            SRC=$(echo "$line" | sed 's/.*\[compile\] \(.*\):.*/\1/')
+            NUMS=$(echo "$line" | sed 's/.*: //')
+            STATS="${STATS}${SRC}: ${NUMS}\n"
+          done < <(grep -E '\[compile\] .+: [0-9]+/[0-9]+ DATs' /tmp/compile.log 2>/dev/null)
+
+          BODY="**${TAG}**\n\n"
+          BODY="${BODY}**Sources**\n\`\`\`\n${STATS}\`\`\`\n"
+          BODY="${BODY}**Totals**\n${JSONL_COUNT} artifacts · ${ENTRIES} entries\nDictionary: ${DICT_KB} KB"
+
+          # Escape for JSON
+          BODY_JSON=$(echo -e "$BODY" | python3 -c 'import sys,json; print(json.dumps(sys.stdin.read()))')
+
           curl -s -H "Content-Type: application/json" -d "{
             \"embeds\": [{
               \"title\": \"Catalog Published\",
-              \"description\": \"**${TAG}**\n${JSONL_COUNT} systems · ${ENTRIES} entries\",
+              \"description\": ${BODY_JSON},
               \"color\": 3066993,
               \"url\": \"https://github.com/Mesh-ARKade/meshARKade-database/releases/tag/${TAG}\"
             }]
