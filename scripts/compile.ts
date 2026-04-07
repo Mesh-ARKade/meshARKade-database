@@ -68,8 +68,8 @@ interface RomEntry {
   name: string;
   size: number;
   crc: string;
-  md5: string;
-  sha1: string;
+  md5?: string;
+  sha1?: string;
   sha256?: string;
   status?: string;
   header?: string;
