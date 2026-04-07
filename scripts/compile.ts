@@ -595,7 +595,8 @@ export async function compileAll(): Promise<CompileResult> {
       continue;
     }
 
-    console.log(`[compile] ${source}: found ${datFiles.length} DAT files`);
+    let sourceProcessed = 0;
+    let sourceSkipped = 0;
 
     for (const datPath of datFiles) {
       try {
@@ -605,7 +606,7 @@ export async function compileAll(): Promise<CompileResult> {
           : parseDat(fileContent, source);
 
         if (entries.length === 0) {
-          console.warn(`[compile] Skipping ${path.basename(datPath)}: no valid game entries`);
+          sourceSkipped++;
           continue;
         }
 
@@ -615,15 +616,18 @@ export async function compileAll(): Promise<CompileResult> {
         if (!groupedEntries.has(groupKey)) {
           groupedEntries.set(groupKey, { source, family, datVersion, entries: [] });
         }
-        
+
         // Append entries to the group
         groupedEntries.get(groupKey)!.entries.push(...entries);
+        sourceProcessed++;
         totalDats++;
       } catch (err) {
-        // Log the error but continue — one bad DAT shouldn't stop the build
+        sourceSkipped++;
         console.error(`[compile] Error compiling ${path.basename(datPath)}: ${(err as Error).message}`);
       }
     }
+
+    console.log(`[compile] ${source}: ${sourceProcessed}/${datFiles.length} DATs (${sourceSkipped} skipped)`);
   }
 
   if (groupedEntries.size === 0) {
