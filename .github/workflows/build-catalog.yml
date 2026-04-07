@@ -57,6 +57,20 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Discord notification (started)
+        if: env.DISCORD_WEBHOOK_URL != ''
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          RUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/${{ github.run_id }}"
+          curl -s -H "Content-Type: application/json" -d "{
+            \"embeds\": [{
+              \"title\": \"Build Catalog Started\",
+              \"description\": \"Branch: \`${GITHUB_REF_NAME}\` · Commit: \`${GITHUB_SHA::7}\`\n[View run](${RUN_URL})\",
+              \"color\": 16776960
+            }]
+          }" "$DISCORD_WEBHOOK_URL"
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
