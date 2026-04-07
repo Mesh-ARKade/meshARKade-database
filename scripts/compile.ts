@@ -137,7 +137,14 @@ const xmlParser = new XMLParser({
     const jp = String(jpath);
     return jp === 'datafile.game' ||
            jp === 'datafile.game.rom' ||
-           jp === 'datafile.game.release';
+           jp === 'datafile.game.release' ||
+           jp === 'datafile.machine' ||
+           jp === 'datafile.machine.rom' ||
+           jp === 'datafile.machine.release' ||
+           jp === 'datafile.software' ||
+           jp === 'datafile.software.part' ||
+           jp === 'datafile.software.part.dataarea' ||
+           jp === 'datafile.software.part.dataarea.rom';
   },
   // Keep all values as strings — we'll parseInt(size) ourselves.
   // This prevents hashes like "00a1b2c3" from being parsed as numbers.
@@ -251,26 +258,45 @@ function parseDat(xmlContent: string, source: string): {
   const datVersion = header.version || 'unknown';
 
   // Parse game entries — may be absent if DAT is empty (rare but possible)
-  const games: unknown[] = datafile.game || [];
+  // Support Logiqx <game>, MAME <machine>, or Software List <software>
+  const games: unknown[] = datafile.game || datafile.machine || datafile.software || [];
   const entries: JsonlLine[] = [];
 
   for (const game of games) {
     const g = game as Record<string, unknown>;
 
-    // Game name is in the "name" attribute of <game>
+    // Entry name is in the "name" attribute
     const gameName = (g.name as string) || '';
     if (!gameName) continue;  // Skip nameless entries
 
-    // Parse ROM entries — each <rom> has hash attributes
-    const rawRoms = (g.rom as Record<string, string>[]) || [];
+    // Parse ROM entries
+    // For <game>/<machine>: <rom>
+    // For <software>: <part><dataarea><rom>
+    let rawRoms: Record<string, string>[] = [];
+    
+    if (g.rom) {
+      rawRoms = g.rom as Record<string, string>[];
+    } else if (g.part) {
+      // Software List nested structure
+      const parts = (Array.isArray(g.part) ? g.part : [g.part]) as Record<string, any>[];
+      for (const part of parts) {
+        if (part.dataarea) {
+          const dataareas = (Array.isArray(part.dataarea) ? part.dataarea : [part.dataarea]) as Record<string, any>[];
+          for (const da of dataareas) {
+            if (da.rom) {
+              const roms = (Array.isArray(da.rom) ? da.rom : [da.rom]) as Record<string, string>[];
+              rawRoms.push(...roms);
+            }
+          }
+        }
+      }
+    }
+
     const roms: RomEntry[] = [];
 
     for (const rom of rawRoms) {
-      // All hash fields are required by the schema, but real-world DATs
-      // sometimes omit them. We only include ROMs that have the minimum
-      // required fields (name, size, and at least CRC+MD5+SHA1).
+      // Basic validation for ROM fields
       if (!rom.name || !rom.size || !rom.crc || !rom.md5 || !rom.sha1) {
-        // Log but don't fail — some DATs have partial entries
         continue;
       }
 
@@ -282,7 +308,6 @@ function parseDat(xmlContent: string, source: string): {
         sha1: rom.sha1.toLowerCase(),
       };
 
-      // Optional fields — include only if present
       if (rom.sha256) romEntry.sha256 = rom.sha256.toLowerCase();
       if (rom.status) romEntry.status = rom.status;
       if (rom.header) romEntry.header = rom.header;
@@ -290,7 +315,6 @@ function parseDat(xmlContent: string, source: string): {
       roms.push(romEntry);
     }
 
-    // Skip games with no valid ROMs — can happen if all ROMs were incomplete
     if (roms.length === 0) continue;
 
     const entry: JsonlLine = {
@@ -298,17 +322,16 @@ function parseDat(xmlContent: string, source: string): {
       system,
       datVersion,
       id: gameName,
-      name: (g.description as string) || gameName,
+      name: (g.description as string) || (g.title as string) || gameName,
       roms,
     };
 
-    // Optional fields — include only if present
     if (g.category) entry.category = g.category as string;
     if (g.cloneof) entry.cloneofid = g.cloneof as string;
-    // Some DATs put description in the <description> tag, which we
-    // already used for `name`. Only set `description` if it differs.
-    if (g.description && g.description !== gameName) {
-      entry.description = g.description as string;
+    
+    const desc = (g.description as string) || (g.title as string);
+    if (desc && desc !== gameName) {
+      entry.description = desc;
     }
 
     entries.push(entry);
