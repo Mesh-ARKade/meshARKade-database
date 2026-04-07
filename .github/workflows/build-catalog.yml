@@ -209,3 +209,40 @@ jobs:
           done
 
           echo "[release] Published: $TAG ($JSONL_COUNT systems)"
+
+      # -----------------------------------------------------------------------
+      # Notify Discord — success
+      # -----------------------------------------------------------------------
+      - name: Discord notification (success)
+        if: success() && env.DISCORD_WEBHOOK_URL != ''
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          TAG="${RELEASE_TAG}"
+          JSONL_COUNT=$(ls -1 output/*.jsonl.zst 2>/dev/null | wc -l)
+          ENTRIES=$(jq '.systems | map(.entries) | add' output/manifest.json 2>/dev/null || echo "?")
+          curl -s -H "Content-Type: application/json" -d "{
+            \"embeds\": [{
+              \"title\": \"Catalog Published\",
+              \"description\": \"**${TAG}**\n${JSONL_COUNT} systems · ${ENTRIES} entries\",
+              \"color\": 3066993,
+              \"url\": \"https://github.com/Mesh-ARKade/meshARKade-database/releases/tag/${TAG}\"
+            }]
+          }" "$DISCORD_WEBHOOK_URL"
+
+      # -----------------------------------------------------------------------
+      # Notify Discord — failure
+      # -----------------------------------------------------------------------
+      - name: Discord notification (failure)
+        if: failure() && env.DISCORD_WEBHOOK_URL != ''
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          RUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/${{ github.run_id }}"
+          curl -s -H "Content-Type: application/json" -d "{
+            \"embeds\": [{
+              \"title\": \"Build Catalog Failed\",
+              \"description\": \"Commit: \`${GITHUB_SHA::7}\` on \`${GITHUB_REF_NAME}\`\n[View logs](${RUN_URL})\",
+              \"color\": 15158332
+            }]
+          }" "$DISCORD_WEBHOOK_URL"
