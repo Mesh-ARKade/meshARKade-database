@@ -106,7 +106,7 @@ function buildSystemEntries(
 /**
  * Sign the catalog manifest with Ed25519.
  *
- * @param releaseTag - Optional release tag override. Defaults to catalog-{today}.
+ * @param releaseTag - Optional release tag override. Defaults to meshARKade-metadats-{YYYYMMDD-HHMMSS}.
  * @returns The signed manifest object.
  */
 export async function signManifest(releaseTag?: string): Promise<Record<string, unknown>> {
@@ -151,8 +151,9 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
   }
 
   // --- Build the manifest ---
-  const today = new Date().toISOString().split('T')[0];
-  const tag = releaseTag || `catalog-${today}`;
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/[-:]/g, '').replace('T', '-').slice(0, 15);
+  const tag = releaseTag || `meshARKade-metadats-${timestamp}`;
   const generated = new Date().toISOString();
 
   // Build the unsigned manifest (signature placeholder will be replaced)
