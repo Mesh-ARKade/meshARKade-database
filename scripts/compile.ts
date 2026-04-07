@@ -179,27 +179,30 @@ export function slugify(name: string): string {
 export function getLogicalFamily(name: string, source: string): string {
   let family = name;
 
-  if (source === 'tosec') {
-    // TOSEC heavily categorizes files with ` - Category`. The base system is always the first part.
-    // e.g. "Commodore Amiga - Games - [Z]" -> "Commodore Amiga"
+  if (source === 'mame' && family.startsWith('MAME ')) {
+    return 'MAME Arcade';
+  }
+
+  // Most DATs follow "Manufacturer - System Name" convention.
+  // We split by " - " and take the first part to group by manufacturer.
+  if (source === 'tosec' || source === 'no-intro' || source === 'redump' || source === 'mame') {
     family = family.split(' - ')[0];
-  } else if (source === 'no-intro') {
-    // No-Intro often appends subsets or variants in parentheses at the end.
-    // We strip these specific known tags to group them back to the main console family.
-    const tagsToRemove = [
-      '(Aftermarket)',
-      '(Decrypted)',
-      '(Encrypted)',
-      '(Download Play)',
-      '(BigEndian)',
-      '(ByteSwapped)',
-      '(Headered)',
-      '(Headerless)'
-    ];
-    
-    for (const tag of tagsToRemove) {
-      family = family.replace(` ${tag}`, '');
-    }
+  }
+
+  // Strip known tags to ensure clean mapping if split didn't happen or for variants
+  const tagsToRemove = [
+    '(Aftermarket)',
+    '(Decrypted)',
+    '(Encrypted)',
+    '(Download Play)',
+    '(BigEndian)',
+    '(ByteSwapped)',
+    '(Headered)',
+    '(Headerless)'
+  ];
+  
+  for (const tag of tagsToRemove) {
+    family = family.replace(` ${tag}`, '');
   }
 
   return family.trim();

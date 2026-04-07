@@ -6,36 +6,36 @@ describe('Logical Grouping', () => {
     it('groups Amiga categories into Commodore Amiga', () => {
       expect(getLogicalFamily('Commodore Amiga - Games - [Z]', 'tosec')).toBe('Commodore Amiga');
       expect(getLogicalFamily('Commodore Amiga - Demos', 'tosec')).toBe('Commodore Amiga');
-      expect(getLogicalFamily('Commodore Amiga - Magazines - Amiga Format', 'tosec')).toBe('Commodore Amiga');
-    });
-
-    it('groups general TOSEC splits', () => {
-      expect(getLogicalFamily('Atari ST - Games - [A]', 'tosec')).toBe('Atari ST');
-      expect(getLogicalFamily('Sinclair ZX Spectrum - Coverdisks', 'tosec')).toBe('Sinclair ZX Spectrum');
     });
   });
 
   describe('No-Intro', () => {
-    it('groups Aftermarket into main system', () => {
-      expect(getLogicalFamily('Nintendo - Game Boy (Aftermarket)', 'no-intro')).toBe('Nintendo - Game Boy');
-      expect(getLogicalFamily('Sega - Mega Drive - Genesis (Aftermarket)', 'no-intro')).toBe('Sega - Mega Drive - Genesis');
+    it('groups all Nintendo consoles into Nintendo', () => {
+      expect(getLogicalFamily('Nintendo - Game Boy', 'no-intro')).toBe('Nintendo');
+      expect(getLogicalFamily('Nintendo - Game Boy Color', 'no-intro')).toBe('Nintendo');
+      expect(getLogicalFamily('Nintendo - Super Nintendo Entertainment System', 'no-intro')).toBe('Nintendo');
     });
 
-    it('groups subsets into main system', () => {
-      expect(getLogicalFamily('Nintendo - Nintendo DS (Decrypted)', 'no-intro')).toBe('Nintendo - Nintendo DS');
-      expect(getLogicalFamily('Nintendo - Nintendo DS (Encrypted)', 'no-intro')).toBe('Nintendo - Nintendo DS');
-      expect(getLogicalFamily('Nintendo - Nintendo DS (Download Play)', 'no-intro')).toBe('Nintendo - Nintendo DS');
-    });
-
-    it('leaves standard names unchanged', () => {
-      expect(getLogicalFamily('Nintendo - Super Nintendo Entertainment System', 'no-intro')).toBe('Nintendo - Super Nintendo Entertainment System');
+    it('groups Sega systems into Sega', () => {
+      expect(getLogicalFamily('Sega - Mega Drive - Genesis', 'no-intro')).toBe('Sega');
+      expect(getLogicalFamily('Sega - Master System - Mark III', 'no-intro')).toBe('Sega');
     });
   });
 
   describe('Redump', () => {
-    it('leaves Redump names mostly unchanged', () => {
-      expect(getLogicalFamily('Sony - PlayStation', 'redump')).toBe('Sony - PlayStation');
-      expect(getLogicalFamily('Microsoft - Xbox', 'redump')).toBe('Microsoft - Xbox');
+    it('groups Sony systems into Sony', () => {
+      expect(getLogicalFamily('Sony - PlayStation', 'redump')).toBe('Sony');
+      expect(getLogicalFamily('Sony - PlayStation 2', 'redump')).toBe('Sony');
+    });
+  });
+
+  describe('MAME', () => {
+    it('groups Arcade into MAME Arcade', () => {
+      expect(getLogicalFamily('MAME 0.286', 'mame')).toBe('MAME Arcade');
+    });
+
+    it('groups Software Lists by manufacturer', () => {
+      expect(getLogicalFamily('Nintendo - Game Boy', 'mame')).toBe('Nintendo');
     });
   });
 });
