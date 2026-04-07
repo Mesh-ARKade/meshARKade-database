@@ -72,10 +72,10 @@ function deterministicStringify(obj: unknown): string {
  *
  * Each compiled system gets an entry with a URL pointing to the
  * GitHub Release where the artifact will be uploaded. The release
- * tag is `catalog-{YYYY-MM-DD}`.
+ * tag is `meshARKade-metadats-{YYYYMMDD-HHMMSS}`.
  *
  * @param systems - Array of compiled system metadata from compile.ts.
- * @param releaseTag - The GitHub Release tag (e.g., "catalog-2026-04-06").
+ * @param releaseTag - The GitHub Release tag (e.g., "meshARKade-metadats-20260406-031740").
  * @returns Manifest systems array ready for signing.
  */
 function buildSystemEntries(

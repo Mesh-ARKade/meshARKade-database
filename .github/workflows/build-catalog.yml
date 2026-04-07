@@ -109,9 +109,22 @@ jobs:
           fi
 
           echo "[merge] Merging PR #$PR_NUMBER (squash)..."
-          gh pr merge "$PR_NUMBER" --squash --delete-branch
-
-          echo "[merge] PR #$PR_NUMBER merged successfully"
+          # Fetch main ref so gh can compute the squash diff locally
+          git fetch origin main --depth=1
+          # Merge via API; if the local git cleanup fails after a successful
+          # API merge, we catch it and verify the PR state instead of failing.
+          if ! gh pr merge "$PR_NUMBER" --squash --delete-branch; then
+            echo "[merge] gh pr merge exited non-zero — checking if merge succeeded via API..."
+            STATE=$(gh pr view "$PR_NUMBER" --json state --jq .state)
+            if [ "$STATE" = "MERGED" ]; then
+              echo "[merge] PR #$PR_NUMBER was merged successfully (local git cleanup error ignored)"
+            else
+              echo "[merge] PR #$PR_NUMBER is in state: $STATE — merge failed"
+              exit 1
+            fi
+          else
+            echo "[merge] PR #$PR_NUMBER merged successfully"
+          fi
 
       # -----------------------------------------------------------------------
       # Sign manifest
