@@ -29,7 +29,7 @@
 import fs from 'fs';
 import path from 'path';
 import hypercoreCrypto from 'hypercore-crypto';
-import type { CompiledSystem } from './compile.js';
+import type { CompileResult, CompiledSystem, DictionaryMeta } from './compile.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -104,6 +104,18 @@ function buildSystemEntries(
 }
 
 /**
+ * Build dictionary metadata entry with absolute URL.
+ */
+function buildDictionaryEntry(dictionary: DictionaryMeta, releaseTag: string) {
+  const repoUrl = 'https://github.com/Mesh-ARKade/meshARKade-database';
+  return {
+    url: `${repoUrl}/releases/download/${releaseTag}/${dictionary.file}`,
+    sha256: dictionary.sha256,
+    size: dictionary.size,
+  };
+}
+
+/**
  * Sign the catalog manifest with Ed25519.
  *
  * @param releaseTag - Optional release tag override. Defaults to meshARKade-metadats-{YYYYMMDD-HHMMSS}.
@@ -142,12 +154,15 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
     );
   }
 
-  const systems: CompiledSystem[] = JSON.parse(
+  const compileResult: CompileResult = JSON.parse(
     fs.readFileSync(COMPILE_MANIFEST, 'utf-8')
   );
 
-  if (systems.length === 0) {
-    throw new Error('Compile manifest is empty — nothing to sign');
+  const systems = compileResult.systems;
+  const dictionary = compileResult.dictionary;
+
+  if (!systems || systems.length === 0) {
+    throw new Error('Compile manifest systems array is empty — nothing to sign');
   }
 
   // --- Build the manifest ---
@@ -157,7 +172,7 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
   const generated = new Date().toISOString();
 
   // Build the unsigned manifest (signature placeholder will be replaced)
-  const unsigned = {
+  const unsigned: Record<string, unknown> = {
     version: MANIFEST_VERSION,
     generated,
     publicKey: publicKeyHex,
@@ -165,10 +180,14 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
     systems: buildSystemEntries(systems, tag),
   };
 
+  if (dictionary) {
+    unsigned.dictionary = buildDictionaryEntry(dictionary, tag);
+  }
+
   // --- Sign ---
   // Remove the signature field, serialize deterministically, sign the bytes
   const forSigning = { ...unsigned };
-  delete (forSigning as Record<string, unknown>).signature;
+  delete forSigning.signature;
 
   const message = Buffer.from(deterministicStringify(forSigning), 'utf-8');
   const signature = hypercoreCrypto.sign(message, secretKey);
@@ -191,6 +210,9 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
   console.log(`[sign]   Public key: ${publicKeyHex}`);
   console.log(`[sign]   Signature:  ${signatureHex.slice(0, 16)}...`);
   console.log(`[sign]   Systems:    ${systems.length}`);
+  if (dictionary) {
+    console.log(`[sign]   Dictionary: ${dictionary.file} (${dictionary.size} bytes)`);
+  }
   console.log(`[sign]   Release:    ${tag}`);
   console.log(`[sign]   Output:     ${OUTPUT_MANIFEST}`);
 

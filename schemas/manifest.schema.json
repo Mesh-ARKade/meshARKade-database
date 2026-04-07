@@ -63,6 +63,16 @@
             "type": "integer",
             "description": "Number of game entries in this system"
           },
+          "dictionary": {
+            "type": "object",
+            "description": "Optional dictionary metadata for zstd compression",
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+              "size": { "type": "integer" }
+            },
+            "required": ["url", "sha256", "size"]
+          },
           "urlFallback": {
             "type": "string",
             "format": "uri",

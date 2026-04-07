@@ -2,7 +2,7 @@
 # Build Catalog Pipeline
 # =============================================================================
 #
-# This workflow compiles XML DAT files into signed gzipped JSONL artifacts
+# This workflow compiles XML DAT files into signed zstd-compressed JSONL artifacts
 # and publishes them as GitHub Releases for distribution to the P2P network.
 #
 # Fully automated flow:
@@ -78,10 +78,10 @@ jobs:
         run: npm run build
 
       # -----------------------------------------------------------------------
-      # Compile: XML DATs → gzipped JSONL artifacts
+      # Compile: XML DATs → zstd-compressed JSONL artifacts
       # -----------------------------------------------------------------------
       # Reads every .dat file from input/{source}/, parses the Logiqx XML,
-      # and writes one .jsonl.gz file per system to output/.
+      # and writes one .jsonl.zst file per system to output/.
       # Also writes output/compile-manifest.json with metadata for sign.ts.
       - name: Compile DAT files
         run: npm run compile
@@ -146,7 +146,7 @@ jobs:
       # -----------------------------------------------------------------------
       # Create GitHub Release
       # -----------------------------------------------------------------------
-      # Upload all .jsonl.gz artifacts + the signed manifest as a GitHub
+      # Upload all .jsonl.zst artifacts + the signed manifest as a GitHub
       # Release. This is the bootstrap distribution point — P2P nodes fetch
       # the manifest from the latest release, verify the Ed25519 signature,
       # then download only the system files they need on demand.
@@ -160,11 +160,12 @@ jobs:
           TAG="${RELEASE_TAG}"
           echo "[release] Creating release: $TAG"
 
-          JSONL_COUNT=$(ls -1 output/*.jsonl.gz 2>/dev/null | wc -l)
+          JSONL_COUNT=$(ls -1 output/*.jsonl.zst 2>/dev/null | wc -l)
           MANIFEST_SIZE=$(wc -c < output/manifest.json)
 
           gh release create "$TAG" \
-            output/*.jsonl.gz \
+            output/*.jsonl.zst \
+            output/catalog.dict \
             output/manifest.json \
             --target main \
             --title "$TAG" \
@@ -175,7 +176,8 @@ jobs:
 
           This release contains:
           - \`manifest.json\` — Ed25519-signed catalog index
-          - \`*.jsonl.gz\` — Gzipped JSONL artifacts (one per system)
+          - \`catalog.dict\` — Zstd dictionary used for compression
+          - \`*.jsonl.zst\` — Zstd-compressed JSONL artifacts (one per system)
 
           Verify the manifest signature against public key:
           \`a365e013bd067cc0450eac8d2440c0702de8447e4aeb458555fcf8c8f91d2a30\`

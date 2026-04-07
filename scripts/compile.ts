@@ -2,7 +2,7 @@
  * DAT Compiler
  *
  * Reads Logiqx XML DAT files from input/{source}/ and compiles each one into
- * a gzipped JSONL artifact in output/. One .jsonl.gz file per DAT = one file
+ * a zstd-compressed JSONL artifact in output/. One .jsonl.zst file per DAT = one file
  * per system. Each line in the JSONL is a game entry validated against the
  * jsonl-line schema.
  *
@@ -12,7 +12,7 @@
  *       ↓
  *   compile.ts (this script)
  *       ↓
- *   .jsonl.gz files + compile-manifest.json (metadata for sign.ts)
+ *   .jsonl.zst files + compile-manifest.json (metadata for sign.ts)
  *
  * Input structure (populated by meshARKade-dats PRs):
  *   input/
@@ -23,14 +23,15 @@
  *
  * Output structure:
  *   output/
- *     no-intro--nintendo-game-boy.jsonl.gz
- *     no-intro--nintendo-snes.jsonl.gz
- *     tosec--atari-2600.jsonl.gz
- *     redump--sony-playstation.jsonl.gz
+ *     no-intro--nintendo-game-boy.jsonl.zst
+ *     no-intro--nintendo-snes.jsonl.zst
+ *     tosec--atari-2600.jsonl.zst
+ *     redump--sony-playstation.jsonl.zst
  *     ...
- *     compile-manifest.json   ← metadata array consumed by sign.ts
+ *     catalog.dict            ← Zstd dictionary trained from samples
+ *     compile-manifest.json   ← metadata object consumed by sign.ts
  *
- * @intent Transform XML DATs into signed-ready JSONL artifacts.
+ * @intent Transform XML DATs into signed-ready JSONL artifacts using dictionary compression.
  * @guarantee Every game entry in every output file passes jsonl-line validation.
  * @constraint Requires input/ to have at least one .dat file.
  */
@@ -38,8 +39,9 @@
 import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
-import { gzipSync } from 'zlib';
+import { zstdCompressSync } from 'zlib';
 import { XMLParser } from 'fast-xml-parser';
+import { execSync } from 'child_process';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -53,6 +55,9 @@ const OUTPUT_DIR = 'output';
 
 /** Known source directories — we scan each one for .dat files */
 const SOURCES = ['no-intro', 'tosec', 'redump', 'mame'] as const;
+
+/** Zstd dictionary filename */
+const DICT_FILENAME = 'catalog.dict';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -93,6 +98,18 @@ export interface CompiledSystem {
   sha256: string;
   size: number;
   entries: number;
+}
+
+export interface DictionaryMeta {
+  file: string;
+  sha256: string;
+  size: number;
+}
+
+/** Complete compile output metadata */
+export interface CompileResult {
+  systems: CompiledSystem[];
+  dictionary?: DictionaryMeta;
 }
 
 // ---------------------------------------------------------------------------
@@ -257,25 +274,27 @@ function parseDat(xmlContent: string, source: string): {
 }
 
 /**
- * Compile a single DAT file into a gzipped JSONL artifact.
+ * Compile a single DAT file into a zstd-compressed JSONL artifact.
  *
  * Flow:
  *   1. Read the XML file
  *   2. Parse into game entries via parseDat()
  *   3. Serialize each entry as a JSON line
- *   4. Gzip the entire JSONL buffer
- *   5. Write to output/{source}--{slug}.jsonl.gz
+ *   4. Zstd compress the entire JSONL buffer
+ *   5. Write to output/{source}--{slug}.jsonl.zst
  *   6. Return metadata for the manifest
  *
  * @param datPath - Full path to the .dat file.
  * @param source - Source identifier.
- * @param outputDir - Directory to write the .jsonl.gz file.
+ * @param outputDir - Directory to write the .jsonl.zst file.
+ * @param dictBuffer - Optional dictionary buffer for compression.
  * @returns CompiledSystem metadata, or null if the DAT had no valid entries.
  */
 function compileDat(
   datPath: string,
   source: string,
   outputDir: string,
+  dictBuffer?: Buffer,
 ): CompiledSystem | null {
   const xmlContent = fs.readFileSync(datPath, 'utf-8');
 
@@ -290,18 +309,19 @@ function compileDat(
   const jsonlLines = entries.map(entry => JSON.stringify(entry));
   const jsonlContent = jsonlLines.join('\n');
 
-  // Gzip compress the JSONL
-  const gzipped = gzipSync(Buffer.from(jsonlContent, 'utf-8'), { level: 9 });
+  // Zstd compress the JSONL using dictionary if provided
+  // @ts-ignore: Node 22 supports 'level' and 'dictionary' directly but @types/node may lack it
+  const compressed = zstdCompressSync(Buffer.from(jsonlContent, 'utf-8'), { level: 19, dictionary: dictBuffer });
 
-  // Build the output filename: {source}--{system-slug}.jsonl.gz
+  // Build the output filename: {source}--{system-slug}.jsonl.zst
   const slug = slugify(system);
-  const filename = `${source}--${slug}.jsonl.gz`;
+  const filename = `${source}--${slug}.jsonl.zst`;
   const outputPath = path.join(outputDir, filename);
 
-  fs.writeFileSync(outputPath, gzipped);
+  fs.writeFileSync(outputPath, compressed);
 
-  // Compute SHA256 of the gzipped file for the manifest
-  const sha256 = createHash('sha256').update(gzipped).digest('hex');
+  // Compute SHA256 of the compressed file for the manifest
+  const sha256 = createHash('sha256').update(compressed).digest('hex');
 
   return {
     id: `${source}/${slug}`,
@@ -310,7 +330,7 @@ function compileDat(
     datVersion,
     file: filename,
     sha256,
-    size: gzipped.length,
+    size: compressed.length,
     entries: entries.length,
   };
 }
@@ -335,16 +355,94 @@ function findDatFiles(dir: string): string[] {
 /**
  * Compile all DAT files from all sources.
  *
- * Scans input/{source}/ for each known source, compiles every .dat file
- * into a .jsonl.gz artifact, and writes a compile-manifest.json with
- * metadata for sign.ts to consume.
+ * Pass 1: Train dictionary
+ * If input/catalog.dict does NOT exist, we parse all DATs, randomly select
+ * ~1000 JSONL lines, and train a zstd dictionary using the CLI.
+ * 
+ * Pass 2: Compress
+ * We load input/catalog.dict, and compress each parsed DAT with that dictionary.
+ * The dictionary is copied to output/ for release upload.
  *
- * @returns Array of CompiledSystem metadata.
+ * @returns Array of CompiledSystem metadata plus dictionary metadata.
  */
-export async function compileAll(): Promise<CompiledSystem[]> {
+export async function compileAll(): Promise<CompileResult> {
   // Ensure output directory exists
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+  const dictInputPath = path.join(INPUT_DIR, DICT_FILENAME);
+  const dictOutputPath = path.join(OUTPUT_DIR, DICT_FILENAME);
+
+  // --- PASS 1: Dictionary Training ---
+  if (!fs.existsSync(dictInputPath)) {
+    console.log('[compile] Dictionary not found. Training new dictionary...');
+    const samplesDir = path.join(OUTPUT_DIR, 'zstd-samples');
+    fs.mkdirSync(samplesDir, { recursive: true });
+
+    let sampleCount = 0;
+    // We aim for ~1000 samples. Across 350,000 entries, probability is ~ 1/350.
+    // We will use 0.003 to be safe and cap at 1500 to ensure we don't over-train.
+    for (const source of SOURCES) {
+      const sourceDir = path.join(INPUT_DIR, source);
+      const datFiles = findDatFiles(sourceDir);
+
+      for (const datPath of datFiles) {
+        try {
+          const xmlContent = fs.readFileSync(datPath, 'utf-8');
+          const { entries } = parseDat(xmlContent, source);
+          
+          for (const entry of entries) {
+            if (Math.random() < 0.003 && sampleCount < 1500) {
+              const samplePath = path.join(samplesDir, `sample_${sampleCount}.jsonl`);
+              fs.writeFileSync(samplePath, JSON.stringify(entry));
+              sampleCount++;
+            }
+          }
+        } catch (err) {
+          // Ignore parsing errors during training phase
+        }
+      }
+    }
+
+    if (sampleCount > 0) {
+      console.log(`[compile] Training zstd dictionary on ${sampleCount} samples...`);
+      const zstdExe = process.platform === 'win32' ? path.join(process.cwd(), 'scripts', 'zstd.exe') : 'zstd';
+      try {
+        execSync(`"${zstdExe}" --train -r "${samplesDir}" -o "${dictInputPath}"`, { stdio: 'inherit' });
+        console.log(`[compile] Successfully trained dictionary at ${dictInputPath}`);
+      } catch (err) {
+        console.warn(`[compile] Warning: Failed to train dictionary via CLI. Ensure zstd is installed. Error: ${(err as Error).message}`);
+      }
+    } else {
+      console.warn(`[compile] Warning: No samples collected for dictionary training.`);
+    }
+
+    // Clean up temporary samples directory
+    if (fs.existsSync(samplesDir)) {
+      fs.rmSync(samplesDir, { recursive: true, force: true });
+    }
+  }
+
+  // Load the dictionary if it exists
+  let dictBuffer: Buffer | undefined;
+  let dictionaryMeta: DictionaryMeta | undefined;
+
+  if (fs.existsSync(dictInputPath)) {
+    dictBuffer = fs.readFileSync(dictInputPath);
+    // Copy the dictionary to output/ so it's included in the release
+    fs.copyFileSync(dictInputPath, dictOutputPath);
+    
+    const sha256 = createHash('sha256').update(dictBuffer).digest('hex');
+    dictionaryMeta = {
+      file: DICT_FILENAME,
+      sha256,
+      size: dictBuffer.length,
+    };
+    console.log(`[compile] Loaded dictionary ${DICT_FILENAME} (${dictBuffer.length} bytes)`);
+  } else {
+    console.log(`[compile] Proceeding without dictionary compression.`);
+  }
+
+  // --- PASS 2: Compilation ---
   const results: CompiledSystem[] = [];
   let totalDats = 0;
   let totalEntries = 0;
@@ -362,7 +460,7 @@ export async function compileAll(): Promise<CompiledSystem[]> {
 
     for (const datPath of datFiles) {
       try {
-        const result = compileDat(datPath, source, OUTPUT_DIR);
+        const result = compileDat(datPath, source, OUTPUT_DIR, dictBuffer);
         if (result) {
           results.push(result);
           totalEntries += result.entries;
@@ -379,22 +477,30 @@ export async function compileAll(): Promise<CompiledSystem[]> {
     throw new Error('No DAT files produced any output. Check input/ directory.');
   }
 
+  const compileResult: CompileResult = {
+    systems: results,
+    ...(dictionaryMeta && { dictionary: dictionaryMeta })
+  };
+
   // Write the compile manifest — sign.ts reads this to build the signed manifest
   const compileManifestPath = path.join(OUTPUT_DIR, 'compile-manifest.json');
-  fs.writeFileSync(compileManifestPath, JSON.stringify(results, null, 2));
+  fs.writeFileSync(compileManifestPath, JSON.stringify(compileResult, null, 2));
 
   console.log(`[compile] Done: ${totalDats} DATs processed → ${results.length} artifacts (${totalEntries} total game entries)`);
 
-  return results;
+  return compileResult;
 }
 
 // --- CLI entry point ---
 const isDirectRun = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'));
 if (isDirectRun) {
   compileAll()
-    .then(results => {
+    .then(result => {
       console.log(`[compile] Output: ${OUTPUT_DIR}/`);
-      console.log(`[compile] Systems: ${results.length}`);
+      console.log(`[compile] Systems: ${result.systems.length}`);
+      if (result.dictionary) {
+        console.log(`[compile] Dictionary: ${result.dictionary.file} (${result.dictionary.size} bytes)`);
+      }
     })
     .catch(err => {
       console.error(`[compile] Fatal: ${err.message}`);

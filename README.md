@@ -4,7 +4,7 @@ DAT file compiler - transforms XML DAT files into signed, distributable JSONL ar
 
 ## Purpose
 
-This repository serves as the archive and factory at the heart of the firehose pipeline. It stores raw XML DAT files from primary sources (No-Intro, Redump, TOSEC, MAME) and transforms them into signed, gzipped JSONL artifacts for distribution to clients.
+This repository serves as the archive and factory at the heart of the firehose pipeline. It stores raw XML DAT files from primary sources (No-Intro, Redump, TOSEC, MAME) and transforms them into signed, zstd-compressed JSONL artifacts for distribution to clients.
 
 ## Directory Layout
 
@@ -107,7 +107,7 @@ This will output:
 
 **Current Public Key:**
 ```
-a365e013bd067cc0450eac8d2440c0702de8447e4aeb458555fcf8c8f91d2a30
+16b49260d9aafeadbf395a9d1769f2eac5698006035dd0a1406241bee4c0af2c
 ```
 
 ### Key Rotation Procedure

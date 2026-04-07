@@ -45,10 +45,10 @@ describe('manifest schema', () => {
         {
           id: 'n64',
           datVersion: '2024-01-01',
-          file: 'n64.jsonl.gz',
+          file: 'n64.jsonl.zst',
           sha256: 'c'.repeat(64),
           size: 1000,
-          url: 'https://example.com/n64.jsonl.gz',
+          url: 'https://example.com/n64.jsonl.zst',
           entries: 100,
         },
       ],
@@ -65,10 +65,10 @@ describe('manifest schema', () => {
       systems: [
         {
           id: 'n64',
-          file: 'n64.jsonl.gz',
+          file: 'n64.jsonl.zst',
           sha256: 'c'.repeat(64),
           size: 1000,
-          url: 'https://example.com/n64.jsonl.gz',
+          url: 'https://example.com/n64.jsonl.zst',
           entries: 100,
         },
       ],
