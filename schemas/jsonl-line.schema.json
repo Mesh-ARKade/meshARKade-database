@@ -44,7 +44,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["name", "size", "crc", "md5", "sha1"],
+        "required": ["name", "size", "crc"],
         "properties": {
           "name": {
             "type": "string",

@@ -295,8 +295,8 @@ function parseDat(xmlContent: string, source: string): {
     const roms: RomEntry[] = [];
 
     for (const rom of rawRoms) {
-      // Basic validation for ROM fields
-      if (!rom.name || !rom.size || !rom.crc || !rom.md5 || !rom.sha1) {
+      // Basic validation for ROM fields - name, size and CRC are mandatory
+      if (!rom.name || !rom.size || !rom.crc) {
         continue;
       }
 
@@ -304,10 +304,10 @@ function parseDat(xmlContent: string, source: string): {
         name: rom.name,
         size: parseInt(rom.size, 10),
         crc: rom.crc.toLowerCase(),
-        md5: rom.md5.toLowerCase(),
-        sha1: rom.sha1.toLowerCase(),
       };
 
+      if (rom.md5) romEntry.md5 = rom.md5.toLowerCase();
+      if (rom.sha1) romEntry.sha1 = rom.sha1.toLowerCase();
       if (rom.sha256) romEntry.sha256 = rom.sha256.toLowerCase();
       if (rom.status) romEntry.status = rom.status;
       if (rom.header) romEntry.header = rom.header;
