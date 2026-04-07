@@ -17,7 +17,7 @@
     },
     "source": {
       "type": "string",
-      "description": "The source DAT provider (e.g., 'no-intro', 'redump', 'tosec')"
+      "description": "The source DAT provider (e.g., 'no-intro', 'redump', 'tosec', 'mame')"
     },
     "system": {
       "type": "string",
@@ -53,7 +53,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["name", "size", "crc", "md5", "sha1"],
+        "required": ["name", "size", "crc"],
         "properties": {
           "name": {
             "type": "string",
@@ -93,6 +93,35 @@
           }
         }
       }
+    },
+    "disks": {
+      "type": "array",
+      "description": "Array of disk/CHD entries (MAME disk images)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the disk/CHD image"
+          },
+          "sha1": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{40}$",
+            "description": "SHA1 hash in hex"
+          },
+          "md5": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{32}$",
+            "description": "MD5 hash in hex"
+          },
+          "status": {
+            "type": "string",
+            "description": "Optional status (e.g., 'good', 'baddump')"
+          }
+        }
+      }
     }
   },
   "allOf": [
@@ -109,14 +138,19 @@
           "description": { "not": {} },
           "category": { "not": {} },
           "cloneofid": { "not": {} },
-          "roms": { "not": {} }
+          "roms": { "not": {} },
+          "disks": { "not": {} }
         }
       }
     },
     {
       "if": { "properties": { "op": { "const": "upsert" } } },
       "then": {
-        "required": ["source", "system", "datVersion", "id", "name", "roms"],
+        "required": ["source", "system", "datVersion", "id", "name"],
+        "anyOf": [
+          { "required": ["roms"] },
+          { "required": ["disks"] }
+        ],
         "properties": {
           "key": { "not": {} }
         }

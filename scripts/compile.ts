@@ -75,6 +75,14 @@ interface RomEntry {
   header?: string;
 }
 
+/** A single disk/CHD entry — maps to the `disks` array in jsonl-line schema */
+interface DiskEntry {
+  name: string;
+  sha1?: string;
+  md5?: string;
+  status?: string;
+}
+
 /** A single game/JSONL line — matches jsonl-line.schema.json */
 interface JsonlLine {
   source: string;
@@ -85,7 +93,8 @@ interface JsonlLine {
   description?: string;
   category?: string;
   cloneofid?: string;
-  roms: RomEntry[];
+  roms?: RomEntry[];
+  disks?: DiskEntry[];
 }
 
 /** Metadata for a compiled system — consumed by sign.ts to build the manifest */
@@ -140,6 +149,7 @@ const xmlParser = new XMLParser({
            jp === 'datafile.game.release' ||
            jp === 'datafile.machine' ||
            jp === 'datafile.machine.rom' ||
+           jp === 'datafile.machine.disk' ||
            jp === 'datafile.machine.release' ||
            jp === 'datafile.software' ||
            jp === 'datafile.software.part' ||
@@ -315,7 +325,21 @@ function parseDat(xmlContent: string, source: string): {
       roms.push(romEntry);
     }
 
-    if (roms.length === 0) continue;
+    // Parse disk/CHD entries — MAME <disk> elements have name + sha1 but no size/crc
+    const disks: DiskEntry[] = [];
+    if (g.disk) {
+      const rawDisks = (Array.isArray(g.disk) ? g.disk : [g.disk]) as Record<string, string>[];
+      for (const disk of rawDisks) {
+        if (!disk.name) continue;
+        const diskEntry: DiskEntry = { name: disk.name };
+        if (disk.sha1) diskEntry.sha1 = disk.sha1.toLowerCase();
+        if (disk.md5) diskEntry.md5 = disk.md5.toLowerCase();
+        if (disk.status) diskEntry.status = disk.status;
+        disks.push(diskEntry);
+      }
+    }
+
+    if (roms.length === 0 && disks.length === 0) continue;
 
     const entry: JsonlLine = {
       source,
@@ -323,8 +347,10 @@ function parseDat(xmlContent: string, source: string): {
       datVersion,
       id: gameName,
       name: (g.description as string) || (g.title as string) || gameName,
-      roms,
     };
+
+    if (roms.length > 0) entry.roms = roms;
+    if (disks.length > 0) entry.disks = disks;
 
     if (g.category) entry.category = g.category as string;
     if (g.cloneof) entry.cloneofid = g.cloneof as string;
@@ -338,6 +364,112 @@ function parseDat(xmlContent: string, source: string): {
   }
 
   return { system, datVersion, entries };
+}
+
+/**
+ * Parse a CLRMAMEPro-format DAT file (used by some Redump BIOS datfiles).
+ *
+ * Format:
+ *   clrmamepro ( name "..." description "..." version "..." )
+ *   game ( name "..." description "..." rom ( name file.bin size 1234 crc abcd1234 md5 ... sha1 ... ) )
+ */
+function parseClrMameProDat(content: string, source: string): {
+  system: string;
+  datVersion: string;
+  entries: JsonlLine[];
+} {
+  const lines = content.split('\n');
+  let system = 'Unknown System';
+  let datVersion = 'unknown';
+  const entries: JsonlLine[] = [];
+
+  // Parse header — find clrmamepro block
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (line.startsWith('clrmamepro')) {
+      // Read header block until closing paren
+      while (i < lines.length) {
+        const hline = lines[i].trim();
+        const nameMatch = hline.match(/^\s*name\s+"(.+)"/);
+        const verMatch = hline.match(/^\s*version\s+(.+)/);
+        if (nameMatch) system = nameMatch[1];
+        if (verMatch) datVersion = verMatch[1].trim();
+        if (hline === ')') break;
+        i++;
+      }
+    }
+
+    if (line === 'game (') {
+      // Parse game block
+      let gameName = '';
+      let gameDesc = '';
+      const roms: RomEntry[] = [];
+
+      i++;
+      while (i < lines.length) {
+        const gline = lines[i].trim();
+        if (gline === ')') break;
+
+        const gNameMatch = gline.match(/^\s*name\s+"(.+)"/);
+        const gDescMatch = gline.match(/^\s*description\s+"(.+)"/);
+        if (gNameMatch) gameName = gNameMatch[1];
+        if (gDescMatch) gameDesc = gDescMatch[1];
+
+        // Parse inline rom — rom ( name file.bin size 1234 crc abcd md5 ... sha1 ... )
+        const romMatch = gline.match(/^\s*rom\s+\(\s*(.+)\s*\)\s*$/);
+        if (romMatch) {
+          const romStr = romMatch[1];
+          const nameM = romStr.match(/name\s+(\S+)/);
+          const sizeM = romStr.match(/size\s+(\d+)/);
+          const crcM = romStr.match(/crc\s+([0-9a-fA-F]+)/);
+          const md5M = romStr.match(/md5\s+([0-9a-fA-F]+)/);
+          const sha1M = romStr.match(/sha1\s+([0-9a-fA-F]+)/);
+
+          if (nameM && sizeM && crcM) {
+            const romEntry: RomEntry = {
+              name: nameM[1],
+              size: parseInt(sizeM[1], 10),
+              crc: crcM[1].toLowerCase(),
+            };
+            if (md5M) romEntry.md5 = md5M[1].toLowerCase();
+            if (sha1M) romEntry.sha1 = sha1M[1].toLowerCase();
+            roms.push(romEntry);
+          }
+        }
+
+        i++;
+      }
+
+      if (gameName && roms.length > 0) {
+        const entry: JsonlLine = {
+          source,
+          system,
+          datVersion,
+          id: gameName,
+          name: gameDesc || gameName,
+          roms,
+        };
+        if (gameDesc && gameDesc !== gameName) {
+          entry.description = gameDesc;
+        }
+        entries.push(entry);
+      }
+    }
+
+    i++;
+  }
+
+  return { system, datVersion, entries };
+}
+
+/**
+ * Detect whether a DAT file is CLRMAMEPro format (vs Logiqx XML).
+ */
+function isClrMameProFormat(content: string): boolean {
+  // Skip whitespace/blank lines and check first meaningful line
+  const firstLine = content.trimStart().split('\n')[0].trim();
+  return firstLine.startsWith('clrmamepro');
 }
 
 /**
@@ -467,9 +599,11 @@ export async function compileAll(): Promise<CompileResult> {
 
     for (const datPath of datFiles) {
       try {
-        const xmlContent = fs.readFileSync(datPath, 'utf-8');
-        const { system, datVersion, entries } = parseDat(xmlContent, source);
-        
+        const fileContent = fs.readFileSync(datPath, 'utf-8');
+        const { system, datVersion, entries } = isClrMameProFormat(fileContent)
+          ? parseClrMameProDat(fileContent, source)
+          : parseDat(fileContent, source);
+
         if (entries.length === 0) {
           console.warn(`[compile] Skipping ${path.basename(datPath)}: no valid game entries`);
           continue;

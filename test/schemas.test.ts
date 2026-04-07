@@ -22,6 +22,35 @@ describe('jsonl-line schema', () => {
     expect(validateJsonlLine(validEntry)).toBe(true);
   });
 
+  it('should validate a disk-only entry (CHDs)', () => {
+    const diskEntry = {
+      source: 'mame',
+      system: 'MAME',
+      datVersion: '1.0',
+      id: '2spicy',
+      name: '2 Spicy',
+      disks: [
+        {
+          name: 'mda-c0004a_revb_lindyellow_v2.4.20_mvl31a_boot_2.01',
+          sha1: 'e13da5f827df852e742b594729ee3f933b387410',
+          status: 'good',
+        },
+      ],
+    };
+    expect(validateJsonlLine(diskEntry)).toBe(true);
+  });
+
+  it('should fail validation when neither roms nor disks present', () => {
+    const noMedia = {
+      source: 'mame',
+      system: 'MAME',
+      datVersion: '1.0',
+      id: 'test',
+      name: 'Test',
+    };
+    expect(validateJsonlLine(noMedia)).toBe(false);
+  });
+
   it('should fail validation when required field is missing', () => {
     const invalidEntry = {
       source: 'no-intro',
