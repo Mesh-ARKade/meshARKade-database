@@ -143,6 +143,7 @@ const xmlParser = new XMLParser({
   // This prevents hashes like "00a1b2c3" from being parsed as numbers.
   parseAttributeValue: false,
   parseTagValue: false,
+  processEntities: false,
 });
 
 // ---------------------------------------------------------------------------
@@ -157,11 +158,51 @@ const xmlParser = new XMLParser({
  *
  * Used for both the output filename and the manifest system `id`.
  */
-function slugify(name: string): string {
+export function slugify(name: string): string {
   return name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')  // Non-alphanumeric → hyphens
     .replace(/^-|-$/g, '');        // Trim leading/trailing hyphens
+}
+
+/**
+ * Determine the logical "Family" for a DAT file.
+ *
+ * This collapses highly fragmented naming conventions (like TOSEC's per-letter
+ * category splits or No-Intro's Aftermarket tags) into a single cohesive system
+ * name (e.g., "Commodore Amiga"). This drastically reduces the number of release
+ * assets and improves dictionary compression efficiency.
+ *
+ * @param name The original system name from the DAT <header>
+ * @param source The source (no-intro, tosec, redump, etc.)
+ */
+export function getLogicalFamily(name: string, source: string): string {
+  let family = name;
+
+  if (source === 'tosec') {
+    // TOSEC heavily categorizes files with ` - Category`. The base system is always the first part.
+    // e.g. "Commodore Amiga - Games - [Z]" -> "Commodore Amiga"
+    family = family.split(' - ')[0];
+  } else if (source === 'no-intro') {
+    // No-Intro often appends subsets or variants in parentheses at the end.
+    // We strip these specific known tags to group them back to the main console family.
+    const tagsToRemove = [
+      '(Aftermarket)',
+      '(Decrypted)',
+      '(Encrypted)',
+      '(Download Play)',
+      '(BigEndian)',
+      '(ByteSwapped)',
+      '(Headered)',
+      '(Headerless)'
+    ];
+    
+    for (const tag of tagsToRemove) {
+      family = family.replace(` ${tag}`, '');
+    }
+  }
+
+  return family.trim();
 }
 
 /**
@@ -274,68 +315,6 @@ function parseDat(xmlContent: string, source: string): {
 }
 
 /**
- * Compile a single DAT file into a zstd-compressed JSONL artifact.
- *
- * Flow:
- *   1. Read the XML file
- *   2. Parse into game entries via parseDat()
- *   3. Serialize each entry as a JSON line
- *   4. Zstd compress the entire JSONL buffer
- *   5. Write to output/{source}--{slug}.jsonl.zst
- *   6. Return metadata for the manifest
- *
- * @param datPath - Full path to the .dat file.
- * @param source - Source identifier.
- * @param outputDir - Directory to write the .jsonl.zst file.
- * @param dictBuffer - Optional dictionary buffer for compression.
- * @returns CompiledSystem metadata, or null if the DAT had no valid entries.
- */
-function compileDat(
-  datPath: string,
-  source: string,
-  outputDir: string,
-  dictBuffer?: Buffer,
-): CompiledSystem | null {
-  const xmlContent = fs.readFileSync(datPath, 'utf-8');
-
-  const { system, datVersion, entries } = parseDat(xmlContent, source);
-
-  if (entries.length === 0) {
-    console.warn(`[compile] Skipping ${path.basename(datPath)}: no valid game entries`);
-    return null;
-  }
-
-  // Build the JSONL content — one JSON object per line, no trailing newline
-  const jsonlLines = entries.map(entry => JSON.stringify(entry));
-  const jsonlContent = jsonlLines.join('\n');
-
-  // Zstd compress the JSONL using dictionary if provided
-  // @ts-ignore: Node 22 supports 'level' and 'dictionary' directly but @types/node may lack it
-  const compressed = zstdCompressSync(Buffer.from(jsonlContent, 'utf-8'), { level: 19, dictionary: dictBuffer });
-
-  // Build the output filename: {source}--{system-slug}.jsonl.zst
-  const slug = slugify(system);
-  const filename = `${source}--${slug}.jsonl.zst`;
-  const outputPath = path.join(outputDir, filename);
-
-  fs.writeFileSync(outputPath, compressed);
-
-  // Compute SHA256 of the compressed file for the manifest
-  const sha256 = createHash('sha256').update(compressed).digest('hex');
-
-  return {
-    id: `${source}/${slug}`,
-    source,
-    system,
-    datVersion,
-    file: filename,
-    sha256,
-    size: compressed.length,
-    entries: entries.length,
-  };
-}
-
-/**
  * Find all .dat files in a directory (non-recursive, flat scan).
  * Returns full paths sorted alphabetically for deterministic output.
  */
@@ -359,9 +338,9 @@ function findDatFiles(dir: string): string[] {
  * If input/catalog.dict does NOT exist, we parse all DATs, randomly select
  * ~1000 JSONL lines, and train a zstd dictionary using the CLI.
  * 
- * Pass 2: Compress
- * We load input/catalog.dict, and compress each parsed DAT with that dictionary.
- * The dictionary is copied to output/ for release upload.
+ * Pass 2: Group and Compress
+ * We load input/catalog.dict, and compile each parsed DAT grouped by logical family
+ * with that dictionary. The dictionary is copied to output/ for release upload.
  *
  * @returns Array of CompiledSystem metadata plus dictionary metadata.
  */
@@ -442,10 +421,12 @@ export async function compileAll(): Promise<CompileResult> {
     console.log(`[compile] Proceeding without dictionary compression.`);
   }
 
-  // --- PASS 2: Compilation ---
+  // --- PASS 2: Parse and Group ---
   const results: CompiledSystem[] = [];
   let totalDats = 0;
   let totalEntries = 0;
+
+  const groupedEntries = new Map<string, { source: string, family: string, datVersion: string, entries: JsonlLine[] }>();
 
   for (const source of SOURCES) {
     const sourceDir = path.join(INPUT_DIR, source);
@@ -460,11 +441,23 @@ export async function compileAll(): Promise<CompileResult> {
 
     for (const datPath of datFiles) {
       try {
-        const result = compileDat(datPath, source, OUTPUT_DIR, dictBuffer);
-        if (result) {
-          results.push(result);
-          totalEntries += result.entries;
+        const xmlContent = fs.readFileSync(datPath, 'utf-8');
+        const { system, datVersion, entries } = parseDat(xmlContent, source);
+        
+        if (entries.length === 0) {
+          console.warn(`[compile] Skipping ${path.basename(datPath)}: no valid game entries`);
+          continue;
         }
+
+        const family = getLogicalFamily(system, source);
+        const groupKey = `${source}::${family}`;
+
+        if (!groupedEntries.has(groupKey)) {
+          groupedEntries.set(groupKey, { source, family, datVersion, entries: [] });
+        }
+        
+        // Append entries to the group
+        groupedEntries.get(groupKey)!.entries.push(...entries);
         totalDats++;
       } catch (err) {
         // Log the error but continue — one bad DAT shouldn't stop the build
@@ -473,8 +466,44 @@ export async function compileAll(): Promise<CompileResult> {
     }
   }
 
-  if (results.length === 0) {
+  if (groupedEntries.size === 0) {
     throw new Error('No DAT files produced any output. Check input/ directory.');
+  }
+
+  // --- PASS 3: Compress and Write ---
+  console.log(`[compile] Grouped ${totalDats} DATs into ${groupedEntries.size} logical families. Compressing...`);
+  
+  for (const group of groupedEntries.values()) {
+    // Build the JSONL content — one JSON object per line, no trailing newline
+    const jsonlLines = group.entries.map(entry => JSON.stringify(entry));
+    const jsonlContent = jsonlLines.join('\n');
+
+    // Zstd compress the JSONL using dictionary if provided
+    // @ts-ignore: Node 22 supports 'level' and 'dictionary' directly but @types/node may lack it
+    const compressed = zstdCompressSync(Buffer.from(jsonlContent, 'utf-8'), { level: 19, dictionary: dictBuffer });
+
+    // Build the output filename: {source}--{system-slug}.jsonl.zst
+    const slug = slugify(group.family);
+    const filename = `${group.source}--${slug}.jsonl.zst`;
+    const outputPath = path.join(OUTPUT_DIR, filename);
+
+    fs.writeFileSync(outputPath, compressed);
+
+    // Compute SHA256 of the compressed file for the manifest
+    const sha256 = createHash('sha256').update(compressed).digest('hex');
+
+    results.push({
+      id: `${group.source}/${slug}`,
+      source: group.source,
+      system: group.family,
+      datVersion: group.datVersion,
+      file: filename,
+      sha256,
+      size: compressed.length,
+      entries: group.entries.length,
+    });
+    
+    totalEntries += group.entries.length;
   }
 
   const compileResult: CompileResult = {
