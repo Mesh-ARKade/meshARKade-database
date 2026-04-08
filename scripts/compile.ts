@@ -582,7 +582,10 @@ export async function compileAll(): Promise<CompileResult> {
   let totalDats = 0;
   let totalEntries = 0;
 
-  const groupedEntries = new Map<string, { source: string, family: string, datVersion: string, entries: JsonlLine[] }>();
+  const tempGroupsDir = path.join(process.cwd(), '.tmp-groups');
+  fs.mkdirSync(tempGroupsDir, { recursive: true });
+
+  const groupedEntries = new Map<string, { source: string, family: string, datVersion: string, entriesCount: number, tempFile: string }>();
 
   for (const source of SOURCES) {
     const sourceDir = path.join(INPUT_DIR, source);
@@ -613,11 +616,18 @@ export async function compileAll(): Promise<CompileResult> {
         const groupKey = `${source}::${family}`;
 
         if (!groupedEntries.has(groupKey)) {
-          groupedEntries.set(groupKey, { source, family, datVersion, entries: [] });
+          const tempFile = path.join(tempGroupsDir, `${groupKey.replace(/[^a-zA-Z0-9]/g, '-')}.jsonl`);
+          // Clear any existing temp file
+          if (fs.existsSync(tempFile)) fs.rmSync(tempFile);
+          groupedEntries.set(groupKey, { source, family, datVersion, entriesCount: 0, tempFile });
         }
 
-        // Append entries to the group
-        groupedEntries.get(groupKey)!.entries.push(...entries);
+        const groupData = groupedEntries.get(groupKey)!;
+        // Serialize and stream directly to disk to prevent OOM
+        const chunk = entries.map(e => JSON.stringify(e)).join('\n') + '\n';
+        fs.appendFileSync(groupData.tempFile, chunk);
+        groupData.entriesCount += entries.length;
+
         sourceProcessed++;
         totalDats++;
       } catch (err) {
@@ -637,13 +647,14 @@ export async function compileAll(): Promise<CompileResult> {
   console.log(`[compile] Grouped ${totalDats} DATs into ${groupedEntries.size} logical families. Compressing...`);
   
   for (const group of groupedEntries.values()) {
-    // Build the JSONL content — one JSON object per line, no trailing newline
-    const jsonlLines = group.entries.map(entry => JSON.stringify(entry));
-    const jsonlContent = jsonlLines.join('\n');
+    // Read the temp JSONL file (this single family will easily fit in memory)
+    const rawContent = fs.readFileSync(group.tempFile, 'utf-8');
+    // Trim trailing newline so it matches the previous strict behavior
+    const finalContent = rawContent.endsWith('\n') ? rawContent.slice(0, -1) : rawContent;
 
     // Zstd compress the JSONL using dictionary if provided
     // @ts-ignore: Node 22 supports 'level' and 'dictionary' directly but @types/node may lack it
-    const compressed = zstdCompressSync(Buffer.from(jsonlContent, 'utf-8'), { level: 19, dictionary: dictBuffer });
+    const compressed = zstdCompressSync(Buffer.from(finalContent, 'utf-8'), { level: 19, dictionary: dictBuffer });
 
     // Build the output filename: {source}--{system-slug}.jsonl.zst
     const slug = slugify(group.family);
@@ -663,10 +674,15 @@ export async function compileAll(): Promise<CompileResult> {
       file: filename,
       sha256,
       size: compressed.length,
-      entries: group.entries.length,
+      entries: group.entriesCount,
     });
     
-    totalEntries += group.entries.length;
+    totalEntries += group.entriesCount;
+  }
+
+  // Cleanup map temp dir
+  if (fs.existsSync(tempGroupsDir)) {
+    fs.rmSync(tempGroupsDir, { recursive: true, force: true });
   }
 
   const compileResult: CompileResult = {
