@@ -82,6 +82,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install zstd
+        run: sudo apt-get update && sudo apt-get install -y zstd
+
       - name: Validate TypeScript
         run: npm run validate
 
@@ -217,10 +220,11 @@ jobs:
           while IFS= read -r file; do
             if [ -f "output/$file" ]; then
               echo "[release]   Uploading $file..."
-              gh release upload "$TAG" "output/$file"
+              gh release upload "$TAG" "output/$file" || echo "$file" >> /tmp/failed_uploads.txt
               sleep 0.5
             else
               echo "[release]   Warning: $file listed in upload-list.txt but not found in output/"
+              echo "$file (Not found)" >> /tmp/failed_uploads.txt
             fi
           done < output/upload-list.txt
 
@@ -250,9 +254,15 @@ jobs:
             STATS="${STATS}${SRC}: ${NUMS}\n"
           done < <(grep -E '\[compile\] .+: [0-9]+/[0-9]+ DATs' /tmp/compile.log 2>/dev/null)
 
-          BODY="**${TAG}**\n\n"
+          BODY="**[View Release ${TAG}](https://github.com/Mesh-ARKade/meshARKade-database/releases/tag/${TAG})**\n\n"
           BODY="${BODY}**Sources**\n\`\`\`\n${STATS}\`\`\`\n"
           BODY="${BODY}**Totals**\n${JSONL_COUNT} artifacts · ${ENTRIES} entries\nDictionary: ${DICT_KB} KB"
+
+          if [ -f /tmp/failed_uploads.txt ]; then
+            FAILED=$(cat /tmp/failed_uploads.txt | head -n 10)
+            FAILED_COUNT=$(wc -l < /tmp/failed_uploads.txt)
+            BODY="${BODY}\n\n**⚠ Failed Uploads (${FAILED_COUNT})**\n\`\`\`\n${FAILED}\n\`\`\`"
+          fi
 
           # Escape for JSON
           BODY_JSON=$(echo -e "$BODY" | python3 -c 'import sys,json; print(json.dumps(sys.stdin.read()))')

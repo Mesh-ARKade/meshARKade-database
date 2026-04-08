@@ -154,11 +154,7 @@ const xmlParser = new XMLParser({
            jp === 'datafile.software' ||
            jp === 'datafile.software.part' ||
            jp === 'datafile.software.part.dataarea' ||
-           jp === 'datafile.software.part.dataarea.rom' ||
-           jp === 'softwarelist.software' ||
-           jp === 'softwarelist.software.part' ||
-           jp === 'softwarelist.software.part.dataarea' ||
-           jp === 'softwarelist.software.part.dataarea.rom';
+           jp === 'datafile.software.part.dataarea.rom';
   },
   // Keep all values as strings — we'll parseInt(size) ourselves.
   // This prevents hashes like "00a1b2c3" from being parsed as numbers.
@@ -200,10 +196,8 @@ export function slugify(name: string): string {
 export function getLogicalFamily(name: string, source: string): string {
   let family = name;
 
-  if (source === 'mame') {
-    if (family.startsWith('MAME ')) return 'MAME Arcade';
-    // MAME Software Lists often have " (software)" or " software" suffix
-    family = family.replace(/\s+\(software\)$/i, '').replace(/\s+software$/i, '');
+  if (source === 'mame' && family.startsWith('MAME ')) {
+    return 'MAME Arcade';
   }
 
   // Most DATs follow "Manufacturer - System Name" convention.
@@ -251,18 +245,6 @@ export function getLogicalFamily(name: string, source: string): string {
  * @param source - Source identifier ("no-intro", "tosec", "redump", "mame").
  * @returns Object with system metadata and parsed game entries.
  */
-/**
- * Parse a single Logiqx XML DAT file into an array of JsonlLine entries.
- *
- * Support for:
- *   - Logiqx (<datafile><game>)
- *   - MAME Arcade (<datafile><machine>)
- *   - MAME Software List (<softwarelist><software>)
- *
- * @param xmlContent - Raw XML string from the .dat file.
- * @param source - Source identifier ("no-intro", "tosec", "redump", "mame").
- * @returns Object with system metadata and parsed game entries.
- */
 function parseDat(xmlContent: string, source: string): {
   system: string;
   datVersion: string;
@@ -270,28 +252,24 @@ function parseDat(xmlContent: string, source: string): {
 } {
   const parsed = xmlParser.parse(xmlContent);
 
-  // MAME Software Lists use <softwarelist>, Logiqx/MAME Arcade use <datafile>
-  const root = parsed.datafile || parsed.softwarelist;
-  if (!root) {
-    throw new Error('Invalid DAT format: missing <datafile> or <softwarelist> root element');
+  // Navigate to the datafile root — some DATs wrap in <?xml?> + <datafile>
+  const datafile = parsed.datafile;
+  if (!datafile) {
+    throw new Error('Invalid DAT format: missing <datafile> root element');
   }
 
   // Extract header metadata
-  // Logiqx uses <header>, MAME Software List puts metadata in root attributes
-  let system = 'Unknown System';
-  let datVersion = 'unknown';
-
-  if (root.header) {
-    system = root.header.name || 'Unknown System';
-    datVersion = root.header.version || 'unknown';
-  } else if (parsed.softwarelist) {
-    system = root.description || root.name || 'Unknown MAME Software List';
-    // MAME software lists don't usually have a version tag in the XML
-    datVersion = 'mame-sl';
+  const header = datafile.header;
+  if (!header) {
+    throw new Error('Invalid DAT format: missing <header> element');
   }
 
-  // Parse game entries — Support <game>, <machine>, or <software>
-  const games: unknown[] = root.game || root.machine || root.software || [];
+  const system = header.name || 'Unknown System';
+  const datVersion = header.version || 'unknown';
+
+  // Parse game entries — may be absent if DAT is empty (rare but possible)
+  // Support Logiqx <game>, MAME <machine>
+  const games: unknown[] = datafile.game || datafile.machine || [];
   const entries: JsonlLine[] = [];
 
   for (const game of games) {
@@ -301,27 +279,11 @@ function parseDat(xmlContent: string, source: string): {
     const gameName = (g.name as string) || '';
     if (!gameName) continue;  // Skip nameless entries
 
-    // Parse ROM entries
-    // For <game>/<machine>: <rom>
-    // For <software>: <part><dataarea><rom>
+    // Parse ROM entries — <game>/<machine> use <rom>
     let rawRoms: Record<string, string>[] = [];
     
     if (g.rom) {
       rawRoms = (Array.isArray(g.rom) ? g.rom : [g.rom]) as Record<string, string>[];
-    } else if (g.part) {
-      // Software List nested structure
-      const parts = (Array.isArray(g.part) ? g.part : [g.part]) as Record<string, any>[];
-      for (const part of parts) {
-        if (part.dataarea) {
-          const dataareas = (Array.isArray(part.dataarea) ? part.dataarea : [part.dataarea]) as Record<string, any>[];
-          for (const da of dataareas) {
-            if (da.rom) {
-              const roms = (Array.isArray(da.rom) ? da.rom : [da.rom]) as Record<string, string>[];
-              rawRoms.push(...roms);
-            }
-          }
-        }
-      }
     }
 
     const roms: RomEntry[] = [];
@@ -495,14 +457,17 @@ function isClrMameProFormat(content: string): boolean {
 }
 
 /**
- * Find all .dat files in a directory (non-recursive, flat scan).
+ * Find all .dat, .xml, and .gz files in a directory (non-recursive, flat scan).
  * Returns full paths sorted alphabetically for deterministic output.
  */
 function findDatFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
-    .filter(f => f.toLowerCase().endsWith('.dat'))
+    .filter(f => {
+      const ext = f.toLowerCase().split('.').pop();
+      return ext === 'dat' || ext === 'xml' || ext === 'gz';
+    })
     .sort()
     .map(f => path.join(dir, f));
 }
@@ -623,6 +588,7 @@ export async function compileAll(): Promise<CompileResult> {
     for (const datPath of datFiles) {
       try {
         const fileContent = fs.readFileSync(datPath, 'utf-8');
+          
         const { system, datVersion, entries } = isClrMameProFormat(fileContent)
           ? parseClrMameProDat(fileContent, source)
           : parseDat(fileContent, source);
