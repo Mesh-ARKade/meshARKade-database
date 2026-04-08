@@ -28,6 +28,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 import hypercoreCrypto from 'hypercore-crypto';
 import type { CompileResult, CompiledSystem, DictionaryMeta } from './compile.js';
 
