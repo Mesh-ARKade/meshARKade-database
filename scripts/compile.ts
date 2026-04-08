@@ -39,7 +39,7 @@
 import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
-import { zstdCompressSync } from 'zlib';
+import { zstdCompressSync, gunzipSync } from 'zlib';
 import { XMLParser } from 'fast-xml-parser';
 import { execSync } from 'child_process';
 
@@ -472,6 +472,17 @@ function findDatFiles(dir: string): string[] {
     .map(f => path.join(dir, f));
 }
 
+/**
+ * Reads a text file, automatically decompressing if it ends with .gz.
+ */
+function readTextFile(datPath: string): string {
+  if (datPath.toLowerCase().endsWith('.gz')) {
+    const compressed = fs.readFileSync(datPath);
+    return gunzipSync(compressed).toString('utf-8');
+  }
+  return fs.readFileSync(datPath, 'utf-8');
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -511,7 +522,7 @@ export async function compileAll(): Promise<CompileResult> {
 
       for (const datPath of datFiles) {
         try {
-          const xmlContent = fs.readFileSync(datPath, 'utf-8');
+          const xmlContent = readTextFile(datPath);
           const { entries } = parseDat(xmlContent, source);
           
           for (const entry of entries) {
@@ -587,7 +598,7 @@ export async function compileAll(): Promise<CompileResult> {
 
     for (const datPath of datFiles) {
       try {
-        const fileContent = fs.readFileSync(datPath, 'utf-8');
+        const fileContent = readTextFile(datPath);
           
         const { system, datVersion, entries } = isClrMameProFormat(fileContent)
           ? parseClrMameProDat(fileContent, source)
