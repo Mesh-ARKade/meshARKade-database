@@ -4,7 +4,7 @@
 		<id>76</id>
 		<name>VTech - V.Smile</name>
 		<description>VTech - V.Smile</description>
-		<version>20260327-212126</version>
+		<version>20260407-012112</version>
 		<author>Aringon, coraz, FakeShemp, Gefflon, Hiccup, InternalLoss, Larsenv, NESBrew12, nnssxx, omonim2007, relax, sCZther, SonGoku, Tauwasser, TeamEurope, UnlockerPT, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -30,14 +30,14 @@
 		<description>[BIOS] VTech V.Smile Motion (World)</description>
 		<rom name="[BIOS] VTech V.Smile Motion (World).bin" size="2097152" crc="60fa5426" md5="bdf61c2781c4c53424e9f8d1138a0d67" sha1="91e0b7b44b975df65095d6ee622436d65fb1aca5" sha256="e70fc35d467b406d9590bf558abed557e755902bf49ecab5e511843eac0ded42"/>
 	</game>
-	<game name="5, Rue Sesame - Le Monde d'Elmo - Les grandes decouvertes d'Elmo (France)" id="0102" cloneofid="0064">
-		<description>5, Rue Sesame - Le Monde d'Elmo - Les grandes decouvertes d'Elmo (France)</description>
-		<rom name="5, Rue Sesame - Le Monde d'Elmo - Les grandes decouvertes d'Elmo (France).bin" size="8388608" crc="def351e7" md5="3c5064c05008700db8d790f1ef28e935" sha1="95d005b6e2bf36add42916025558744ccffc8863" sha256="0c961d4fb008cd5487cd4f67fb5c09f4e0af8c36f01862a73f3392a7eeaba2eb" status="verified" serial="8092265005001"/>
+	<game name="5, Rue Sesame - Le Monde d'Elmo - Les Grandes Decouvertes d'Elmo (France)" id="0102" cloneofid="0064">
+		<description>5, Rue Sesame - Le Monde d'Elmo - Les Grandes Decouvertes d'Elmo (France)</description>
+		<rom name="5, Rue Sesame - Le Monde d'Elmo - Les Grandes Decouvertes d'Elmo (France).bin" size="8388608" crc="def351e7" md5="3c5064c05008700db8d790f1ef28e935" sha1="95d005b6e2bf36add42916025558744ccffc8863" sha256="0c961d4fb008cd5487cd4f67fb5c09f4e0af8c36f01862a73f3392a7eeaba2eb" status="verified" serial="8092265005001"/>
 	</game>
-	<game name="5, Rue Sesame - Les aventures imaginaires d'Ernest et Bart (France)" id="0216" cloneofid="0066">
+	<game name="5, Rue Sesame - Les Aventures Imaginaires d'Ernest et Bart (France)" id="0216" cloneofid="0066">
 		<category>Educational</category>
-		<description>5, Rue Sesame - Les aventures imaginaires d'Ernest et Bart (France)</description>
-		<rom name="5, Rue Sesame - Les aventures imaginaires d'Ernest et Bart (France).bin" size="8388608" crc="80da2b1d" md5="0301889df0b3826def06df1cf9e9215b" sha1="0e16fabbef582893e51503a018d8e6edfe2a3fee" sha256="f90af0dc3c271d8ccd338f0cb9e33c0f81253a67c5ab0cc4cabfbcde635623bd" status="verified" serial="8092465001"/>
+		<description>5, Rue Sesame - Les Aventures Imaginaires d'Ernest et Bart (France)</description>
+		<rom name="5, Rue Sesame - Les Aventures Imaginaires d'Ernest et Bart (France).bin" size="8388608" crc="80da2b1d" md5="0301889df0b3826def06df1cf9e9215b" sha1="0e16fabbef582893e51503a018d8e6edfe2a3fee" sha256="f90af0dc3c271d8ccd338f0cb9e33c0f81253a67c5ab0cc4cabfbcde635623bd" status="verified" serial="8092465001"/>
 	</game>
 	<game name="ABC Land Aventure (France)" id="0099" cloneofid="0162">
 		<description>ABC Land Aventure (France)</description>
@@ -137,10 +137,10 @@
 		<description>Apprenti' pilote (France)</description>
 		<rom name="Apprenti' pilote (France).bin" size="8388608" crc="c4819e95" md5="0279827c1cef9450d955e2eee901758e" sha1="b625a7fb1d078349aee1c4cc18ee6f3917aaa816" sha256="db9dd6a8d5fa9702832b1def541dc568bc93a1524fb7ca167724dca831017f8b" status="verified" serial="8092040001"/>
 	</game>
-	<game name="Arche de Noe, L' - L'aventure des animaux (France) (V.Smile Baby)" id="0323">
+	<game name="Arche de Noe, L' - L'Aventure des Animaux (France) (V.Smile Baby)" id="0323">
 		<category>Games</category>
-		<description>Arche de Noe, L' - L'aventure des animaux (France) (V.Smile Baby)</description>
-		<rom name="Arche de Noe, L' - L'aventure des animaux (France) (V.Smile Baby).bin" size="8388608" crc="745f97b3" md5="47288a6eab3190327a59dedbffab482f" sha1="a1d82044e215730a4c8ad7440360ee6336e01b01" sha256="9f2171eeb3eb1be69878316df8af1570b9c493d4717cca7abfc76f4958930963" serial="8099040001"/>
+		<description>Arche de Noe, L' - L'Aventure des Animaux (France) (V.Smile Baby)</description>
+		<rom name="Arche de Noe, L' - L'Aventure des Animaux (France) (V.Smile Baby).bin" size="8388608" crc="745f97b3" md5="47288a6eab3190327a59dedbffab482f" sha1="a1d82044e215730a4c8ad7440360ee6336e01b01" sha256="9f2171eeb3eb1be69878316df8af1570b9c493d4717cca7abfc76f4958930963" serial="8099040001"/>
 	</game>
 	<game name="Aventuras en el Parque Alfabeto (Spain)" id="0133" cloneofid="0162">
 		<description>Aventuras en el Parque Alfabeto (Spain)</description>
@@ -154,10 +154,10 @@
 		<description>Avventura nel Parco Alfabeto (Italy)</description>
 		<rom name="Avventura nel Parco Alfabeto (Italy).bin" size="8388608" crc="e86822d9" md5="0a15171b53e10b6f60e3fd979d44b0b5" sha1="3df6231ac4baa105cffb88bdbd0b7a7766d76c64" sha256="9e13e9c48667ebb268934e75eb69eb00b1bb5f038d8cbbe58845768492c0358a" serial="8092011007001"/>
 	</game>
-	<game name="Baby Einstein - Un monde de decouvertes (France) (V.Smile Baby)" id="0319">
+	<game name="Baby Einstein - Un Monde de Decouvertes (France) (V.Smile Baby)" id="0319">
 		<category>Educational</category>
-		<description>Baby Einstein - Un monde de decouvertes (France) (V.Smile Baby)</description>
-		<rom name="Baby Einstein - Un monde de decouvertes (France) (V.Smile Baby).bin" size="8388608" crc="d0690ae6" md5="d798faa12c0041a843e39542abc36063" sha1="bde281db67b477798974983a505bed7497e25763" sha256="b7bc7d2f56b25b0aad605d7aeb5b8fb096efef5490bdee3091a45b5edac548c4" serial="8099045001"/>
+		<description>Baby Einstein - Un Monde de Decouvertes (France) (V.Smile Baby)</description>
+		<rom name="Baby Einstein - Un Monde de Decouvertes (France) (V.Smile Baby).bin" size="8388608" crc="d0690ae6" md5="d798faa12c0041a843e39542abc36063" sha1="bde281db67b477798974983a505bed7497e25763" sha256="b7bc7d2f56b25b0aad605d7aeb5b8fb096efef5490bdee3091a45b5edac548c4" serial="8099045001"/>
 	</game>
 	<game name="Baby Einstein - World of Discoveries (USA) (V.Smile Baby)" id="0202" cloneofid="0319">
 		<category>Educational</category>

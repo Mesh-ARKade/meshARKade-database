@@ -4,7 +4,7 @@
 		<id>24</id>
 		<name>Nintendo - Nintendo 64 (ByteSwapped)</name>
 		<description>Nintendo - Nintendo 64 (ByteSwapped)</description>
-		<version>20260405-011604</version>
+		<version>20260407-111327</version>
 		<author>aci68, Arctic Circle System, Aringon, baldjared, BigFred, bikerspade, BitLooter, Blank, buckwheat, C. V. Reynolds, chillerecke, DeriLoko3, EggmanPEI, einstein95, ElBarto, FakeShemp, Gefflon, Hiccup, jimmsu, Just001Kim, kazumi213, LNRC, Madeline, MeguCocoa, MisterSheeple, Money_114, NESBrew12, nnssxx, NovaAurora, omonim2007, Powerpuff, PPLToast, Psychofox11, psykopat, rarenight, relax, Rifu, root, scorp256, sCZther, smesgr, SonGoku, Special T, TeamEurope, togemet2, UnlockerPT, xprism, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -1291,7 +1291,8 @@
 		<description>F-Zero X (USA)</description>
 		<rom name="F-Zero X (USA).v64" size="16777216" crc="9408c2c1" md5="dee6ef2cbaac89846a59983e19a55348" sha1="c322c80a676604cda4b605558b5bd8aa6f1a2060" status="verified" serial="CFZE"/>
 	</game>
-	<game name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)" id="1049">
+	<game name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)" id="1049" cloneofid="0221">
+		<category>Games</category>
 		<description>F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)</description>
 		<rom name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data).v64" size="33554432" crc="a6ad2a1c" md5="56470f57f42a4bbd246b59a15201c9f6" sha1="e47fb42d7b33fc2b45016525d1905b679064d048" sha256="e20c222632107d7621e9352808f5ef8cf7ffe915a159a75ec5e69d48138d6208" serial="CFZE"/>
 	</game>
@@ -4564,7 +4565,7 @@
 	<game name="Viewpoint 2064 (Japan) (Proto) (1999-12-17)" id="1039" cloneofid="1309">
 		<category>Games</category>
 		<description>Viewpoint 2064 (Japan) (Proto) (1999-12-17)</description>
-		<rom name="Viewpoint 2064 (Japan) (Proto) (1999-12-17).v64" size="16777216" crc="dc8415f5" md5="206bb582588c63bf2d5fed388bacbf34" sha1="3e53a1f50d717e369142de6f2a401f4223b600b9" sha256="a909dc41517a07f22eabba5a8b3f68968cf608be1c81a41e5276bcde515ba7e3"/>
+		<rom name="Viewpoint 2064 (Japan) (Proto) (1999-12-17).v64" size="16777216" crc="dc8415f5" md5="206bb582588c63bf2d5fed388bacbf34" sha1="3e53a1f50d717e369142de6f2a401f4223b600b9" sha256="b202202ae9210ce2d0cfc0248a31bd41765914c9ed81dad43ef273cc30025e33"/>
 	</game>
 	<game name="Viewpoint 2064 (Japan) (Proto) (2000-04-13)" id="1309">
 		<category>Games</category>

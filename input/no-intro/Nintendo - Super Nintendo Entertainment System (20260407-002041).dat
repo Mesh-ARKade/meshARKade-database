@@ -4,7 +4,7 @@
 		<id>49</id>
 		<name>Nintendo - Super Nintendo Entertainment System</name>
 		<description>Nintendo - Super Nintendo Entertainment System</description>
-		<version>20260406-070616</version>
+		<version>20260407-002041</version>
 		<author>aci68, alcoatjez, Arctic Circle System, BigFred, bikerspade, Blank, BlueMoon, buckwheat, C. V. Reynolds, chillerecke, coraz, DarkMatterCore, DeadSkullzJr, DeriLoko3, einstein95, Flashfire42, Gefflon, Goratrix, HeroponRIkiBestest, Hiccup, Jack, jimmsu, kazumi213, Madeline, MeguCocoa, Money_114, NESBrew12, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, Powerpuff, PPLToast, Psychofox11, psykopat, rarenight, relax, Rifu, sCZther, SonGoku, Special T, Tauwasser, TeamEurope, togemet2, Vigi, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -19609,7 +19609,7 @@
 	<game name="Derby Stallion II (Japan) (Rev 1)" id="4385">
 		<category>Games</category>
 		<description>Derby Stallion II (Japan) (Rev 1)</description>
-		<rom name="Derby Stallion II (Japan) (Rev 1).sfc" size="1572864" crc="003764e5" md5="fcd50f3c96881233422e68d244843658" sha1="a65eedb72a751a311a846339422e059b72c4f9fe" sha256="57563cd15f7a5a15254e60486f567d9647811d206af21ddb5ecf91e8f41cadd1"/>
+		<rom name="Derby Stallion II (Japan) (Rev 1).sfc" size="1572864" crc="003764e5" md5="fcd50f3c96881233422e68d244843658" sha1="a65eedb72a751a311a846339422e059b72c4f9fe" sha256="57563cd15f7a5a15254e60486f567d9647811d206af21ddb5ecf91e8f41cadd1" status="verified"/>
 	</game>
 	<game name="Descentralizado 1993 (Peru) (Ja) (Pirate)" id="4363" cloneofid="2680">
 		<category>Games</category>

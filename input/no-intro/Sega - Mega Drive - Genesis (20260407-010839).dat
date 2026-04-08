@@ -4,7 +4,7 @@
 		<id>32</id>
 		<name>Sega - Mega Drive - Genesis</name>
 		<description>Sega - Mega Drive - Genesis</description>
-		<version>20260406-070945</version>
+		<version>20260407-010839</version>
 		<author>Arctic Circle System, Aringon, baldjared, BigFred, bikerspade, BitLooter, BlueMoon, buckwheat, C. V. Reynolds, coraz, dead_screem, DeadSkullzJr, Densetsu, DeriLoko3, EggmanPEI, einstein95, ElBarto, Flashfire42, Gefflon, gigadeath, Goratrix, Hiccup, Jack, Madeline, MeguCocoa, Money_114, niemand, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, Powerpuff, Prominos, Psychofox11, psykopat, rarenight, relax, RetroUprising, Rifu, root, sCZther, ShiroeNL, smesgr, SonGoku, Special T, sunbeam, Tauwasser, TeamEurope, Vigi, xNo, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -5813,6 +5813,10 @@
 		<description>Jungle Book, The (USA)</description>
 		<rom name="Jungle Book, The (USA).md" size="2097152" crc="3fb6d92e" md5="2e1c1f784c9463152cd1a772f87677af" sha1="306021e52501c9d51afd9c51acf384356c84ffbf" sha256="bacfb9ba38dd0df73953598bca6199a32c00959071856a490a85608d56bdac08" status="verified" serial="T-70176-00"/>
 	</game>
+	<game name="Jungle Book, The (USA) (Blockbuster Flash ROM)" id="3788" cloneofid="0678">
+		<description>Jungle Book, The (USA) (Blockbuster Flash ROM)</description>
+		<rom name="Jungle Book, The (USA) (Blockbuster Flash ROM).md" size="2097152" crc="87780266" md5="1e44ca4090d4ecb95d47cb6cdb2e8dba" sha1="402fa371c8144c15f1ad43e542c4abc65c258a00" sha256="c46f20800f67e6c8cbda0f441efc1fc251f315318af02f41bdbf140a176047b7"/>
+	</game>
 	<game name="Jungle Book, The (Europe) (Beta)" id="2399" cloneofid="0678">
 		<category>Games</category>
 		<category>Preproduction</category>
@@ -5840,17 +5844,17 @@
 		<description>Jungle Strike - Uketsugareta Kyouki (Japan)</description>
 		<rom name="Jungle Strike - Uketsugareta Kyouki (Japan).md" size="2097152" crc="ba7a870b" md5="88beb2a76ca723a42fecdf586d90b9c8" sha1="e35c554c52ce31de837c0e73bf2014720657f4d5" sha256="75599b0bc0bf174587f5219839abccd2724677d541e7639a9e1ea88f780c58fe" serial="T-106203-00"/>
 	</game>
-	<game name="Junker's High (Japan) (En) (Beta 1)" id="0683" cloneofid="0959">
-		<category>Games</category>
-		<category>Preproduction</category>
-		<description>Junker's High (Japan) (En) (Beta 1)</description>
-		<rom name="Junker's High (Japan) (En) (Beta 1).md" size="1048576" crc="23534949" md5="021d5ec551553eabca22eb2b3291e4b6" sha1="81a9b6d29878b4e9313a887b5349c12846b9d77f" sha256="895e069cf17127b45010c465ce357d5bdc8188fffd26f180a71405688309a2be" serial="T-101016-00"/>
-	</game>
 	<game name="Junker's High (Japan) (En) (Beta 2)" id="2655" cloneofid="0959">
 		<category>Games</category>
 		<category>Preproduction</category>
 		<description>Junker's High (Japan) (En) (Beta 2)</description>
 		<rom name="Junker's High (Japan) (En) (Beta 2).md" size="1048576" crc="73022c67" md5="d39b5933c1ab96200a10eb79f170217b" sha1="d7ff581e0d236e1711f6569b12158c6748668e62" sha256="9c8841616166064e65a758295105e20eab8acca633fdbb8ac6bbed6da3998451"/>
+	</game>
+	<game name="Junker's High (Japan) (En) (Beta 1)" id="0683" cloneofid="0959">
+		<category>Games</category>
+		<category>Preproduction</category>
+		<description>Junker's High (Japan) (En) (Beta 1)</description>
+		<rom name="Junker's High (Japan) (En) (Beta 1).md" size="1048576" crc="23534949" md5="021d5ec551553eabca22eb2b3291e4b6" sha1="81a9b6d29878b4e9313a887b5349c12846b9d77f" sha256="895e069cf17127b45010c465ce357d5bdc8188fffd26f180a71405688309a2be" serial="T-101016-00"/>
 	</game>
 	<game name="Junte 4 (Brazil) (Mega Drive 4)" id="2949">
 		<category>Games</category>

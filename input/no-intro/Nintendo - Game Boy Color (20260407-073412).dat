@@ -4,7 +4,7 @@
 		<id>47</id>
 		<name>Nintendo - Game Boy Color</name>
 		<description>Nintendo - Game Boy Color</description>
-		<version>20260406-065102</version>
+		<version>20260407-073412</version>
 		<author>akubi, Arctic Circle System, Aringon, baldjared, Bent, BigFred, bikerspade, BitLooter, BlueMoon, buckwheat, C. V. Reynolds, chillerecke, ChuckD, coraz, darthcloud, DeadSkullzJr, Densetsu, DeriLoko3, Flashfire42, foxe, fuzzball, Gefflon, Goratrix, gordonj, Hiccup, hking0036, InternalLoss, Jack, Just001Kim, kazumi213, Lesserkuma, Madeline, MisterSheeple, Money_114, NESBrew12, NGEfreak, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, PPLToast, Psychofox11, psykopat, rarenight, relax, Rifu, root, sCZther, ShiroeNL, SonGoku, Tauwasser, togemet2, UnlockerPT, Whovian9369, xprism, xuom2, zg</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -2205,7 +2205,7 @@
 	</game>
 	<game name="Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (AFMJ)" id="0372">
 		<description>Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (AFMJ)</description>
-		<rom name="Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (AFMJ).gbc" size="4194304" crc="2c97e90f" md5="9e3d4ff0ba3d6deec5080f6dbed4fef8" sha1="5264f6d0c4f12c9144de1d12fddadbadd82b3e33"/>
+		<rom name="Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (AFMJ).gbc" size="4194304" crc="2c97e90f" md5="9e3d4ff0ba3d6deec5080f6dbed4fef8" sha1="5264f6d0c4f12c9144de1d12fddadbadd82b3e33" sha256="b0cd0374c164c243d600735cc6c275ff07e7e9f144a0b68a235e5722379a0599" status="verified"/>
 	</game>
 	<game name="Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (BFWJ)" id="1493" cloneofid="0372">
 		<description>Fushigi no Dungeon - Fuurai no Shiren GB 2 - Sabaku no Majou (Japan) (BFWJ)</description>

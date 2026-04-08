@@ -4,7 +4,7 @@
 		<id>24</id>
 		<name>Nintendo - Nintendo 64 (BigEndian)</name>
 		<description>Nintendo - Nintendo 64 (BigEndian)</description>
-		<version>20260405-011604</version>
+		<version>20260407-111327</version>
 		<author>aci68, Arctic Circle System, Aringon, baldjared, BigFred, bikerspade, BitLooter, Blank, buckwheat, C. V. Reynolds, chillerecke, DeriLoko3, EggmanPEI, einstein95, ElBarto, FakeShemp, Gefflon, Hiccup, jimmsu, Just001Kim, kazumi213, LNRC, Madeline, MeguCocoa, MisterSheeple, Money_114, NESBrew12, nnssxx, NovaAurora, omonim2007, Powerpuff, PPLToast, Psychofox11, psykopat, rarenight, relax, Rifu, root, scorp256, sCZther, smesgr, SonGoku, Special T, TeamEurope, togemet2, UnlockerPT, xprism, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -1291,7 +1291,8 @@
 		<description>F-Zero X (USA)</description>
 		<rom name="F-Zero X (USA).z64" size="16777216" crc="0b561fba" md5="753437d0d8ada1d12f3f9cf0f0a5171f" sha1="5f658e88ffa9de23cba6986a8fd3d3a90d7b4340" sha256="2be0f861c30752bbdfa727753a454108bc973c27ad814744f191b1278c1f482d" status="verified" serial="CFZE"/>
 	</game>
-	<game name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)" id="1049">
+	<game name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)" id="1049" cloneofid="0221">
+		<category>Games</category>
 		<description>F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data)</description>
 		<rom name="F-Zero X (USA) (Beta) (The Legend of Zelda - Ocarina of Time leftover data).z64" size="33554432" crc="68fe1cec" md5="95bf2153aaad6faff3fb42fecd2f0200" sha1="6aa870ec53602650638b50d7c89cac026be481f0" sha256="8cef0e399c0524052b758109abe894c709a72540a42c4a2118064a5cddf01b6d" serial="CFZE"/>
 	</game>
