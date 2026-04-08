@@ -116,12 +116,30 @@ function buildDictionaryEntry(dictionary: DictionaryMeta, releaseTag: string) {
 }
 
 /**
+ * Fetch the manifest from the latest successful release on GitHub.
+ */
+async function fetchLatestManifest(): Promise<Record<string, any> | null> {
+  try {
+    console.log('[sign] Fetching latest release manifest from GitHub...');
+    const manifestJson = execSync(
+      'gh release view --repo Mesh-ARKade/meshARKade-database --json assets --jq \'.assets[] | select(.name == "manifest.json") | .url\' | xargs curl -sL',
+      { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'] }
+    );
+    if (!manifestJson || !manifestJson.trim()) return null;
+    return JSON.parse(manifestJson);
+  } catch (err) {
+    console.warn(`[sign] Warning: Could not fetch latest manifest: ${(err as Error).message}`);
+    return null;
+  }
+}
+
+/**
  * Sign the catalog manifest with Ed25519.
  *
  * @param releaseTag - Optional release tag override. Defaults to meshARKade-metadats-{YYYYMMDD-HHMMSS}.
- * @returns The signed manifest object.
+ * @returns The signed manifest object and the list of files that need uploading.
  */
-export async function signManifest(releaseTag?: string): Promise<Record<string, unknown>> {
+export async function signManifest(releaseTag?: string): Promise<{ manifest: Record<string, unknown>, uploadFiles: string[] }> {
   // --- Load the signing key from environment ---
   const secretKeyHex = process.env.MESH_SIGNING_KEY;
   if (!secretKeyHex) {
@@ -141,8 +159,6 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
   const secretKey = Buffer.from(secretKeyHex, 'hex');
 
   // Derive the public key from the secret key.
-  // The first 32 bytes of an Ed25519 secret key is the seed; the last 32
-  // bytes is the public key. hypercore-crypto follows this convention.
   const publicKey = secretKey.subarray(32, 64);
   const publicKeyHex = publicKey.toString('hex');
 
@@ -165,27 +181,84 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
     throw new Error('Compile manifest systems array is empty — nothing to sign');
   }
 
+  // --- Fetch latest manifest for incremental release ---
+  const latestManifest = await fetchLatestManifest();
+  const latestSystemsMap = new Map<string, any>();
+  if (latestManifest?.systems) {
+    for (const sys of latestManifest.systems) {
+      latestSystemsMap.set(sys.id, sys);
+    }
+  }
+
   // --- Build the manifest ---
   const now = new Date();
   const timestamp = now.toISOString().replace(/[-:]/g, '').replace('T', '-').slice(0, 15);
   const tag = releaseTag || `meshARKade-metadats-${timestamp}`;
   const generated = new Date().toISOString();
+  const repoUrl = 'https://github.com/Mesh-ARKade/meshARKade-database';
 
-  // Build the unsigned manifest (signature placeholder will be replaced)
+  const uploadFiles: string[] = ['manifest.json']; // Always upload manifest
+
+  // Determine which system artifacts need uploading
+  const systemEntries = systems.map(sys => {
+    const existing = latestSystemsMap.get(sys.id);
+    if (existing && existing.sha256 === sys.sha256 && existing.url) {
+      console.log(`[sign]   = ${sys.file} (unchanged, reusing URL)`);
+      return {
+        id: sys.id,
+        datVersion: sys.datVersion,
+        file: sys.file,
+        sha256: sys.sha256,
+        size: sys.size,
+        url: existing.url,
+        entries: sys.entries,
+      };
+    } else {
+      console.log(`[sign]   + ${sys.file} (changed/new, will upload)`);
+      uploadFiles.push(sys.file);
+      return {
+        id: sys.id,
+        datVersion: sys.datVersion,
+        file: sys.file,
+        sha256: sys.sha256,
+        size: sys.size,
+        url: `${repoUrl}/releases/download/${tag}/${sys.file}`,
+        entries: sys.entries,
+      };
+    }
+  });
+
+  // Build the unsigned manifest
   const unsigned: Record<string, unknown> = {
     version: MANIFEST_VERSION,
     generated,
     publicKey: publicKeyHex,
-    signature: '',  // Placeholder — will be filled after signing
-    systems: buildSystemEntries(systems, tag),
+    signature: '',
+    systems: systemEntries,
   };
 
+  // Handle dictionary incrementally
   if (dictionary) {
-    unsigned.dictionary = buildDictionaryEntry(dictionary, tag);
+    const existingDict = latestManifest?.dictionary;
+    if (existingDict && existingDict.sha256 === dictionary.sha256 && existingDict.url) {
+      console.log(`[sign]   = ${dictionary.file} (unchanged)`);
+      unsigned.dictionary = {
+        url: existingDict.url,
+        sha256: dictionary.sha256,
+        size: dictionary.size,
+      };
+    } else {
+      console.log(`[sign]   + ${dictionary.file} (changed/new)`);
+      uploadFiles.push(dictionary.file);
+      unsigned.dictionary = {
+        url: `${repoUrl}/releases/download/${tag}/${dictionary.file}`,
+        sha256: dictionary.sha256,
+        size: dictionary.size,
+      };
+    }
   }
 
   // --- Sign ---
-  // Remove the signature field, serialize deterministically, sign the bytes
   const forSigning = { ...unsigned };
   delete forSigning.signature;
 
@@ -193,30 +266,25 @@ export async function signManifest(releaseTag?: string): Promise<Record<string, 
   const signature = hypercoreCrypto.sign(message, secretKey);
   const signatureHex = signature.toString('hex');
 
-  // Insert the real signature
   unsigned.signature = signatureHex;
 
-  // --- Verify our own signature (sanity check) ---
+  // --- Verify ---
   const verified = hypercoreCrypto.verify(message, signature, publicKey);
   if (!verified) {
-    throw new Error('FATAL: Self-verification failed. The generated signature does not verify.');
+    throw new Error('FATAL: Self-verification failed.');
   }
 
   // --- Write the signed manifest ---
   const manifestJson = JSON.stringify(unsigned, null, 2);
   fs.writeFileSync(OUTPUT_MANIFEST, manifestJson);
 
-  console.log(`[sign] Manifest signed successfully`);
-  console.log(`[sign]   Public key: ${publicKeyHex}`);
-  console.log(`[sign]   Signature:  ${signatureHex.slice(0, 16)}...`);
-  console.log(`[sign]   Systems:    ${systems.length}`);
-  if (dictionary) {
-    console.log(`[sign]   Dictionary: ${dictionary.file} (${dictionary.size} bytes)`);
-  }
-  console.log(`[sign]   Release:    ${tag}`);
-  console.log(`[sign]   Output:     ${OUTPUT_MANIFEST}`);
+  // Write the list of files to upload for the CI workflow
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'upload-list.txt'), uploadFiles.join('\n'));
 
-  return unsigned;
+  console.log(`[sign] Manifest signed. Total systems: ${systems.length}. Files to upload: ${uploadFiles.length}`);
+  console.log(`[sign]   Release: ${tag}`);
+
+  return { manifest: unsigned, uploadFiles };
 }
 
 // --- CLI entry point ---
