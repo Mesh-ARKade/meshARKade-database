@@ -4,7 +4,7 @@
 		<id>28</id>
 		<name>Nintendo - Nintendo DS (Decrypted)</name>
 		<description>Nintendo - Nintendo DS (Decrypted)</description>
-		<version>20260406-193630</version>
+		<version>20260407-210758</version>
 		<author>aci68, ajshell1, Arctic Circle System, Aringon, asapy, Baronluigi, Bent, buckwheat, C. V. Reynolds, chillerecke, Connie, coraz, darthcloud, Datman, DeadSkullzJr, Densetsu, DeriLoko3, diego-rbb, DirkDagger, einstein95, Flashfire42, Fonix, fuzzball, Gefflon, Hiccup, hydr0x, iAmGhost, Icyelut, InternalLoss, Jhon591, jimmsu, Just001Kim, kaos, kazumi213, Kirtai, leekindo, Lesserkuma, Liam, MaxG, MeguCocoa, michal99, MisterSheeple, Money_114, Mr.K, NGEfreak, nhlay, niemand, nnssxx, NovaAurora, number, NWPlayer123, omonim2007, Powerpuff, PPLToast, Prominos, Psychofox11, psykopat, rarenight, relax, RetroGamer, Rifu, root, scorp256, Sir VG, SonGoku, Tauwasser, TBemme, Tescu, ToeKnee, togemet2, Tori, u53r123, ufocrossing, UnlockerPT, Vallaine01, Vigi, Whovian9369, Xenirina, xprism, xuom2, zg</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -11091,9 +11091,11 @@
 		<description>I Spy - Fun House (Europe) (En,Fr,De,It,Nl)</description>
 		<rom name="I Spy - Fun House (Europe) (En,Fr,De,It,Nl).nds" size="33554432" crc="81d00ced" md5="273d864fa11dc0e25a7f600724f7e4a2" sha1="6abff751c658c2b41e5f9aa218c219bcbb942841" serial="YP5X"/>
 	</game>
-	<game name="I Spy - Fun House (Europe) (En,Ru) (Beta)" id="z056" cloneofid="1983">
-		<description>I Spy - Fun House (Europe) (En,Ru) (Beta)</description>
-		<rom name="I Spy - Fun House (Europe) (En,Ru) (Beta).nds" size="67108864" crc="c046e007" md5="ca5f89627022055f167482efa16ac84c" sha1="72d0c12a7022fe9f036939ca5721b74ca76234b2" sha256="7a5c3c484d256f3a00f756c31077b071f5f5ef0c37074f88ff1dfbbfdd0a73b5" serial="YP5X"/>
+	<game name="I Spy - Fun House (Europe) (En,Ru) (Proto)" id="z056" cloneofid="1983">
+		<category>Games</category>
+		<category>Preproduction</category>
+		<description>I Spy - Fun House (Europe) (En,Ru) (Proto)</description>
+		<rom name="I Spy - Fun House (Europe) (En,Ru) (Proto).nds" size="67108864" crc="c046e007" md5="ca5f89627022055f167482efa16ac84c" sha1="72d0c12a7022fe9f036939ca5721b74ca76234b2" sha256="7a5c3c484d256f3a00f756c31077b071f5f5ef0c37074f88ff1dfbbfdd0a73b5" serial="YP5X"/>
 	</game>
 	<game name="I Spy - Game Pack (USA)" id="6246">
 		<description>I Spy - Game Pack (USA)</description>
@@ -21426,7 +21428,7 @@
 	</game>
 	<game name="Pokemon - Platinum Version (USA)" id="3541" cloneofid="3797">
 		<description>Pokemon - Platinum Version (USA)</description>
-		<rom name="Pokemon - Platinum Version (USA).nds" size="134217728" crc="9253921d" md5="d66ad7a2a0068b5d46e0781ca4953ae9" sha1="ce81046eda7d232513069519cb2085349896dec7" status="verified" serial="CPUE"/>
+		<rom name="Pokemon - Platinum Version (USA).nds" size="134217728" crc="9253921d" md5="d66ad7a2a0068b5d46e0781ca4953ae9" sha1="ce81046eda7d232513069519cb2085349896dec7" sha256="ede62292aa7f7014ff27d42097e769753380531739889c29b968b67b80f80678" status="verified" serial="CPUE"/>
 	</game>
 	<game name="Pokemon - Platinum Version (Europe)" id="3797">
 		<description>Pokemon - Platinum Version (Europe)</description>
@@ -29350,7 +29352,7 @@
 		<category>Games</category>
 		<category>Preproduction</category>
 		<description>Virtual Piano (USA) (Proto 1)</description>
-		<rom name="Virtual Piano (USA) (Proto 1).nds" size="8388608" crc="d2d78bbf" md5="6f8c292f5bdaa208f1428a1c51c7b577" sha1="1df5f1db631bc7f03df9f6cf5d78394f15105a0b" sha256="74dd56a6dfc14c25b730b7c98a93c1fd76559bb394831d4a901ac5786f348d4f"/>
+		<rom name="Virtual Piano (USA) (Proto 1).nds" size="4194304" crc="db3e1a96" md5="4e6524a74861c2c1d7bb6c3f72c0b88b" sha1="4e9de4f8e80d9231c53ae2bdd42cd47a8b52eb86" sha256="0bd2d29bb4616e7948bd6e4c118211fbbfe15021d33cdd775cd17c39c12b7636"/>
 	</game>
 	<game name="Virtual Villagers - A New Home (USA) (En,Fr,Es)" id="4955" cloneofid="4154">
 		<description>Virtual Villagers - A New Home (USA) (En,Fr,Es)</description>

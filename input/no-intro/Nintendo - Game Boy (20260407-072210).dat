@@ -4,7 +4,7 @@
 		<id>46</id>
 		<name>Nintendo - Game Boy</name>
 		<description>Nintendo - Game Boy</description>
-		<version>20260406-131737</version>
+		<version>20260407-072210</version>
 		<author>aci68, akubi, Arctic Circle System, Aringon, baldjared, Bent, BigFred, BitLooter, BlueMoon, buckwheat, C. V. Reynolds, chillerecke, darthcloud, DeadSkullzJr, Densetsu, DeriLoko3, ElBarto, foxe, fuzzball, Gefflon, Goratrix, Hiccup, hking0036, InternalLoss, Jack, jimmsu, Just001Kim, kazumi213, leekindo, Lesserkuma, Madeline, NESBrew12, NGEfreak, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, Powerpuff, PPLToast, Psychofox11, psykopat, rarenight, relax, RetroUprising, rpg2813, sCZther, ShiroeNL, SonGoku, Tauwasser, togemet2, UnlockerPT, xNo, xprism, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -6163,6 +6163,11 @@
 		<description>Sa-Ga 3 - Jikuu no Hasha (World) (Ja) (Collection of SaGa)</description>
 		<rom name="Sa-Ga 3 - Jikuu no Hasha (World) (Ja) (Collection of SaGa).gb" size="262144" crc="dc4f4e34" md5="acc561d478839c1f3e5548355fce9e3b" sha1="8125677ee63e9abb4b956ed0bee18fae3e04193b" sha256="dabea9295d8cb8854d5b60dbac203a99aedd8f75b3108602388045873c3f953c"/>
 	</game>
+	<game name="Sagaia (World) (Darius Cozmic Revelation)" id="2557" cloneofid="1160">
+		<category>Games</category>
+		<description>Sagaia (World) (Darius Cozmic Revelation)</description>
+		<rom name="Sagaia (World) (Darius Cozmic Revelation).gb" size="131072" crc="1a4eb519" md5="a589cea1963c1a1fa39b60882d654db5" sha1="c800f2f99f3a4763e9d5ec133e2b18ac4dd2cf77" sha256="23ed44b8be4cec6e353f285d2b758f552c95376cec1b03d95dfcbab0558914e6"/>
+	</game>
 	<game name="Sagaia (Japan) (En)" id="1160">
 		<category>Games</category>
 		<description>Sagaia (Japan) (En)</description>
@@ -8111,10 +8116,9 @@
 		<description>Yu Yu Hakusho Dai-4-dan - Makai Touitsu Hen (Japan) (SGB Enhanced)</description>
 		<rom name="Yu Yu Hakusho Dai-4-dan - Makai Touitsu Hen (Japan) (SGB Enhanced).gb" size="262144" crc="3e7c6b2b" md5="bfc83dd55f64f6c472ef45d3592a7b92" sha1="14a8e39f1adfa6acce11f902eb6763c73ababa47" sha256="9b5dbe11021ce2ff458c182ef0c9eb2baab093c58a7c0d703674cf64fe70db70"/>
 	</game>
-	<game name="Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection)" id="2557" cloneofid="1345">
-		<category>Games</category>
-		<description>Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection)</description>
-		<rom name="Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection).gb" size="16777216" crc="bf7fbd2e" md5="5dae2d0218e07534e0744043780eec90" sha1="d3710031520d9cdae70d870c60b1667285fe5230" sha256="12d28e0994cbe3a6cc4903fdd3434646c6e912142b73324ffabb2b322a04a411"/>
+	<game name="Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced)" id="1538">
+		<description>Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced)</description>
+		<rom name="Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced).gb" size="1048576" crc="8875ec54" md5="770a917f18e0aa1f3bb027d0783f548b" sha1="07ae4a6437f00f6af462bf84fd0ac1cf345c8365" sha256="d3f7abeecd28e53c0633032eb6f84f27a626f683b31821f1894814078eeed32e" status="verified"/>
 	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters (World) (Early Days Collection) (SGB Enhanced)" id="2552" cloneofid="1538">
 		<category>Games</category>
@@ -8145,10 +8149,6 @@
 		<category>Games</category>
 		<description>Yu-Gi-Oh! Duel Monsters (World) (Ja) (Early Days Collection) (SGB Enhanced)</description>
 		<rom name="Yu-Gi-Oh! Duel Monsters (World) (Ja) (Early Days Collection) (SGB Enhanced).gb" size="2097152" crc="65a35ae5" md5="35e6e4336d8c1a1997cf7c4f047bc91a" sha1="034102d67a62a9b0c31053b40e0430a32ed92d06" sha256="eac15c09679bcb0b3dca4e0bd6748cbcfa1012b0bec4805cd991f983b1d8f67c"/>
-	</game>
-	<game name="Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced)" id="1538">
-		<description>Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced)</description>
-		<rom name="Yu-Gi-Oh! Duel Monsters (Japan) (SGB Enhanced).gb" size="1048576" crc="8875ec54" md5="770a917f18e0aa1f3bb027d0783f548b" sha1="07ae4a6437f00f6af462bf84fd0ac1cf345c8365" sha256="d3f7abeecd28e53c0633032eb6f84f27a626f683b31821f1894814078eeed32e" status="verified"/>
 	</game>
 	<game name="ZAS (Europe) (Proto)" id="1715" cloneofid="1543">
 		<description>ZAS (Europe) (Proto)</description>

@@ -4,7 +4,7 @@
 		<id>23</id>
 		<name>Nintendo - Game Boy Advance</name>
 		<description>Nintendo - Game Boy Advance</description>
-		<version>20260406-143634</version>
+		<version>20260407-142719</version>
 		<author>aci68, Arctic Circle System, Aringon, Bent, BigFred, bikerspade, BlueMoon, buckwheat, C. V. Reynolds, chillerecke, DeadSkullzJr, Densetsu, DeriLoko3, einstein95, ElBarto, Enker, FakeShemp, Flashfire42, fuzzball, Gefflon, Goratrix, Hiccup, hking0036, hydr0x, InternalLoss, Jack, jimmsu, Just001Kim, kaos, kazumi213, Larsenv, Lesserkuma, Madeline, MeguCocoa, Money_114, NESBrew12, niemand, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, Powerpuff, PPLToast, Prominos, Psychofox11, psykopat, rarenight, relax, RetroGamer, Rifu, root, sCZther, ShiroeNL, smesgr, SonGoku, Tauwasser, Tescu, togemet2, ufocrossing, Vallaine01, Whovian9369, xprism, xuom2, zg</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -6409,7 +6409,7 @@
 	</game>
 	<game name="Kaze no Klonoa G2 - Dream Champ Tournament (Japan)" id="0511" cloneofid="1886">
 		<description>Kaze no Klonoa G2 - Dream Champ Tournament (Japan)</description>
-		<rom name="Kaze no Klonoa G2 - Dream Champ Tournament (Japan).gba" size="4194304" crc="8d98dc2c" md5="37f5b0e5b014994f923ac1e9e3300643" sha1="87a89b4144e1d6b0cb88ab9b63e2892f2882ab03" serial="AN6J"/>
+		<rom name="Kaze no Klonoa G2 - Dream Champ Tournament (Japan).gba" size="4194304" crc="8d98dc2c" md5="37f5b0e5b014994f923ac1e9e3300643" sha1="87a89b4144e1d6b0cb88ab9b63e2892f2882ab03" sha256="a415498f4c08db5891c51be8966baf4294e16873ed02472ea4fc2de73ee3686a" serial="AN6J"/>
 	</game>
 	<game name="Kaze no Klonoa G2 - Dream Champ Tournament (Japan) (Virtual Console)" id="x377" cloneofid="1886">
 		<description>Kaze no Klonoa G2 - Dream Champ Tournament (Japan) (Virtual Console)</description>
@@ -11198,7 +11198,7 @@
 	</game>
 	<game name="Shiren Monsters - Netsal (Japan)" id="1452">
 		<description>Shiren Monsters - Netsal (Japan)</description>
-		<rom name="Shiren Monsters - Netsal (Japan).gba" size="16777216" crc="c1f2b5ec" md5="f238cf012fec263050f77bb01460404e" sha1="d0e522435e453ca33018b6b9d19778873f67b695" sha256="31d27522804bb7254df3817b60463e2ce015bb5f71ced0a4befdaadf574c68dc" serial="ANVJ"/>
+		<rom name="Shiren Monsters - Netsal (Japan).gba" size="16777216" crc="c1f2b5ec" md5="f238cf012fec263050f77bb01460404e" sha1="d0e522435e453ca33018b6b9d19778873f67b695" sha256="31d27522804bb7254df3817b60463e2ce015bb5f71ced0a4befdaadf574c68dc" status="verified" serial="ANVJ"/>
 	</game>
 	<game name="Shiren Monsters - Netsal (Japan) (Demo) (Kiosk, GameCube)" id="2991" cloneofid="1452">
 		<description>Shiren Monsters - Netsal (Japan) (Demo) (Kiosk, GameCube)</description>
@@ -12532,6 +12532,10 @@
 		<category>Preproduction</category>
 		<description>Superman Returns - Fortress of Solitude (USA, Europe) (Beta)</description>
 		<rom name="Superman Returns - Fortress of Solitude (USA, Europe) (Beta).gba" size="16777216" crc="a0fb8e93" md5="3a7afb15fc88683bbe93b9486abdeb21" sha1="fd4585fc39ef54e1eb901e463d8e6d45ab40fccf" sha256="c3aa015c7033e09b0884318dcbcc22be8489d88b3cca7ce655544b20a6deadf4"/>
+	</game>
+	<game name="SuperTux (World) (Proto) (Unl)" id="3320">
+		<description>SuperTux (World) (Proto) (Unl)</description>
+		<rom name="SuperTux (World) (Proto) (Unl).gba" size="276276" crc="5f87099f" md5="02437ac1f7a9795a286dd628b40bded1" sha1="70f2f645688b1518b9d0a25837e3024ef2c04782" sha256="78f8d90e23f84c2e08dd46d2648b46e839fb5ff007dbbc478d34644699a24980"/>
 	</game>
 	<game name="Surf's Up (USA) (En,Fr,Es)" id="2717" cloneofid="2753">
 		<description>Surf's Up (USA) (En,Fr,Es)</description>
@@ -14068,6 +14072,11 @@
 		<description>Yu-Gi-Oh! - Destiny Board Traveler (Europe) (En,Fr,De,Es,It)</description>
 		<rom name="Yu-Gi-Oh! - Destiny Board Traveler (Europe) (En,Fr,De,Es,It).gba" size="16777216" crc="ae1a8e9d" md5="dfb46ddc7be8f75d7ad429b60b646aaa" sha1="96fd0e583ab49258b194f578e29e9a5d55122b50" serial="BYDP"/>
 	</game>
+	<game name="Yu-Gi-Oh! - Destiny Board Traveler (USA) (Early Days Collection)" id="3322" cloneofid="2105">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - Destiny Board Traveler (USA) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - Destiny Board Traveler (USA) (Early Days Collection).gba" size="8388608" crc="297dcb65" md5="db4eca15664f70e935595a9fd810a417" sha1="8c69db661aa3adf660aa6dab9e3ad217b0b1297c" sha256="3a8debcdc64eaf91ce11287d2f9112ea876d6b40ee338026db3fcb3c825a9074"/>
+	</game>
 	<game name="Yu-Gi-Oh! - Dungeon Dice Monsters (Europe) (En,Fr,De,Es,It)" id="1229">
 		<description>Yu-Gi-Oh! - Dungeon Dice Monsters (Europe) (En,Fr,De,Es,It)</description>
 		<rom name="Yu-Gi-Oh! - Dungeon Dice Monsters (Europe) (En,Fr,De,Es,It).gba" size="8388608" crc="ee317f69" md5="ec2e23cc5fd7a3ea4e32ac7b8d488103" sha1="3ded1227698fbdb2ba47f03025cd1934fc184b99" status="verified" serial="AYDP"/>
@@ -14093,23 +14102,48 @@
 		<description>Yu-Gi-Oh! - Reshef of Destruction (Europe) (En,Fr,De,Es,It) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! - Reshef of Destruction (Europe) (En,Fr,De,Es,It) (Early Days Collection).gba" size="16777216" crc="6821c1f3" md5="38fd9bcd89d2599c5f4a530009932b54" sha1="a52e3b0989fdcdf4728d4a4baecd5923fb02153e" sha256="a03d287b0b9d8223788cb914233e67b810dcac6ffb8c93086e460f2de3b61283"/>
 	</game>
+	<game name="Yu-Gi-Oh! - Reshef of Destruction (USA) (Early Days Collection)" id="3325" cloneofid="1622">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - Reshef of Destruction (USA) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - Reshef of Destruction (USA) (Early Days Collection).gba" size="16777216" crc="b23339ce" md5="1d49be8c72bc513efc4445a1d45bcc15" sha1="1ccbfa7b14e448908b7f05bdc6e845ac2e8c747c" sha256="d0a82dfb944bb23ac86dcebfed1bd7bbee0e880d29a08e3af662db02f09fb1e9"/>
+	</game>
+	<game name="Yu-Gi-Oh! - Reshef of Destruction (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection)" id="3326" cloneofid="1622">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - Reshef of Destruction (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - Reshef of Destruction (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection).gba" size="16777216" crc="cbc37f5a" md5="3437aad1a5e92aa032bb7d00d304daf6" sha1="fb350d4af1d78422d0744d5b28e1bdd72360e58b" sha256="de5e2baec470356221ab3b0802c2e2e6a984a8068db45d4ec7185f8251ba851e"/>
+	</game>
+	<game name="Yu-Gi-Oh! - Reshef of Destruction (Japan) (v1.1) (Early Days Collection)" id="3327" cloneofid="1622">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - Reshef of Destruction (Japan) (v1.1) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - Reshef of Destruction (Japan) (v1.1) (Early Days Collection).gba" size="16777216" crc="dd14d6e4" md5="6a8b727441bce1835fbedeb50cdaa010" sha1="37e8f7bc37adbad52be63c01e9535aacb013f81c" sha256="ae4eb3f919827804aa33565f453f284cb38238bee1f830bc1c7ff8e94bbfa1e8"/>
+	</game>
 	<game name="Yu-Gi-Oh! - Sugoroku no Sugoroku (Japan)" id="1396" cloneofid="2105">
 		<description>Yu-Gi-Oh! - Sugoroku no Sugoroku (Japan)</description>
 		<rom name="Yu-Gi-Oh! - Sugoroku no Sugoroku (Japan).gba" size="8388608" crc="8d52b3c5" md5="c5401124a48f173f05fb10fb9e716011" sha1="6816f044c3f4cac76e888c0ec36dc216e7c140d2" serial="BYSJ"/>
-	</game>
-	<game name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA)" id="0654">
-		<description>Yu-Gi-Oh! - The Eternal Duelist Soul (USA)</description>
-		<rom name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA).gba" size="8388608" crc="dfd07a36" md5="ec3f000ffde5754cb164a05d2d6f9053" sha1="510fbba212aca9bab95ea12f8fd933e62ee34dea" sha256="1085ec7471106d1507ca205c29d424ceb46159fa6392ec4fa2c41c6072ae3a98" status="verified" serial="AY5E"/>
 	</game>
 	<game name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA) (Early Days Collection)" id="3305" cloneofid="0654">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! - The Eternal Duelist Soul (USA) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA) (Early Days Collection).gba" size="8388608" crc="27a52ea7" md5="b7fae231ea1950fda67f8daa481debca" sha1="ad9b45744b40fda69da96c40861e8f5059c11c87" sha256="1bd97453ebdbe7f5321685ffd41ebcb13ad086a1e5a09f776260ad6cb8e7ee4d"/>
 	</game>
+	<game name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA)" id="0654">
+		<description>Yu-Gi-Oh! - The Eternal Duelist Soul (USA)</description>
+		<rom name="Yu-Gi-Oh! - The Eternal Duelist Soul (USA).gba" size="8388608" crc="dfd07a36" md5="ec3f000ffde5754cb164a05d2d6f9053" sha1="510fbba212aca9bab95ea12f8fd933e62ee34dea" sha256="1085ec7471106d1507ca205c29d424ceb46159fa6392ec4fa2c41c6072ae3a98" status="verified" serial="AY5E"/>
+	</game>
 	<game name="Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (Early Days Collection)" id="3308" cloneofid="1345">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (Early Days Collection).gba" size="16777216" crc="ce6adacf" md5="35f01cfcbaf371f8580321c246255ac4" sha1="0dc0b509c24a62ff551dfc1c88901b57aa860ec0" sha256="6138bcac686b80a7663fd574fea502f9bfa04498d30d6180dbcbda72166bacde"/>
+	</game>
+	<game name="Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection)" id="3321" cloneofid="1345">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - The Sacred Cards (USA) (Early Days Collection).gba" size="16777216" crc="bf7fbd2e" md5="5dae2d0218e07534e0744043780eec90" sha1="d3710031520d9cdae70d870c60b1667285fe5230" sha256="12d28e0994cbe3a6cc4903fdd3434646c6e912142b73324ffabb2b322a04a411"/>
+	</game>
+	<game name="Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection)" id="3323" cloneofid="1345">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! - The Sacred Cards (Europe) (En,Fr,De,Es,It) (v1.1) (Early Days Collection).gba" size="16777216" crc="227d2581" md5="69e4678c7b7876b841cb4a6f1409213f" sha1="0d19963942f8cdc1900fb94f323282a3e47ca0bf" sha256="cb17de99c4fd737b705243b0e2e4c0706554ff8f94398d217867bf30b2f4adaf"/>
 	</game>
 	<game name="Yu-Gi-Oh! - The Sacred Cards (USA)" id="1221" cloneofid="1345">
 		<description>Yu-Gi-Oh! - The Sacred Cards (USA)</description>
@@ -14127,14 +14161,6 @@
 		<description>Yu-Gi-Oh! - Ultimate Masters Edition - World Championship Tournament 2006 (Europe) (En,Ja,Fr,De,Es,It)</description>
 		<rom name="Yu-Gi-Oh! - Ultimate Masters Edition - World Championship Tournament 2006 (Europe) (En,Ja,Fr,De,Es,It).gba" size="33554432" crc="cede4060" md5="020411d3b08f5639eb8cb878283f84bf" sha1="0734be2fe17d9ef5ede88e0a14cd194656aa23d8" status="verified" serial="BY6P"/>
 	</game>
-	<game name="Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It)" id="1359" cloneofid="1415">
-		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It)</description>
-		<rom name="Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="69b6f229" md5="8517049ce498d84530c953d6a8b3112e" sha1="3a7fceffa1405640fe4606e006d272d1af542f2b" sha256="516530e73ba2ebd2fc8c4280cac13bc125dfb6c1fa1678d35fb5dc8a2a9c063c" serial="BYWE"/>
-	</game>
-	<game name="Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It)" id="1415">
-		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It)</description>
-		<rom name="Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="3c42e84c" md5="b21129cb55d887d0ef4481c699feed99" sha1="b791ee3241caef0566bca56bb70c6d37ad3b8621" status="verified" serial="BYWP"/>
-	</game>
 	<game name="Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It) (Early Days Collection)" id="3317" cloneofid="1415">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It) (Early Days Collection)</description>
@@ -14145,6 +14171,22 @@
 		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It) (Early Days Collection).gba" size="16777216" crc="dd5efbf4" md5="22e3f8a1ccdebfb89777d371f7a57db3" sha1="b8285e2e5c934b167767485dc3dd0c80c5cff555" sha256="a4e2f085d198d5284c1f4427fe40ce0ed89d7fa82db3400360beca2b3c4d9889"/>
 	</game>
+	<game name="Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It)" id="1359" cloneofid="1415">
+		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It)</description>
+		<rom name="Yu-Gi-Oh! - World Championship Tournament 2004 (USA) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="69b6f229" md5="8517049ce498d84530c953d6a8b3112e" sha1="3a7fceffa1405640fe4606e006d272d1af542f2b" sha256="516530e73ba2ebd2fc8c4280cac13bc125dfb6c1fa1678d35fb5dc8a2a9c063c" serial="BYWE"/>
+	</game>
+	<game name="Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It)" id="1415">
+		<description>Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It)</description>
+		<rom name="Yu-Gi-Oh! - World Championship Tournament 2004 (Europe) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="3c42e84c" md5="b21129cb55d887d0ef4481c699feed99" sha1="b791ee3241caef0566bca56bb70c6d37ad3b8621" status="verified" serial="BYWP"/>
+	</game>
+	<game name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It)" id="1003" cloneofid="0938">
+		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It)</description>
+		<rom name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="39b5e771" md5="1e52d66f5f8a7c4f207d80ba4fccf55e" sha1="53d4ae06d1b605f8925c53d6c585478d73ff55c0" sha256="c4c3ef5c8980996be049a3b6efd1c99b165e565405e040ea428801a14b8c8aa9" status="verified" serial="AYWE"/>
+	</game>
+	<game name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It)" id="0938">
+		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It)</description>
+		<rom name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="aca5ffc6" md5="15dbde22ef467c503e09f75b233da539" sha1="96a490f9152acff2d0f6b2486382f1906b3baee8" status="verified" serial="AYWP"/>
+	</game>
 	<game name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It) (Early Days Collection)" id="3311" cloneofid="0938">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It) (Early Days Collection)</description>
@@ -14154,14 +14196,6 @@
 		<category>Games</category>
 		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It) (Early Days Collection).gba" size="16777216" crc="9f64379c" md5="1df9e439464c27c5da6df24d66bd7d35" sha1="69a258f99c06db3673fa7fa701b3adeee1197404" sha256="a47fe1f614e4a94fabe450eac27cde21a77134f9a6cab2d341c43ac58671302f"/>
-	</game>
-	<game name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It)" id="1003" cloneofid="0938">
-		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It)</description>
-		<rom name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (USA) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="39b5e771" md5="1e52d66f5f8a7c4f207d80ba4fccf55e" sha1="53d4ae06d1b605f8925c53d6c585478d73ff55c0" sha256="c4c3ef5c8980996be049a3b6efd1c99b165e565405e040ea428801a14b8c8aa9" status="verified" serial="AYWE"/>
-	</game>
-	<game name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It)" id="0938">
-		<description>Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It)</description>
-		<rom name="Yu-Gi-Oh! - Worldwide Edition - Stairway to the Destined Duel (Europe) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="aca5ffc6" md5="15dbde22ef467c503e09f75b233da539" sha1="96a490f9152acff2d0f6b2486382f1906b3baee8" status="verified" serial="AYWP"/>
 	</game>
 	<game name="Yu-Gi-Oh! Double Pack (Europe) (En,Fr,De,Es,It)" id="2311">
 		<description>Yu-Gi-Oh! Double Pack (Europe) (En,Fr,De,Es,It)</description>
@@ -14175,14 +14209,14 @@
 		<description>Yu-Gi-Oh! Double Pack 2 (USA) (En,Fr,De,Es,It)</description>
 		<rom name="Yu-Gi-Oh! Double Pack 2 (USA) (En,Fr,De,Es,It).gba" size="33554432" crc="9ced2d3f" md5="7b1b404ab1baa7ec549a29629c328153" sha1="c105ff5ee536e1a275f88d21e930491bcf6daba6" sha256="b56ff2d3ea4cd1f553f8e2a90c2487a9983bd7c3a3da281c5b6090bb6c20e2c6" serial="BYVE"/>
 	</game>
-	<game name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan)" id="0060" cloneofid="0654">
-		<description>Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan)</description>
-		<rom name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan).gba" size="8388608" crc="f3041e7e" md5="31dd0e7efd461e004cfa6bad8e7b0e57" sha1="dc25f733cee913afdf187ec03df30909fe28b03c" sha256="59f3141578ae1747bd333c507971a93453e376fbc6a9579c3b148bfca408ae03" status="verified" serial="AY5J"/>
-	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan) (Early Days Collection)" id="3304" cloneofid="0654">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan) (Early Days Collection).gba" size="8388608" crc="2e809f33" md5="7673372484e39cbc94c07b9d8578f579" sha1="d8289ff1bfb6f99716eea32dde511a5d2296b57d" sha256="638181ea04601888fb118799ab9a07c4470cd9565080f982935ac26b6c6e5d1e"/>
+	</game>
+	<game name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan)" id="0060" cloneofid="0654">
+		<description>Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan)</description>
+		<rom name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 (Japan).gba" size="8388608" crc="f3041e7e" md5="31dd0e7efd461e004cfa6bad8e7b0e57" sha1="dc25f733cee913afdf187ec03df30909fe28b03c" sha256="59f3141578ae1747bd333c507971a93453e376fbc6a9579c3b148bfca408ae03" status="verified" serial="AY5J"/>
 	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters 5 Expert 1 - Taikenban (Japan)" id="3299" cloneofid="0654">
 		<category>Demos</category>
@@ -14207,6 +14241,11 @@
 		<category>Games</category>
 		<description>Yu-Gi-Oh! Duel Monsters 7 - Kettou Toshi Densetsu (Japan) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! Duel Monsters 7 - Kettou Toshi Densetsu (Japan) (Early Days Collection).gba" size="16777216" crc="e96149f8" md5="e93b0f1cce9695701a28ab8e1fd3331b" sha1="9de3c09baa32d59c68c402692413eb60a1d0a9c3" sha256="6ada5b6227cd65bb78d2ae6cd7b602bad0f8ef92e023660b2669b0d24f50fb52"/>
+	</game>
+	<game name="Yu-Gi-Oh! Duel Monsters 7 - Kettou Toshi Densetsu (Japan) (v1.1) (Early Days Collection)" id="3324" cloneofid="1345">
+		<category>Games</category>
+		<description>Yu-Gi-Oh! Duel Monsters 7 - Kettou Toshi Densetsu (Japan) (v1.1) (Early Days Collection)</description>
+		<rom name="Yu-Gi-Oh! Duel Monsters 7 - Kettou Toshi Densetsu (Japan) (v1.1) (Early Days Collection).gba" size="16777216" crc="8040b20c" md5="1b4e6d6d5d2e416a600c2e105258cf27" sha1="5e44faaa4b1c4cb25b2f825bdaf788e46ce76f83" sha256="7c1ef5e0bc28761eb1e0e9e885e35f4b84742b146480fd7877f4998d9b44987a"/>
 	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters 8 - Hametsu no Daijashin (Japan) (Early Days Collection)" id="3310" cloneofid="1622">
 		<category>Games</category>
@@ -14238,14 +14277,14 @@
 		<description>Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It) (Rev 1)</description>
 		<rom name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It) (Rev 1).gba" size="16777216" crc="1becf9d3" md5="9bc1ee3d43963364ad25e687ec867d26" sha1="e16dd5848bcbaffdc60d5d5548d60f4311f4615c" serial="AYWJ"/>
 	</game>
-	<game name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It)" id="0986" cloneofid="0938">
-		<description>Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It)</description>
-		<rom name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="98507497" md5="9a8abbb9e95ad1ead235e3ade9b7b429" sha1="a6eddd916eff82fa7841366bac1932b88201e548" serial="AYWJ"/>
-	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It) (Early Days Collection)" id="3312" cloneofid="0938">
 		<category>Games</category>
 		<description>Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It) (Early Days Collection)</description>
 		<rom name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It) (Early Days Collection).gba" size="16777216" crc="dd6a43f9" md5="13e17b996a773d6d161e1d64a4c41436" sha1="c4981e9df360165e05a97e58fdfbdafbfcaa077c" sha256="d258292bec9cdb1024b0a26d884b24fecac7967ad8c083eba6d1b5e3e8cc1c22"/>
+	</game>
+	<game name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It)" id="0986" cloneofid="0938">
+		<description>Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It)</description>
+		<rom name="Yu-Gi-Oh! Duel Monsters International - Worldwide Edition (Japan) (En,Ja,Fr,De,Es,It).gba" size="16777216" crc="98507497" md5="9a8abbb9e95ad1ead235e3ade9b7b429" sha1="a6eddd916eff82fa7841366bac1932b88201e548" serial="AYWJ"/>
 	</game>
 	<game name="Yu-Gi-Oh! Duel Monsters International 2 (Japan) (En,Ja) (Early Days Collection)" id="3315" cloneofid="1934">
 		<category>Games</category>
@@ -14433,27 +14472,27 @@
 		<description>Zoids - Legacy (USA)</description>
 		<rom name="Zoids - Legacy (USA).gba" size="8388608" crc="302e75f3" md5="220a6f1b9d8d63e7638248f24dbfa709" sha1="460fa2158606097f6e6f63ce966d2d6ecdd58d70" sha256="0379d0e57d77783ed1d18f28c78b9dd1a964e842aac023e6803377f2e86ddc7d" serial="AZ2E"/>
 	</game>
-	<game name="Zoids Saga (Japan) (Rev 1)" id="2885">
-		<description>Zoids Saga (Japan) (Rev 1)</description>
-		<rom name="Zoids Saga (Japan) (Rev 1).gba" size="8388608" crc="28e8b0d9" md5="1793a537f75831900b1131b8bcaba63d" sha1="70bb546a7d00126d452c1d2c1ccddafb2cb91b37" sha256="c307db042aed8d4cdd97dbfe3a169b5880ef5360dc672f7ec9352ba9a6be56e1" status="verified" serial="ATZJ"/>
-	</game>
 	<game name="Zoids Saga (Japan)" id="0252" cloneofid="2885">
 		<description>Zoids Saga (Japan)</description>
 		<rom name="Zoids Saga (Japan).gba" size="8388608" crc="5975dda8" md5="36545c66bf7abdbced2b294a7dd8d419" sha1="75d8c15ac281ea93c8ac7cc7641c490799557081" serial="ATZJ"/>
 	</game>
+	<game name="Zoids Saga (Japan) (Rev 1)" id="2885">
+		<description>Zoids Saga (Japan) (Rev 1)</description>
+		<rom name="Zoids Saga (Japan) (Rev 1).gba" size="8388608" crc="28e8b0d9" md5="1793a537f75831900b1131b8bcaba63d" sha1="70bb546a7d00126d452c1d2c1ccddafb2cb91b37" sha256="c307db042aed8d4cdd97dbfe3a169b5880ef5360dc672f7ec9352ba9a6be56e1" status="verified" serial="ATZJ"/>
+	</game>
 	<game name="Zoids Saga - Fuzors (Japan)" id="1881">
 		<description>Zoids Saga - Fuzors (Japan)</description>
 		<rom name="Zoids Saga - Fuzors (Japan).gba" size="8388608" crc="094e16ad" md5="02fd4433f3dacbfd1c921a54909ac365" sha1="f5269aba2e5f587aa2f851f35e96c1cbc5e1a78a" serial="BZFJ"/>
-	</game>
-	<game name="Zoids Saga II (Japan)" id="0952" cloneofid="1627">
-		<description>Zoids Saga II (Japan)</description>
-		<rom name="Zoids Saga II (Japan).gba" size="8388608" crc="0c039503" md5="f7bdd0eb9cd94d4c3bf924654998c514" sha1="6014ca7c7af931d62634be4baa992a2fe187413f" serial="AZ2J"/>
 	</game>
 	<game name="Zoids Saga II (Japan) (Rev 1) (Proto)" id="z001" cloneofid="1627">
 		<category>Games</category>
 		<category>Preproduction</category>
 		<description>Zoids Saga II (Japan) (Rev 1) (Proto)</description>
 		<rom name="Zoids Saga II (Japan) (Rev 1) (Proto).gba" size="8388608" crc="515d9e38" md5="14bc45c78e1d2325654c0cdac25873bb" sha1="1b2caa037e4085554065dc1fc386296aabbcdd0e" sha256="a9c427d2ce5fe80d21bb534e24fbcdad9f32d99a2fbf695a38e9342619596153" serial="AZ2J"/>
+	</game>
+	<game name="Zoids Saga II (Japan)" id="0952" cloneofid="1627">
+		<description>Zoids Saga II (Japan)</description>
+		<rom name="Zoids Saga II (Japan).gba" size="8388608" crc="0c039503" md5="f7bdd0eb9cd94d4c3bf924654998c514" sha1="6014ca7c7af931d62634be4baa992a2fe187413f" serial="AZ2J"/>
 	</game>
 	<game name="Zoku Bokura no Taiyou - Taiyou Shounen Django (Japan)" id="1565" cloneofid="1988">
 		<description>Zoku Bokura no Taiyou - Taiyou Shounen Django (Japan)</description>

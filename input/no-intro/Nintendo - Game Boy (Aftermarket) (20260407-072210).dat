@@ -4,7 +4,7 @@
 		<id>46</id>
 		<name>Nintendo - Game Boy (Aftermarket)</name>
 		<description>Nintendo - Game Boy (Aftermarket)</description>
-		<version>20260406-131737</version>
+		<version>20260407-072210</version>
 		<author>aci68, akubi, Arctic Circle System, Aringon, baldjared, Bent, BigFred, BitLooter, BlueMoon, buckwheat, C. V. Reynolds, chillerecke, darthcloud, DeadSkullzJr, Densetsu, DeriLoko3, ElBarto, foxe, fuzzball, Gefflon, Goratrix, Hiccup, hking0036, InternalLoss, Jack, jimmsu, Just001Kim, kazumi213, leekindo, Lesserkuma, Madeline, NESBrew12, NGEfreak, nnssxx, norkmetnoil577, NovaAurora, number, omonim2007, Powerpuff, PPLToast, Psychofox11, psykopat, rarenight, relax, RetroUprising, rpg2813, sCZther, ShiroeNL, SonGoku, Tauwasser, togemet2, UnlockerPT, xNo, xprism, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -654,6 +654,11 @@
 	<game name="Into the Blue (World) (Aftermarket) (Unl)" id="2156">
 		<description>Into the Blue (World) (Aftermarket) (Unl)</description>
 		<rom name="Into the Blue (World) (Aftermarket) (Unl).gb" size="131072" crc="7714e96e" md5="3d0d05e30fc2d0f7cb6a956dd5154590" sha1="5ac7a349bb37c8767c9db264ed8ae7b7647fa8ea" sha256="71c4c7cdaee320385407c7c68211b2b388459e9da2090f2888601802b328ba8b"/>
+	</game>
+	<game name="Invasion From Spaaace! (World) (Aftermarket) (Unl)" id="2558">
+		<category>Games</category>
+		<description>Invasion From Spaaace! (World) (Aftermarket) (Unl)</description>
+		<rom name="Invasion From Spaaace! (World) (Aftermarket) (Unl).gb" size="131072" crc="957ac437" md5="6aa8ce8a701b5cf93dd0789d67ced5ec" sha1="3cf779a68952786b5300e76d21b89a075d4f0401" sha256="10f2bd6926ebf3d316ee7a2c63a983691ab677260833c934b473a9810245d600"/>
 	</game>
 	<game name="Island, The (World) (Demo) (Aftermarket) (Unl)" id="2372">
 		<category>Games</category>
