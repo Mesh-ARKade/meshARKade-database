@@ -10,7 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "keygen": "tsx scripts/keygen.ts",
-    "compile": "node dist/scripts/compile.js",
+    "compile": "node --max-old-space-size=6144 dist/scripts/compile.js",
     "sign": "node dist/scripts/sign.js"
   },
   "keywords": [
