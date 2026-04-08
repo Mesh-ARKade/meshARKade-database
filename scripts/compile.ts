@@ -1,47 +1,12 @@
-/**
- * DAT Compiler
- *
- * Reads Logiqx XML DAT files from input/{source}/ and compiles each one into
- * a zstd-compressed JSONL artifact in output/. One .jsonl.zst file per DAT = one file
- * per system. Each line in the JSONL is a game entry validated against the
- * jsonl-line schema.
- *
- * This is the heart of the meshARKade-database pipeline:
- *
- *   XML DAT files (from meshARKade-dats relay)
- *       ↓
- *   compile.ts (this script)
- *       ↓
- *   .jsonl.zst files + compile-manifest.json (metadata for sign.ts)
- *
- * Input structure (populated by meshARKade-dats PRs):
- *   input/
- *     no-intro/   ← ~380 .dat files (cartridge systems)
- *     tosec/      ← ~4,700 .dat files (home computers, consoles)
- *     redump/     ← ~60 .dat files (optical disc systems)
- *     mame/       ← (future)
- *
- * Output structure:
- *   output/
- *     no-intro--nintendo-game-boy.jsonl.zst
- *     no-intro--nintendo-snes.jsonl.zst
- *     tosec--atari-2600.jsonl.zst
- *     redump--sony-playstation.jsonl.zst
- *     ...
- *     catalog.dict            ← Zstd dictionary trained from samples
- *     compile-manifest.json   ← metadata object consumed by sign.ts
- *
- * @intent Transform XML DATs into signed-ready JSONL artifacts using dictionary compression.
- * @guarantee Every game entry in every output file passes jsonl-line validation.
- * @constraint Requires input/ to have at least one .dat file.
- */
-
 import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
 import { zstdCompressSync, gunzipSync } from 'zlib';
-import { XMLParser } from 'fast-xml-parser';
 import { execSync } from 'child_process';
+
+// Internal modules
+import { JsonlLine, ParsedDat } from '../src/types/dat.js';
+import { LogiqxParser, ClrMameProParser, IDatParser } from '../src/lib/parsers/index.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -62,40 +27,6 @@ const DICT_FILENAME = 'catalog.dict';
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-/** A single ROM entry in a game — maps to the `roms` array in jsonl-line schema */
-interface RomEntry {
-  name: string;
-  size: number;
-  crc: string;
-  md5?: string;
-  sha1?: string;
-  sha256?: string;
-  status?: string;
-  header?: string;
-}
-
-/** A single disk/CHD entry — maps to the `disks` array in jsonl-line schema */
-interface DiskEntry {
-  name: string;
-  sha1?: string;
-  md5?: string;
-  status?: string;
-}
-
-/** A single game/JSONL line — matches jsonl-line.schema.json */
-interface JsonlLine {
-  source: string;
-  system: string;
-  datVersion: string;
-  id: string;
-  name: string;
-  description?: string;
-  category?: string;
-  cloneofid?: string;
-  roms?: RomEntry[];
-  disks?: DiskEntry[];
-}
 
 /** Metadata for a compiled system — consumed by sign.ts to build the manifest */
 export interface CompiledSystem {
@@ -122,58 +53,40 @@ export interface CompileResult {
 }
 
 // ---------------------------------------------------------------------------
-// XML Parser Configuration
+// Parser Registry (SOLID)
 // ---------------------------------------------------------------------------
+
+/** Registry of available DAT parsing strategies */
+const parsers: IDatParser[] = [
+  new LogiqxParser(),
+  new ClrMameProParser(),
+];
 
 /**
- * Configure fast-xml-parser for Logiqx DAT format.
- *
- * Key decisions:
- *   - ignoreAttributes: false — we NEED attributes, that's where ROM hashes live
- *   - attributeNamePrefix: '' — don't add '@_' prefix to attribute names
- *   - isArray callback — force `game` and `rom` to always be arrays even when
- *     there's only one entry (XML parsers collapse single-element arrays)
- *   - parseAttributeValue: false — keep all attribute values as strings;
- *     we parse `size` to number ourselves to avoid losing leading zeros on hashes
+ * Detect the correct parser strategy for the given file content.
  */
-const xmlParser = new XMLParser({
-  ignoreAttributes: false,
-  attributeNamePrefix: '',
-  // Force these elements to always be arrays — without this, a DAT with a
-  // single game or a game with a single ROM would parse as an object instead
-  // of a one-element array, breaking our iteration.
-  isArray: (_name, jpath) => {
-    const jp = String(jpath);
-    return jp === 'datafile.game' ||
-           jp === 'datafile.game.rom' ||
-           jp === 'datafile.game.release' ||
-           jp === 'datafile.machine' ||
-           jp === 'datafile.machine.rom' ||
-           jp === 'datafile.machine.disk' ||
-           jp === 'datafile.machine.release' ||
-           jp === 'datafile.software' ||
-           jp === 'datafile.software.part' ||
-           jp === 'datafile.software.part.dataarea' ||
-           jp === 'datafile.software.part.dataarea.rom';
-  },
-  // Keep all values as strings — we'll parseInt(size) ourselves.
-  // This prevents hashes like "00a1b2c3" from being parsed as numbers.
-  parseAttributeValue: false,
-  parseTagValue: false,
-  processEntities: false,
-});
+function parseGenericDat(content: string, source: string, filename: string): ParsedDat {
+  for (const parser of parsers) {
+    if (parser.canParse(content)) {
+      return parser.parse(content, source);
+    }
+  }
+
+  // Graceful failure — distinguish between "corrupt" and "unsupported"
+  const rootMatch = content.trimStart().match(/^<([a-zA-Z0-9_-]+)/);
+  if (rootMatch) {
+    throw new Error(`Unsupported DAT format (Root tag: <${rootMatch[1]}>). Only Logiqx and ClrMamePro are accepted.`);
+  }
+
+  throw new Error(`Unrecognized DAT format. Content does not match any known parsing strategy.`);
+}
 
 // ---------------------------------------------------------------------------
-// Core Functions
+// Core Utilities
 // ---------------------------------------------------------------------------
 
 /**
  * Convert a system name into a URL/filename-safe slug.
- *
- * "Nintendo - Game Boy Advance" → "nintendo-game-boy-advance"
- * "Sony - PlayStation 2"        → "sony-playstation-2"
- *
- * Used for both the output filename and the manifest system `id`.
  */
 export function slugify(name: string): string {
   return name
@@ -184,14 +97,6 @@ export function slugify(name: string): string {
 
 /**
  * Determine the logical "Family" for a DAT file.
- *
- * This collapses highly fragmented naming conventions (like TOSEC's per-letter
- * category splits or No-Intro's Aftermarket tags) into a single cohesive system
- * name (e.g., "Commodore Amiga"). This drastically reduces the number of release
- * assets and improves dictionary compression efficiency.
- *
- * @param name The original system name from the DAT <header>
- * @param source The source (no-intro, tosec, redump, etc.)
  */
 export function getLogicalFamily(name: string, source: string): string {
   let family = name;
@@ -200,22 +105,13 @@ export function getLogicalFamily(name: string, source: string): string {
     return 'MAME Arcade';
   }
 
-  // Most DATs follow "Manufacturer - System Name" convention.
-  // We split by " - " and take the first part to group by manufacturer.
   if (source === 'tosec' || source === 'no-intro' || source === 'redump' || source === 'mame') {
     family = family.split(' - ')[0];
   }
 
-  // Strip known tags to ensure clean mapping if split didn't happen or for variants
   const tagsToRemove = [
-    '(Aftermarket)',
-    '(Decrypted)',
-    '(Encrypted)',
-    '(Download Play)',
-    '(BigEndian)',
-    '(ByteSwapped)',
-    '(Headered)',
-    '(Headerless)'
+    '(Aftermarket)', '(Decrypted)', '(Encrypted)', '(Download Play)',
+    '(BigEndian)', '(ByteSwapped)', '(Headered)', '(Headerless)'
   ];
   
   for (const tag of tagsToRemove) {
@@ -226,239 +122,7 @@ export function getLogicalFamily(name: string, source: string): string {
 }
 
 /**
- * Parse a single Logiqx XML DAT file into an array of JsonlLine entries.
- *
- * The Logiqx format is the standard used by No-Intro, Redump, and TOSEC:
- *
- *   <datafile>
- *     <header>
- *       <name>System Name</name>
- *       <version>20260405</version>
- *     </header>
- *     <game name="Game Title">
- *       <description>Game Title</description>
- *       <rom name="file.ext" size="1234" crc="abcd1234" md5="..." sha1="..."/>
- *     </game>
- *   </datafile>
- *
- * @param xmlContent - Raw XML string from the .dat file.
- * @param source - Source identifier ("no-intro", "tosec", "redump", "mame").
- * @returns Object with system metadata and parsed game entries.
- */
-function parseDat(xmlContent: string, source: string): {
-  system: string;
-  datVersion: string;
-  entries: JsonlLine[];
-} {
-  const parsed = xmlParser.parse(xmlContent);
-
-  // Navigate to the datafile root — some DATs wrap in <?xml?> + <datafile>
-  const datafile = parsed.datafile;
-  if (!datafile) {
-    throw new Error('Invalid DAT format: missing <datafile> root element');
-  }
-
-  // Extract header metadata
-  const header = datafile.header;
-  if (!header) {
-    throw new Error('Invalid DAT format: missing <header> element');
-  }
-
-  const system = header.name || 'Unknown System';
-  const datVersion = header.version || 'unknown';
-
-  // Parse game entries — may be absent if DAT is empty (rare but possible)
-  // Support Logiqx <game>, MAME <machine>
-  const games: unknown[] = datafile.game || datafile.machine || [];
-  const entries: JsonlLine[] = [];
-
-  for (const game of games) {
-    const g = game as Record<string, unknown>;
-
-    // Entry name is in the "name" attribute
-    const gameName = (g.name as string) || '';
-    if (!gameName) continue;  // Skip nameless entries
-
-    // Parse ROM entries — <game>/<machine> use <rom>
-    let rawRoms: Record<string, string>[] = [];
-    
-    if (g.rom) {
-      rawRoms = (Array.isArray(g.rom) ? g.rom : [g.rom]) as Record<string, string>[];
-    }
-
-    const roms: RomEntry[] = [];
-
-    for (const rom of rawRoms) {
-      // Basic validation for ROM fields - name, size and CRC are mandatory
-      if (!rom.name || !rom.size || !rom.crc) {
-        continue;
-      }
-
-      const romEntry: RomEntry = {
-        name: rom.name,
-        size: parseInt(rom.size, 10),
-        crc: rom.crc.toLowerCase(),
-      };
-
-      if (rom.md5) romEntry.md5 = rom.md5.toLowerCase();
-      if (rom.sha1) romEntry.sha1 = rom.sha1.toLowerCase();
-      if (rom.sha256) romEntry.sha256 = rom.sha256.toLowerCase();
-      if (rom.status) romEntry.status = rom.status;
-      if (rom.header) romEntry.header = rom.header;
-
-      roms.push(romEntry);
-    }
-
-    // Parse disk/CHD entries — MAME <disk> elements have name + sha1 but no size/crc
-    const disks: DiskEntry[] = [];
-    if (g.disk) {
-      const rawDisks = (Array.isArray(g.disk) ? g.disk : [g.disk]) as Record<string, string>[];
-      for (const disk of rawDisks) {
-        if (!disk.name) continue;
-        const diskEntry: DiskEntry = { name: disk.name };
-        if (disk.sha1) diskEntry.sha1 = disk.sha1.toLowerCase();
-        if (disk.md5) diskEntry.md5 = disk.md5.toLowerCase();
-        if (disk.status) diskEntry.status = disk.status;
-        disks.push(diskEntry);
-      }
-    }
-
-    if (roms.length === 0 && disks.length === 0) continue;
-
-    const entry: JsonlLine = {
-      source,
-      system,
-      datVersion,
-      id: gameName,
-      name: (g.description as string) || (g.title as string) || gameName,
-    };
-
-    if (roms.length > 0) entry.roms = roms;
-    if (disks.length > 0) entry.disks = disks;
-
-    if (g.category) entry.category = g.category as string;
-    if (g.cloneof) entry.cloneofid = g.cloneof as string;
-    
-    const desc = (g.description as string) || (g.title as string);
-    if (desc && desc !== gameName) {
-      entry.description = desc;
-    }
-
-    entries.push(entry);
-  }
-
-  return { system, datVersion, entries };
-}
-
-/**
- * Parse a CLRMAMEPro-format DAT file (used by some Redump BIOS datfiles).
- *
- * Format:
- *   clrmamepro ( name "..." description "..." version "..." )
- *   game ( name "..." description "..." rom ( name file.bin size 1234 crc abcd1234 md5 ... sha1 ... ) )
- */
-function parseClrMameProDat(content: string, source: string): {
-  system: string;
-  datVersion: string;
-  entries: JsonlLine[];
-} {
-  const lines = content.split('\n');
-  let system = 'Unknown System';
-  let datVersion = 'unknown';
-  const entries: JsonlLine[] = [];
-
-  // Parse header — find clrmamepro block
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i].trim();
-    if (line.startsWith('clrmamepro')) {
-      // Read header block until closing paren
-      while (i < lines.length) {
-        const hline = lines[i].trim();
-        const nameMatch = hline.match(/^\s*name\s+"(.+)"/);
-        const verMatch = hline.match(/^\s*version\s+(.+)/);
-        if (nameMatch) system = nameMatch[1];
-        if (verMatch) datVersion = verMatch[1].trim();
-        if (hline === ')') break;
-        i++;
-      }
-    }
-
-    if (line === 'game (') {
-      // Parse game block
-      let gameName = '';
-      let gameDesc = '';
-      const roms: RomEntry[] = [];
-
-      i++;
-      while (i < lines.length) {
-        const gline = lines[i].trim();
-        if (gline === ')') break;
-
-        const gNameMatch = gline.match(/^\s*name\s+"(.+)"/);
-        const gDescMatch = gline.match(/^\s*description\s+"(.+)"/);
-        if (gNameMatch) gameName = gNameMatch[1];
-        if (gDescMatch) gameDesc = gDescMatch[1];
-
-        // Parse inline rom — rom ( name file.bin size 1234 crc abcd md5 ... sha1 ... )
-        const romMatch = gline.match(/^\s*rom\s+\(\s*(.+)\s*\)\s*$/);
-        if (romMatch) {
-          const romStr = romMatch[1];
-          const nameM = romStr.match(/name\s+(\S+)/);
-          const sizeM = romStr.match(/size\s+(\d+)/);
-          const crcM = romStr.match(/crc\s+([0-9a-fA-F]+)/);
-          const md5M = romStr.match(/md5\s+([0-9a-fA-F]+)/);
-          const sha1M = romStr.match(/sha1\s+([0-9a-fA-F]+)/);
-
-          if (nameM && sizeM && crcM) {
-            const romEntry: RomEntry = {
-              name: nameM[1],
-              size: parseInt(sizeM[1], 10),
-              crc: crcM[1].toLowerCase(),
-            };
-            if (md5M) romEntry.md5 = md5M[1].toLowerCase();
-            if (sha1M) romEntry.sha1 = sha1M[1].toLowerCase();
-            roms.push(romEntry);
-          }
-        }
-
-        i++;
-      }
-
-      if (gameName && roms.length > 0) {
-        const entry: JsonlLine = {
-          source,
-          system,
-          datVersion,
-          id: gameName,
-          name: gameDesc || gameName,
-          roms,
-        };
-        if (gameDesc && gameDesc !== gameName) {
-          entry.description = gameDesc;
-        }
-        entries.push(entry);
-      }
-    }
-
-    i++;
-  }
-
-  return { system, datVersion, entries };
-}
-
-/**
- * Detect whether a DAT file is CLRMAMEPro format (vs Logiqx XML).
- */
-function isClrMameProFormat(content: string): boolean {
-  // Skip whitespace/blank lines and check first meaningful line
-  const firstLine = content.trimStart().split('\n')[0].trim();
-  return firstLine.startsWith('clrmamepro');
-}
-
-/**
  * Find all .dat, .xml, and .gz files in a directory (non-recursive, flat scan).
- * Returns full paths sorted alphabetically for deterministic output.
  */
 function findDatFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -522,8 +186,8 @@ export async function compileAll(): Promise<CompileResult> {
 
       for (const datPath of datFiles) {
         try {
-          const xmlContent = readTextFile(datPath);
-          const { entries } = parseDat(xmlContent, source);
+          const content = readTextFile(datPath);
+          const { entries } = parseGenericDat(content, source, path.basename(datPath));
           
           for (const entry of entries) {
             if (Math.random() < 0.003 && sampleCount < 1500) {
@@ -603,9 +267,7 @@ export async function compileAll(): Promise<CompileResult> {
       try {
         const fileContent = readTextFile(datPath);
           
-        const { system, datVersion, entries } = isClrMameProFormat(fileContent)
-          ? parseClrMameProDat(fileContent, source)
-          : parseDat(fileContent, source);
+        const { system, datVersion, entries } = parseGenericDat(fileContent, source, path.basename(datPath));
 
         if (entries.length === 0) {
           sourceSkipped++;

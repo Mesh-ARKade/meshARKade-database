@@ -1,0 +1,440 @@
+build	Set up job	﻿2026-04-08T19:48:09.0918539Z Current runner version: '2.333.1'
+build	Set up job	2026-04-08T19:48:09.0951969Z ##[group]Runner Image Provisioner
+build	Set up job	2026-04-08T19:48:09.0953634Z Hosted Compute Agent
+build	Set up job	2026-04-08T19:48:09.0954569Z Version: 20260213.493
+build	Set up job	2026-04-08T19:48:09.0955497Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+build	Set up job	2026-04-08T19:48:09.0956741Z Build Date: 2026-02-13T00:28:41Z
+build	Set up job	2026-04-08T19:48:09.0957842Z Worker ID: {482c0300-6ecf-4530-92c9-ff4631f65c45}
+build	Set up job	2026-04-08T19:48:09.0958874Z Azure Region: eastus2
+build	Set up job	2026-04-08T19:48:09.0959857Z ##[endgroup]
+build	Set up job	2026-04-08T19:48:09.0961970Z ##[group]Operating System
+build	Set up job	2026-04-08T19:48:09.0962890Z Ubuntu
+build	Set up job	2026-04-08T19:48:09.0963765Z 24.04.4
+build	Set up job	2026-04-08T19:48:09.0964569Z LTS
+build	Set up job	2026-04-08T19:48:09.0965347Z ##[endgroup]
+build	Set up job	2026-04-08T19:48:09.0966260Z ##[group]Runner Image
+build	Set up job	2026-04-08T19:48:09.0967171Z Image: ubuntu-24.04
+build	Set up job	2026-04-08T19:48:09.0967956Z Version: 20260406.80.1
+build	Set up job	2026-04-08T19:48:09.0970619Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260406.80/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2026-04-08T19:48:09.0973304Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260406.80
+build	Set up job	2026-04-08T19:48:09.0974780Z ##[endgroup]
+build	Set up job	2026-04-08T19:48:09.0976563Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2026-04-08T19:48:09.0979359Z Contents: write
+build	Set up job	2026-04-08T19:48:09.0980451Z Metadata: read
+build	Set up job	2026-04-08T19:48:09.0981401Z PullRequests: write
+build	Set up job	2026-04-08T19:48:09.0982265Z ##[endgroup]
+build	Set up job	2026-04-08T19:48:09.0985569Z Secret source: Actions
+build	Set up job	2026-04-08T19:48:09.0987113Z Prepare workflow directory
+build	Set up job	2026-04-08T19:48:09.1507088Z Prepare all required actions
+build	Set up job	2026-04-08T19:48:09.1560985Z Getting action download info
+build	Set up job	2026-04-08T19:48:09.4974718Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+build	Set up job	2026-04-08T19:48:09.5996078Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+build	Set up job	2026-04-08T19:48:09.7883890Z Complete job name: build
+build	Discord notification (started)	﻿2026-04-08T19:48:09.8563692Z ##[group]Run RUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/24155174892"
+build	Discord notification (started)	2026-04-08T19:48:09.8565088Z [36;1mRUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/24155174892"[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8566086Z [36;1mcurl -s -H "Content-Type: application/json" -d "{[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8566731Z [36;1m  \"embeds\": [{[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8567255Z [36;1m    \"title\": \"Build Catalog Started\",[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8568226Z [36;1m    \"description\": \"Branch: \`${GITHUB_REF_NAME}\` · Commit: \`${GITHUB_SHA::7}\`\n[View run](${RUN_URL})\",[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8569160Z [36;1m    \"color\": 16776960[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8569664Z [36;1m  }][0m
+build	Discord notification (started)	2026-04-08T19:48:09.8570089Z [36;1m}" "$DISCORD_WEBHOOK_URL"[0m
+build	Discord notification (started)	2026-04-08T19:48:09.8596441Z shell: /usr/bin/bash -e {0}
+build	Discord notification (started)	2026-04-08T19:48:09.8597206Z env:
+build	Discord notification (started)	2026-04-08T19:48:09.8597650Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Discord notification (started)	2026-04-08T19:48:09.8599016Z   DISCORD_WEBHOOK_URL: ***
+build	Discord notification (started)	2026-04-08T19:48:09.8599566Z ##[endgroup]
+build	Checkout repository	﻿2026-04-08T19:48:10.1214306Z ##[group]Run actions/checkout@v4
+build	Checkout repository	2026-04-08T19:48:10.1215528Z with:
+build	Checkout repository	2026-04-08T19:48:10.1216467Z   repository: Mesh-ARKade/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:10.1218013Z   token: ***
+build	Checkout repository	2026-04-08T19:48:10.1218904Z   ssh-strict: true
+build	Checkout repository	2026-04-08T19:48:10.1219801Z   ssh-user: git
+build	Checkout repository	2026-04-08T19:48:10.1220991Z   persist-credentials: true
+build	Checkout repository	2026-04-08T19:48:10.1222033Z   clean: true
+build	Checkout repository	2026-04-08T19:48:10.1222954Z   sparse-checkout-cone-mode: true
+build	Checkout repository	2026-04-08T19:48:10.1224060Z   fetch-depth: 1
+build	Checkout repository	2026-04-08T19:48:10.1224936Z   fetch-tags: false
+build	Checkout repository	2026-04-08T19:48:10.1225840Z   show-progress: true
+build	Checkout repository	2026-04-08T19:48:10.1226779Z   lfs: false
+build	Checkout repository	2026-04-08T19:48:10.1227702Z   submodules: false
+build	Checkout repository	2026-04-08T19:48:10.1228639Z   set-safe-directory: true
+build	Checkout repository	2026-04-08T19:48:10.1229620Z env:
+build	Checkout repository	2026-04-08T19:48:10.1230593Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Checkout repository	2026-04-08T19:48:10.1231792Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:10.2214095Z Syncing repository: Mesh-ARKade/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:10.2216920Z ##[group]Getting Git version info
+build	Checkout repository	2026-04-08T19:48:10.2219300Z Working directory is '/home/runner/work/meshARKade-database/meshARKade-database'
+build	Checkout repository	2026-04-08T19:48:10.2221745Z [command]/usr/bin/git version
+build	Checkout repository	2026-04-08T19:48:10.2248902Z git version 2.53.0
+build	Checkout repository	2026-04-08T19:48:10.2268207Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:10.2283291Z Temporarily overriding HOME='/home/runner/work/_temp/33b0e2b0-c03c-40ce-84eb-1b3d3992d435' before making global git config changes
+build	Checkout repository	2026-04-08T19:48:10.2286341Z Adding repository directory to the temporary git global config as a safe directory
+build	Checkout repository	2026-04-08T19:48:10.2289856Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/meshARKade-database/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:10.2322288Z Deleting the contents of '/home/runner/work/meshARKade-database/meshARKade-database'
+build	Checkout repository	2026-04-08T19:48:10.2326119Z ##[group]Initializing the repository
+build	Checkout repository	2026-04-08T19:48:10.2330684Z [command]/usr/bin/git init /home/runner/work/meshARKade-database/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:10.2422158Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Checkout repository	2026-04-08T19:48:10.2425539Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build	Checkout repository	2026-04-08T19:48:10.2428145Z hint: to use in all of your new repositories, which will suppress this warning,
+build	Checkout repository	2026-04-08T19:48:10.2430467Z hint: call:
+build	Checkout repository	2026-04-08T19:48:10.2432162Z hint:
+build	Checkout repository	2026-04-08T19:48:10.2433740Z hint: 	git config --global init.defaultBranch <name>
+build	Checkout repository	2026-04-08T19:48:10.2435213Z hint:
+build	Checkout repository	2026-04-08T19:48:10.2437184Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Checkout repository	2026-04-08T19:48:10.2440679Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Checkout repository	2026-04-08T19:48:10.2442328Z hint:
+build	Checkout repository	2026-04-08T19:48:10.2443129Z hint: 	git branch -m <name>
+build	Checkout repository	2026-04-08T19:48:10.2444076Z hint:
+build	Checkout repository	2026-04-08T19:48:10.2445343Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Checkout repository	2026-04-08T19:48:10.2448822Z Initialized empty Git repository in /home/runner/work/meshARKade-database/meshARKade-database/.git/
+build	Checkout repository	2026-04-08T19:48:10.2453086Z [command]/usr/bin/git remote add origin https://github.com/Mesh-ARKade/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:10.2470869Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:10.2473337Z ##[group]Disabling automatic garbage collection
+build	Checkout repository	2026-04-08T19:48:10.2475464Z [command]/usr/bin/git config --local gc.auto 0
+build	Checkout repository	2026-04-08T19:48:10.2506161Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:10.2508280Z ##[group]Setting up auth
+build	Checkout repository	2026-04-08T19:48:10.2513265Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Checkout repository	2026-04-08T19:48:10.2549444Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Checkout repository	2026-04-08T19:48:10.2846374Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Checkout repository	2026-04-08T19:48:10.2878160Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Checkout repository	2026-04-08T19:48:10.3105460Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Checkout repository	2026-04-08T19:48:10.3137572Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Checkout repository	2026-04-08T19:48:10.3367068Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Checkout repository	2026-04-08T19:48:10.3401996Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:10.3403399Z ##[group]Fetching the repository
+build	Checkout repository	2026-04-08T19:48:10.3411297Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +56a6b0edb0b32e698773c1993fbdacdced40bc39:refs/remotes/origin/main
+build	Checkout repository	2026-04-08T19:48:27.7451092Z From https://github.com/Mesh-ARKade/meshARKade-database
+build	Checkout repository	2026-04-08T19:48:27.7452080Z  * [new ref]         56a6b0edb0b32e698773c1993fbdacdced40bc39 -> origin/main
+build	Checkout repository	2026-04-08T19:48:27.7479845Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:27.7481223Z ##[group]Determining the checkout info
+build	Checkout repository	2026-04-08T19:48:27.7482798Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:27.7488316Z [command]/usr/bin/git sparse-checkout disable
+build	Checkout repository	2026-04-08T19:48:27.7525809Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Checkout repository	2026-04-08T19:48:27.7553603Z ##[group]Checking out the ref
+build	Checkout repository	2026-04-08T19:48:27.7557672Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build	Checkout repository	2026-04-08T19:48:28.8956760Z Updating files:   6% (656/10892)
+build	Checkout repository	2026-04-08T19:48:28.9691454Z Updating files:   7% (763/10892)
+build	Checkout repository	2026-04-08T19:48:29.4348955Z Updating files:   8% (872/10892)
+build	Checkout repository	2026-04-08T19:48:29.4647253Z Updating files:   9% (981/10892)
+build	Checkout repository	2026-04-08T19:48:29.7788130Z Updating files:  10% (1090/10892)
+build	Checkout repository	2026-04-08T19:48:29.7801544Z Updating files:  10% (1198/10892)
+build	Checkout repository	2026-04-08T19:48:30.2177009Z Updating files:  11% (1199/10892)
+build	Checkout repository	2026-04-08T19:48:30.5896087Z Updating files:  12% (1308/10892)
+build	Checkout repository	2026-04-08T19:48:30.5942478Z Updating files:  13% (1416/10892)
+build	Checkout repository	2026-04-08T19:48:30.6013560Z Updating files:  14% (1525/10892)
+build	Checkout repository	2026-04-08T19:48:30.6138746Z Updating files:  15% (1634/10892)
+build	Checkout repository	2026-04-08T19:48:30.6266844Z Updating files:  16% (1743/10892)
+build	Checkout repository	2026-04-08T19:48:30.6384332Z Updating files:  17% (1852/10892)
+build	Checkout repository	2026-04-08T19:48:30.6436814Z Updating files:  18% (1961/10892)
+build	Checkout repository	2026-04-08T19:48:30.6762872Z Updating files:  19% (2070/10892)
+build	Checkout repository	2026-04-08T19:48:30.6821339Z Updating files:  20% (2179/10892)
+build	Checkout repository	2026-04-08T19:48:30.6880463Z Updating files:  21% (2288/10892)
+build	Checkout repository	2026-04-08T19:48:30.7002606Z Updating files:  22% (2397/10892)
+build	Checkout repository	2026-04-08T19:48:30.7102371Z Updating files:  23% (2506/10892)
+build	Checkout repository	2026-04-08T19:48:30.7317250Z Updating files:  24% (2615/10892)
+build	Checkout repository	2026-04-08T19:48:30.7371953Z Updating files:  25% (2723/10892)
+build	Checkout repository	2026-04-08T19:48:30.7653659Z Updating files:  26% (2832/10892)
+build	Checkout repository	2026-04-08T19:48:30.7751161Z Updating files:  26% (2908/10892)
+build	Checkout repository	2026-04-08T19:48:30.8071289Z Updating files:  27% (2941/10892)
+build	Checkout repository	2026-04-08T19:48:30.8138949Z Updating files:  28% (3050/10892)
+build	Checkout repository	2026-04-08T19:48:30.8205005Z Updating files:  29% (3159/10892)
+build	Checkout repository	2026-04-08T19:48:30.8258609Z Updating files:  30% (3268/10892)
+build	Checkout repository	2026-04-08T19:48:30.8404325Z Updating files:  31% (3377/10892)
+build	Checkout repository	2026-04-08T19:48:30.8701271Z Updating files:  32% (3486/10892)
+build	Checkout repository	2026-04-08T19:48:30.9602946Z Updating files:  33% (3595/10892)
+build	Checkout repository	2026-04-08T19:48:30.9669761Z Updating files:  34% (3704/10892)
+build	Checkout repository	2026-04-08T19:48:30.9744238Z Updating files:  35% (3813/10892)
+build	Checkout repository	2026-04-08T19:48:30.9796517Z Updating files:  36% (3922/10892)
+build	Checkout repository	2026-04-08T19:48:31.0050888Z Updating files:  37% (4031/10892)
+build	Checkout repository	2026-04-08T19:48:31.0846554Z Updating files:  38% (4139/10892)
+build	Checkout repository	2026-04-08T19:48:31.2405294Z Updating files:  39% (4248/10892)
+build	Checkout repository	2026-04-08T19:48:31.2937892Z Updating files:  40% (4357/10892)
+build	Checkout repository	2026-04-08T19:48:31.4441344Z Updating files:  41% (4466/10892)
+build	Checkout repository	2026-04-08T19:48:31.4825068Z Updating files:  42% (4575/10892)
+build	Checkout repository	2026-04-08T19:48:31.5821078Z Updating files:  43% (4684/10892)
+build	Checkout repository	2026-04-08T19:48:31.6430567Z Updating files:  44% (4793/10892)
+build	Checkout repository	2026-04-08T19:48:31.6964753Z Updating files:  45% (4902/10892)
+build	Checkout repository	2026-04-08T19:48:31.7070540Z Updating files:  46% (5011/10892)
+build	Checkout repository	2026-04-08T19:48:31.7121499Z Updating files:  47% (5120/10892)
+build	Checkout repository	2026-04-08T19:48:31.7173897Z Updating files:  48% (5229/10892)
+build	Checkout repository	2026-04-08T19:48:31.7231494Z Updating files:  49% (5338/10892)
+build	Checkout repository	2026-04-08T19:48:31.7326567Z Updating files:  50% (5446/10892)
+build	Checkout repository	2026-04-08T19:48:31.7380756Z Updating files:  51% (5555/10892)
+build	Checkout repository	2026-04-08T19:48:31.7441527Z Updating files:  52% (5664/10892)
+build	Checkout repository	2026-04-08T19:48:31.7493444Z Updating files:  53% (5773/10892)
+build	Checkout repository	2026-04-08T19:48:31.8012821Z Updating files:  54% (5882/10892)
+build	Checkout repository	2026-04-08T19:48:31.8223038Z Updating files:  54% (5888/10892)
+build	Checkout repository	2026-04-08T19:48:31.8553993Z Updating files:  55% (5991/10892)
+build	Checkout repository	2026-04-08T19:48:31.8622920Z Updating files:  56% (6100/10892)
+build	Checkout repository	2026-04-08T19:48:31.8744719Z Updating files:  57% (6209/10892)
+build	Checkout repository	2026-04-08T19:48:31.8922201Z Updating files:  58% (6318/10892)
+build	Checkout repository	2026-04-08T19:48:31.8980643Z Updating files:  59% (6427/10892)
+build	Checkout repository	2026-04-08T19:48:31.9041765Z Updating files:  60% (6536/10892)
+build	Checkout repository	2026-04-08T19:48:31.9183568Z Updating files:  61% (6645/10892)
+build	Checkout repository	2026-04-08T19:48:31.9229947Z Updating files:  62% (6754/10892)
+build	Checkout repository	2026-04-08T19:48:31.9287612Z Updating files:  63% (6862/10892)
+build	Checkout repository	2026-04-08T19:48:31.9352684Z Updating files:  64% (6971/10892)
+build	Checkout repository	2026-04-08T19:48:31.9422381Z Updating files:  65% (7080/10892)
+build	Checkout repository	2026-04-08T19:48:31.9509913Z Updating files:  66% (7189/10892)
+build	Checkout repository	2026-04-08T19:48:31.9585694Z Updating files:  67% (7298/10892)
+build	Checkout repository	2026-04-08T19:48:31.9655296Z Updating files:  68% (7407/10892)
+build	Checkout repository	2026-04-08T19:48:31.9713303Z Updating files:  69% (7516/10892)
+build	Checkout repository	2026-04-08T19:48:31.9815047Z Updating files:  70% (7625/10892)
+build	Checkout repository	2026-04-08T19:48:32.0001903Z Updating files:  71% (7734/10892)
+build	Checkout repository	2026-04-08T19:48:32.0056873Z Updating files:  72% (7843/10892)
+build	Checkout repository	2026-04-08T19:48:32.0307295Z Updating files:  73% (7952/10892)
+build	Checkout repository	2026-04-08T19:48:32.0484786Z Updating files:  74% (8061/10892)
+build	Checkout repository	2026-04-08T19:48:32.0638760Z Updating files:  75% (8169/10892)
+build	Checkout repository	2026-04-08T19:48:32.0709438Z Updating files:  76% (8278/10892)
+build	Checkout repository	2026-04-08T19:48:32.0776396Z Updating files:  77% (8387/10892)
+build	Checkout repository	2026-04-08T19:48:32.0875933Z Updating files:  78% (8496/10892)
+build	Checkout repository	2026-04-08T19:48:32.0933144Z Updating files:  79% (8605/10892)
+build	Checkout repository	2026-04-08T19:48:32.1089894Z Updating files:  80% (8714/10892)
+build	Checkout repository	2026-04-08T19:48:32.1316919Z Updating files:  81% (8823/10892)
+build	Checkout repository	2026-04-08T19:48:32.1443948Z Updating files:  82% (8932/10892)
+build	Checkout repository	2026-04-08T19:48:32.1543698Z Updating files:  83% (9041/10892)
+build	Checkout repository	2026-04-08T19:48:32.1735179Z Updating files:  84% (9150/10892)
+build	Checkout repository	2026-04-08T19:48:32.1957829Z Updating files:  85% (9259/10892)
+build	Checkout repository	2026-04-08T19:48:32.2806654Z Updating files:  86% (9368/10892)
+build	Checkout repository	2026-04-08T19:48:32.2976978Z Updating files:  87% (9477/10892)
+build	Checkout repository	2026-04-08T19:48:32.3033508Z Updating files:  88% (9585/10892)
+build	Checkout repository	2026-04-08T19:48:32.3098137Z Updating files:  89% (9694/10892)
+build	Checkout repository	2026-04-08T19:48:32.3177383Z Updating files:  90% (9803/10892)
+build	Checkout repository	2026-04-08T19:48:32.3283102Z Updating files:  91% (9912/10892)
+build	Checkout repository	2026-04-08T19:48:32.3617896Z Updating files:  92% (10021/10892)
+build	Checkout repository	2026-04-08T19:48:32.3694077Z Updating files:  93% (10130/10892)
+build	Checkout repository	2026-04-08T19:48:32.3853093Z Updating files:  94% (10239/10892)
+build	Checkout repository	2026-04-08T19:48:32.4109126Z Updating files:  95% (10348/10892)
+build	Checkout repository	2026-04-08T19:48:32.4167928Z Updating files:  96% (10457/10892)
+build	Checkout repository	2026-04-08T19:48:32.4214115Z Updating files:  97% (10566/10892)
+build	Checkout repository	2026-04-08T19:48:32.4267232Z Updating files:  98% (10675/10892)
+build	Checkout repository	2026-04-08T19:48:32.4323100Z Updating files:  99% (10784/10892)
+build	Checkout repository	2026-04-08T19:48:32.4323571Z Updating files: 100% (10892/10892)
+build	Checkout repository	2026-04-08T19:48:32.4323982Z Updating files: 100% (10892/10892), done.
+build	Checkout repository	2026-04-08T19:48:32.4525500Z Switched to a new branch 'main'
+build	Checkout repository	2026-04-08T19:48:32.4526070Z branch 'main' set up to track 'origin/main'.
+build	Checkout repository	2026-04-08T19:48:32.4659994Z ##[endgroup]
+build	Checkout repository	2026-04-08T19:48:32.4707133Z [command]/usr/bin/git log -1 --format=%H
+build	Checkout repository	2026-04-08T19:48:32.4731326Z 56a6b0edb0b32e698773c1993fbdacdced40bc39
+build	Setup Node.js	﻿2026-04-08T19:48:32.4918496Z ##[group]Run actions/setup-node@v4
+build	Setup Node.js	2026-04-08T19:48:32.4918763Z with:
+build	Setup Node.js	2026-04-08T19:48:32.4918969Z   node-version-file: .nvmrc
+build	Setup Node.js	2026-04-08T19:48:32.4919229Z   always-auth: false
+build	Setup Node.js	2026-04-08T19:48:32.4919433Z   check-latest: false
+build	Setup Node.js	2026-04-08T19:48:32.4919779Z   token: ***
+build	Setup Node.js	2026-04-08T19:48:32.4919969Z env:
+build	Setup Node.js	2026-04-08T19:48:32.4920172Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Setup Node.js	2026-04-08T19:48:32.4920652Z ##[endgroup]
+build	Setup Node.js	2026-04-08T19:48:32.6203010Z Resolved .nvmrc as 22
+build	Setup Node.js	2026-04-08T19:48:32.6262841Z Found in cache @ /opt/hostedtoolcache/node/22.22.2/x64
+build	Setup Node.js	2026-04-08T19:48:32.6266658Z (node:2305) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build	Setup Node.js	2026-04-08T19:48:32.6267678Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build	Setup Node.js	2026-04-08T19:48:32.6269744Z ##[group]Environment details
+build	Setup Node.js	2026-04-08T19:48:32.9219753Z node: v22.22.2
+build	Setup Node.js	2026-04-08T19:48:32.9220143Z npm: 10.9.7
+build	Setup Node.js	2026-04-08T19:48:32.9220538Z yarn: 1.22.22
+build	Setup Node.js	2026-04-08T19:48:32.9221276Z ##[endgroup]
+build	Install dependencies	﻿2026-04-08T19:48:32.9372787Z ##[group]Run npm install
+build	Install dependencies	2026-04-08T19:48:32.9373221Z [36;1mnpm install[0m
+build	Install dependencies	2026-04-08T19:48:32.9406113Z shell: /usr/bin/bash -e {0}
+build	Install dependencies	2026-04-08T19:48:32.9406372Z env:
+build	Install dependencies	2026-04-08T19:48:32.9406583Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Install dependencies	2026-04-08T19:48:32.9406876Z ##[endgroup]
+build	Install dependencies	2026-04-08T19:48:47.2195553Z 
+build	Install dependencies	2026-04-08T19:48:47.2205936Z added 83 packages, and audited 84 packages in 14s
+build	Install dependencies	2026-04-08T19:48:47.2206269Z 
+build	Install dependencies	2026-04-08T19:48:47.2206449Z 25 packages are looking for funding
+build	Install dependencies	2026-04-08T19:48:47.2206759Z   run `npm fund` for details
+build	Install dependencies	2026-04-08T19:48:47.2207880Z 
+build	Install dependencies	2026-04-08T19:48:47.2208079Z found 0 vulnerabilities
+build	Install zstd	﻿2026-04-08T19:48:47.2750994Z ##[group]Run sudo apt-get update && sudo apt-get install -y zstd
+build	Install zstd	2026-04-08T19:48:47.2751488Z [36;1msudo apt-get update && sudo apt-get install -y zstd[0m
+build	Install zstd	2026-04-08T19:48:47.2774777Z shell: /usr/bin/bash -e {0}
+build	Install zstd	2026-04-08T19:48:47.2775026Z env:
+build	Install zstd	2026-04-08T19:48:47.2775236Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Install zstd	2026-04-08T19:48:47.2775515Z ##[endgroup]
+build	Install zstd	2026-04-08T19:48:47.3482252Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+build	Install zstd	2026-04-08T19:48:47.3787423Z Get:6 https://packages.microsoft.com/repos/azure-cli noble InRelease [3564 B]
+build	Install zstd	2026-04-08T19:48:47.3881299Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+build	Install zstd	2026-04-08T19:48:47.4583981Z Get:8 https://packages.microsoft.com/repos/azure-cli noble/main amd64 Packages [2135 B]
+build	Install zstd	2026-04-08T19:48:47.4693498Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+build	Install zstd	2026-04-08T19:48:47.4709413Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+build	Install zstd	2026-04-08T19:48:47.4736453Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+build	Install zstd	2026-04-08T19:48:47.4756885Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+build	Install zstd	2026-04-08T19:48:47.5167572Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [89.7 kB]
+build	Install zstd	2026-04-08T19:48:47.5220464Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [113 kB]
+build	Install zstd	2026-04-08T19:48:47.6216742Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1876 kB]
+build	Install zstd	2026-04-08T19:48:47.6336357Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [342 kB]
+build	Install zstd	2026-04-08T19:48:47.6361560Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [177 kB]
+build	Install zstd	2026-04-08T19:48:47.6377069Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [16.9 kB]
+build	Install zstd	2026-04-08T19:48:47.6385970Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1663 kB]
+build	Install zstd	2026-04-08T19:48:47.6554728Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [386 kB]
+build	Install zstd	2026-04-08T19:48:47.6580043Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [34.2 kB]
+build	Install zstd	2026-04-08T19:48:47.6588172Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2900 kB]
+build	Install zstd	2026-04-08T19:48:47.6777170Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [673 kB]
+build	Install zstd	2026-04-08T19:48:47.6779093Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+build	Install zstd	2026-04-08T19:48:47.7214639Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+build	Install zstd	2026-04-08T19:48:47.7229072Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7380 B]
+build	Install zstd	2026-04-08T19:48:47.7240532Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [13.2 kB]
+build	Install zstd	2026-04-08T19:48:47.7246237Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
+build	Install zstd	2026-04-08T19:48:47.7289000Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+build	Install zstd	2026-04-08T19:48:47.7300789Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1578 kB]
+build	Install zstd	2026-04-08T19:48:47.7380099Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [252 kB]
+build	Install zstd	2026-04-08T19:48:47.7399472Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [21.5 kB]
+build	Install zstd	2026-04-08T19:48:47.7408533Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [10.7 kB]
+build	Install zstd	2026-04-08T19:48:47.7419171Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1167 kB]
+build	Install zstd	2026-04-08T19:48:47.7494282Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [74.2 kB]
+build	Install zstd	2026-04-08T19:48:47.7506736Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2763 kB]
+build	Install zstd	2026-04-08T19:48:47.7648465Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [644 kB]
+build	Install zstd	2026-04-08T19:48:47.7683197Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
+build	Install zstd	2026-04-08T19:48:47.8133583Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [212 B]
+build	Install zstd	2026-04-08T19:48:56.2296923Z Fetched 15.2 MB in 2s (8136 kB/s)
+build	Install zstd	2026-04-08T19:48:56.9750710Z Reading package lists...
+build	Install zstd	2026-04-08T19:48:57.0080037Z Reading package lists...
+build	Install zstd	2026-04-08T19:48:57.1826746Z Building dependency tree...
+build	Install zstd	2026-04-08T19:48:57.1833864Z Reading state information...
+build	Install zstd	2026-04-08T19:48:57.3821495Z zstd is already the newest version (1.5.5+dfsg2-2build1.1).
+build	Install zstd	2026-04-08T19:48:57.3822199Z zstd set to manually installed.
+build	Install zstd	2026-04-08T19:48:57.3822858Z 0 upgraded, 0 newly installed, 0 to remove and 19 not upgraded.
+build	Validate TypeScript	﻿2026-04-08T19:48:57.3867034Z ##[group]Run npm run validate
+build	Validate TypeScript	2026-04-08T19:48:57.3867330Z [36;1mnpm run validate[0m
+build	Validate TypeScript	2026-04-08T19:48:57.3889080Z shell: /usr/bin/bash -e {0}
+build	Validate TypeScript	2026-04-08T19:48:57.3889319Z env:
+build	Validate TypeScript	2026-04-08T19:48:57.3889522Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Validate TypeScript	2026-04-08T19:48:57.3889791Z ##[endgroup]
+build	Validate TypeScript	2026-04-08T19:48:57.4831251Z 
+build	Validate TypeScript	2026-04-08T19:48:57.4831846Z > mesharkade-database@0.1.0 validate
+build	Validate TypeScript	2026-04-08T19:48:57.4832225Z > tsc --noEmit
+build	Validate TypeScript	2026-04-08T19:48:57.4832366Z 
+build	Run tests	﻿2026-04-08T19:48:58.4884572Z ##[group]Run npm test
+build	Run tests	2026-04-08T19:48:58.4884847Z [36;1mnpm test[0m
+build	Run tests	2026-04-08T19:48:58.4907125Z shell: /usr/bin/bash -e {0}
+build	Run tests	2026-04-08T19:48:58.4907374Z env:
+build	Run tests	2026-04-08T19:48:58.4907583Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Run tests	2026-04-08T19:48:58.4907852Z ##[endgroup]
+build	Run tests	2026-04-08T19:48:58.5925609Z 
+build	Run tests	2026-04-08T19:48:58.5926255Z > mesharkade-database@0.1.0 test
+build	Run tests	2026-04-08T19:48:58.5926754Z > vitest run
+build	Run tests	2026-04-08T19:48:58.5926949Z 
+build	Run tests	2026-04-08T19:48:58.8884209Z 
+build	Run tests	2026-04-08T19:48:58.8888289Z [1m[46m RUN [49m[22m [36mv4.1.3 [39m[90m/home/runner/work/meshARKade-database/meshARKade-database[39m
+build	Run tests	2026-04-08T19:48:58.8889028Z 
+build	Run tests	2026-04-08T19:48:59.1740479Z  [32m✓[39m test/grouping.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+build	Run tests	2026-04-08T19:48:59.2711111Z  [32m✓[39m test/schemas.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+build	Run tests	2026-04-08T19:48:59.2733752Z 
+build	Run tests	2026-04-08T19:48:59.2738144Z [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+build	Run tests	2026-04-08T19:48:59.2739350Z [2m      Tests [22m [1m[32m14 passed[39m[22m[90m (14)[39m
+build	Run tests	2026-04-08T19:48:59.2740102Z [2m   Start at [22m 19:48:58
+build	Run tests	2026-04-08T19:48:59.2743447Z [2m   Duration [22m 337ms[2m (transform 155ms, setup 0ms, import 300ms, tests 15ms, environment 0ms)[22m
+build	Run tests	2026-04-08T19:48:59.2745393Z 
+build	Build TypeScript	﻿2026-04-08T19:48:59.3049859Z ##[group]Run npm run build
+build	Build TypeScript	2026-04-08T19:48:59.3050151Z [36;1mnpm run build[0m
+build	Build TypeScript	2026-04-08T19:48:59.3075910Z shell: /usr/bin/bash -e {0}
+build	Build TypeScript	2026-04-08T19:48:59.3076149Z env:
+build	Build TypeScript	2026-04-08T19:48:59.3076364Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Build TypeScript	2026-04-08T19:48:59.3076640Z ##[endgroup]
+build	Build TypeScript	2026-04-08T19:48:59.4114995Z 
+build	Build TypeScript	2026-04-08T19:48:59.4115570Z > mesharkade-database@0.1.0 build
+build	Build TypeScript	2026-04-08T19:48:59.4116060Z > tsc
+build	Build TypeScript	2026-04-08T19:48:59.4116228Z 
+build	Compile DAT files	﻿2026-04-08T19:49:00.4358549Z ##[group]Run npm run compile 2>&1 | tee /tmp/compile.log
+build	Compile DAT files	2026-04-08T19:49:00.4358954Z [36;1mnpm run compile 2>&1 | tee /tmp/compile.log[0m
+build	Compile DAT files	2026-04-08T19:49:00.4381374Z shell: /usr/bin/bash -e {0}
+build	Compile DAT files	2026-04-08T19:49:00.4381805Z env:
+build	Compile DAT files	2026-04-08T19:49:00.4382014Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Compile DAT files	2026-04-08T19:49:00.4382299Z ##[endgroup]
+build	Compile DAT files	2026-04-08T19:49:00.5342850Z 
+build	Compile DAT files	2026-04-08T19:49:00.5343443Z > mesharkade-database@0.1.0 compile
+build	Compile DAT files	2026-04-08T19:49:00.5343853Z > node dist/scripts/compile.js
+build	Compile DAT files	2026-04-08T19:49:00.5344042Z 
+build	Compile DAT files	2026-04-08T19:49:00.5839145Z [compile] Dictionary not found. Training new dictionary...
+build	Compile DAT files	2026-04-08T19:52:17.9923170Z [compile] Training zstd dictionary on 1500 samples...
+build	Compile DAT files	2026-04-08T19:52:18.0346122Z Loading output/zstd-samples/sample_836.jsonl...       
+build	Compile DAT files	2026-04-08T19:52:18.0346446Z 
+build	Compile DAT files	2026-04-08T19:52:18.0346628Z                                                                                
+build	Compile DAT files	2026-04-08T19:52:18.0347238Z Trying 5 different sets of parameters
+build	Compile DAT files	2026-04-08T19:52:18.0379018Z WARNING: The maximum dictionary size 112640 is too large compared to the source size 1051201! size(source)/size(dictionary) = 9.332395, but it should be >= 10! This may lead to a subpar dictionary! We recommend training on sources at least 10x, and preferably 100x the size of the dictionary! 
+build	Compile DAT files	2026-04-08T19:52:18.1376900Z 
+build	Compile DAT files	2026-04-08T19:52:18.1377949Z                                                                                
+build	Compile DAT files	2026-04-08T19:52:18.1378543Z k=537
+build	Compile DAT files	2026-04-08T19:52:18.1378804Z d=8
+build	Compile DAT files	2026-04-08T19:52:18.1379083Z f=20
+build	Compile DAT files	2026-04-08T19:52:18.1379330Z steps=4
+build	Compile DAT files	2026-04-08T19:52:18.1379598Z split=75
+build	Compile DAT files	2026-04-08T19:52:18.1379831Z accel=1
+build	Compile DAT files	2026-04-08T19:52:18.1380506Z Save dictionary of size 112640 into file input/catalog.dict 
+build	Compile DAT files	2026-04-08T19:52:18.1396534Z [compile] Successfully trained dictionary at input/catalog.dict
+build	Compile DAT files	2026-04-08T19:52:18.1858771Z [compile] Loaded dictionary catalog.dict (112640 bytes)
+build	Compile DAT files	2026-04-08T19:53:05.1978450Z [compile] no-intro: 744/760 DATs (16 skipped)
+build	Compile DAT files	2026-04-08T19:54:27.3610670Z [compile] tosec: 9486/9486 DATs (0 skipped)
+build	Compile DAT files	2026-04-08T19:55:00.4438176Z 
+build	Compile DAT files	2026-04-08T19:55:00.4439114Z <--- Last few GCs --->
+build	Compile DAT files	2026-04-08T19:55:00.4439423Z 
+build	Compile DAT files	2026-04-08T19:55:00.4440953Z [2848:0x7ce9000]   357964 ms: Mark-Compact 3903.6 (4133.2) -> 3889.2 (4134.7) MB, pooled: 0 MB, 1892.59 / 0.00 ms  (average mu = 0.070, current mu = 0.011) allocation failure; scavenge might not succeed
+build	Compile DAT files	2026-04-08T19:55:00.4443370Z [2848:0x7ce9000]   359899 ms: Mark-Compact 3904.9 (4134.7) -> 3890.4 (4136.0) MB, pooled: 0 MB, 1907.43 / 0.00 ms  (average mu = 0.043, current mu = 0.014) allocation failure; scavenge might not succeed
+build	Compile DAT files	2026-04-08T19:55:00.4444412Z 
+build	Compile DAT files	2026-04-08T19:55:00.4444423Z 
+build	Compile DAT files	2026-04-08T19:55:00.4444598Z <--- JS stacktrace --->
+build	Compile DAT files	2026-04-08T19:55:00.4444827Z 
+build	Compile DAT files	2026-04-08T19:55:00.4445554Z FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+build	Compile DAT files	2026-04-08T19:55:00.4446452Z ----- Native stack trace -----
+build	Compile DAT files	2026-04-08T19:55:00.4446722Z 
+build	Compile DAT files	2026-04-08T19:55:00.4447208Z  1: 0xe42d60 node::OOMErrorHandler(char const*, v8::OOMDetails const&) [node]
+build	Compile DAT files	2026-04-08T19:55:00.4448346Z  2: 0x121ded0 v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [node]
+build	Compile DAT files	2026-04-08T19:55:00.4459248Z  3: 0x121e1a7 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [node]
+build	Compile DAT files	2026-04-08T19:55:00.4460126Z  4: 0x144d015  [node]
+build	Compile DAT files	2026-04-08T19:55:00.4461186Z  5: 0x144d043  [node]
+build	Compile DAT files	2026-04-08T19:55:00.4470997Z  6: 0x146611a  [node]
+build	Compile DAT files	2026-04-08T19:55:00.4487613Z  7: 0x14692e8  [node]
+build	Compile DAT files	2026-04-08T19:55:00.4487978Z  8: 0x1cd07a1  [node]
+build	Compile DAT files	2026-04-08T19:55:31.8942863Z Aborted (core dumped)
+build	Sign manifest	﻿2026-04-08T19:55:31.9126726Z ##[group]Run # Release tag: meshARKade-metadats-{YYYYMMDD-HHMMSS}
+build	Sign manifest	2026-04-08T19:55:31.9127202Z [36;1m# Release tag: meshARKade-metadats-{YYYYMMDD-HHMMSS}[0m
+build	Sign manifest	2026-04-08T19:55:31.9127679Z [36;1m# Unique per run — no overwrites, each release is a point-in-time snapshot.[0m
+build	Sign manifest	2026-04-08T19:55:31.9128174Z [36;1m# Clients discover the latest via the GitHub Releases API.[0m
+build	Sign manifest	2026-04-08T19:55:31.9128580Z [36;1mTAG="meshARKade-metadats-$(date -u +%Y%m%d-%H%M%S)"[0m
+build	Sign manifest	2026-04-08T19:55:31.9128904Z [36;1mnpm run sign -- "$TAG"[0m
+build	Sign manifest	2026-04-08T19:55:31.9129386Z [36;1mecho "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"[0m
+build	Sign manifest	2026-04-08T19:55:31.9445306Z shell: /usr/bin/bash -e {0}
+build	Sign manifest	2026-04-08T19:55:31.9445575Z env:
+build	Sign manifest	2026-04-08T19:55:31.9445786Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Sign manifest	2026-04-08T19:55:31.9446899Z   MESH_SIGNING_KEY: ***
+build	Sign manifest	2026-04-08T19:55:31.9447123Z ##[endgroup]
+build	Sign manifest	2026-04-08T19:55:32.0444149Z 
+build	Sign manifest	2026-04-08T19:55:32.0444797Z > mesharkade-database@0.1.0 sign
+build	Sign manifest	2026-04-08T19:55:32.0445554Z > node dist/scripts/sign.js meshARKade-metadats-20260408-195531
+build	Sign manifest	2026-04-08T19:55:32.0446077Z 
+build	Sign manifest	2026-04-08T19:55:32.1019550Z [sign] Fatal: Compile manifest not found at output/compile-manifest.json.
+build	Sign manifest	2026-04-08T19:55:32.1022646Z Run compile.ts first: node dist/scripts/compile.js
+build	Sign manifest	2026-04-08T19:55:32.1159332Z ##[error]Process completed with exit code 1.
+build	Discord notification (failure)	﻿2026-04-08T19:55:32.1222703Z ##[group]Run RUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/24155174892"
+build	Discord notification (failure)	2026-04-08T19:55:32.1223390Z [36;1mRUN_URL="https://github.com/Mesh-ARKade/meshARKade-database/actions/runs/24155174892"[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1223928Z [36;1mcurl -s -H "Content-Type: application/json" -d "{[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1224248Z [36;1m  \"embeds\": [{[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1224495Z [36;1m    \"title\": \"Build Catalog Failed\",[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1224978Z [36;1m    \"description\": \"Commit: \`${GITHUB_SHA::7}\` on \`${GITHUB_REF_NAME}\`\n[View logs](${RUN_URL})\",[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1225407Z [36;1m    \"color\": 15158332[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1225636Z [36;1m  }][0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1225836Z [36;1m}" "$DISCORD_WEBHOOK_URL"[0m
+build	Discord notification (failure)	2026-04-08T19:55:32.1247739Z shell: /usr/bin/bash -e {0}
+build	Discord notification (failure)	2026-04-08T19:55:32.1247980Z env:
+build	Discord notification (failure)	2026-04-08T19:55:32.1248190Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+build	Discord notification (failure)	2026-04-08T19:55:32.1248921Z   DISCORD_WEBHOOK_URL: ***
+build	Discord notification (failure)	2026-04-08T19:55:32.1249157Z ##[endgroup]
+build	Post Checkout repository	﻿2026-04-08T19:55:32.4160094Z Post job cleanup.
+build	Post Checkout repository	2026-04-08T19:55:32.5089684Z [command]/usr/bin/git version
+build	Post Checkout repository	2026-04-08T19:55:32.5129193Z git version 2.53.0
+build	Post Checkout repository	2026-04-08T19:55:32.5172208Z Temporarily overriding HOME='/home/runner/work/_temp/f1429343-d8f6-4d43-acd1-f9b5fc810756' before making global git config changes
+build	Post Checkout repository	2026-04-08T19:55:32.5174174Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Checkout repository	2026-04-08T19:55:32.5179289Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/meshARKade-database/meshARKade-database
+build	Post Checkout repository	2026-04-08T19:55:32.5216432Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Checkout repository	2026-04-08T19:55:32.5250550Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Checkout repository	2026-04-08T19:55:32.5708194Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Checkout repository	2026-04-08T19:55:32.5731771Z http.https://github.com/.extraheader
+build	Post Checkout repository	2026-04-08T19:55:32.5741100Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build	Post Checkout repository	2026-04-08T19:55:32.5772962Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Post Checkout repository	2026-04-08T19:55:32.6023741Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build	Post Checkout repository	2026-04-08T19:55:32.6055853Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build	Complete job	﻿2026-04-08T19:55:32.6482913Z Cleaning up orphan processes
+build	Complete job	2026-04-08T19:55:32.6831922Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
