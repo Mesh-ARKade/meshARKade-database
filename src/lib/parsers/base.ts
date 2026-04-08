@@ -1,4 +1,4 @@
-import { ParsedDat } from '../types/dat.js';
+import { ParsedDat } from '../../types/dat.js';
 
 /**
  * Base interface for all DAT parsers.
