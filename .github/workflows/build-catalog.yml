@@ -220,11 +220,15 @@ jobs:
           while IFS= read -r file; do
             if [ -f "output/$file" ]; then
               echo "[release]   Uploading $file..."
-              gh release upload "$TAG" "output/$file" || echo "$file" >> /tmp/failed_uploads.txt
+              # Capture error message if upload fails
+              gh release upload "$TAG" "output/$file" 2>/tmp/upload_err.txt || (
+                ERR_MSG=$(cat /tmp/upload_err.txt | head -n 1)
+                echo "$file: $ERR_MSG" >> /tmp/failed_uploads.txt
+              )
               sleep 0.5
             else
               echo "[release]   Warning: $file listed in upload-list.txt but not found in output/"
-              echo "$file (Not found)" >> /tmp/failed_uploads.txt
+              echo "$file: (Not found in output/ directory)" >> /tmp/failed_uploads.txt
             fi
           done < output/upload-list.txt
 
