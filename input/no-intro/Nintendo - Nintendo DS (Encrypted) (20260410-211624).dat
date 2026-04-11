@@ -4,7 +4,7 @@
 		<id>28</id>
 		<name>Nintendo - Nintendo DS (Encrypted)</name>
 		<description>Nintendo - Nintendo DS (Encrypted)</description>
-		<version>20260409-141841</version>
+		<version>20260410-211624</version>
 		<author>aci68, ajshell1, Arctic Circle System, Aringon, asapy, Baronluigi, Bent, buckwheat, C. V. Reynolds, chillerecke, Connie, coraz, darthcloud, Datman, DeadSkullzJr, Densetsu, DeriLoko3, diego-rbb, DirkDagger, einstein95, Flashfire42, Fonix, fuzzball, Gefflon, Hiccup, hydr0x, iAmGhost, Icyelut, InternalLoss, Jhon591, jimmsu, Just001Kim, kaos, kazumi213, Kirtai, leekindo, Lesserkuma, Liam, MaxG, MeguCocoa, michal99, MisterSheeple, Money_114, Mr.K, NGEfreak, nhlay, niemand, nnssxx, NovaAurora, number, NWPlayer123, omonim2007, Powerpuff, PPLToast, Prominos, Psychofox11, psykopat, rarenight, relax, RetroGamer, Rifu, root, scorp256, Sir VG, SonGoku, Tauwasser, TBemme, Tescu, ToeKnee, togemet2, Tori, u53r123, ufocrossing, UnlockerPT, Vallaine01, Vigi, Whovian9369, Xenirina, xprism, xuom2, zg</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -6052,6 +6052,12 @@
 	<game name="Disney Frozen - Olaf's Quest (Europe)" id="6547" cloneofid="6293">
 		<description>Disney Frozen - Olaf's Quest (Europe)</description>
 		<rom name="Disney Frozen - Olaf's Quest (Europe).nds" size="16777216" crc="8947a8e9" md5="b3b60c5e7eaf5b4be5d930686d210a18" sha1="0c8ff5addbf44e7b8ac59950d4bfb350308b8579" serial="TFBP"/>
+	</game>
+	<game name="Disney Magic Connection (USA) (Proto)" id="6792">
+		<category>Games</category>
+		<category>Preproduction</category>
+		<description>Disney Magic Connection (USA) (Proto)</description>
+		<rom name="Disney Magic Connection (USA) (Proto).nds" size="16777216" crc="e6232618" md5="c3a5f5260ca2c75569b1af30eeebd131" sha1="65a28ac2baea113dd6d2ffd9af6c6fa9359e7a80" sha256="673b74444d56dc121bda8770114cd2ada2b9ed3d33cefe8de8c6590a601b337d"/>
 	</game>
 	<game name="Disney Planes (Europe) (Fr,De,It)" id="6222" cloneofid="6477">
 		<description>Disney Planes (Europe) (Fr,De,It)</description>
