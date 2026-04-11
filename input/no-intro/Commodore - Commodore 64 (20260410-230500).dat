@@ -4,7 +4,7 @@
 		<id>42</id>
 		<name>Commodore - Commodore 64</name>
 		<description>Commodore - Commodore 64</description>
-		<version>20260315-021650</version>
+		<version>20260410-230500</version>
 		<author>baldjared, C. V. Reynolds, Hiccup, nnssxx, Psychofox11, psykopat, rarenight, SonGoku, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -261,10 +261,10 @@
 		<description>Black Box (USA, Europe) (v2.0) (Program)</description>
 		<rom name="Black Box (USA, Europe) (v2.0) (Program).crt" size="16464" crc="c233227d" md5="c4ec35229764ea130d6259e7f3f7324d" sha1="8b5580c6c212599c70ef0b1243e18137ad8fdaa5"/>
 	</game>
-	<game name="Black Box 4 (Poland) (De,Pl) (Program)" id="0349" cloneofid="0058">
+	<game name="Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program)" id="0349" cloneofid="0058">
 		<category>Applications</category>
-		<description>Black Box 4 (Poland) (De,Pl) (Program)</description>
-		<rom name="Black Box 4 (Poland) (De,Pl) (Program).crt" size="16464" crc="acf05b01" md5="f46a1492134596738841254ea8312684" sha1="bd8f6e1921efcdcee2f3a511f74c6108c5400911" sha256="ac601fe9ecab1d28d456f816b915a9fb6dca4c98f3efc208fe93db6ff3d40961"/>
+		<description>Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program)</description>
+		<rom name="Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program).crt" size="16464" crc="0855d928" md5="e912d328919bc04c6c55792325020d30" sha1="c21b7954d4d6429acb1543af286cc5891d05d677" sha256="9ef10607022e140e456ef2b626648e80f101c7726481eab423f385f29808e25f"/>
 	</game>
 	<game name="Blueprint (USA, Europe)" id="0138">
 		<description>Blueprint (USA, Europe)</description>

@@ -2,18 +2,22 @@
 <datafile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://datomatic.no-intro.org/stuff https://datomatic.no-intro.org/stuff/schema_nointro_datfile_v3.xsd">
 	<header>
 		<id>28</id>
-		<name>Nintendo - Nintendo DS (Encrypted) (Aftermarket)</name>
-		<description>Nintendo - Nintendo DS (Encrypted) (Aftermarket)</description>
-		<version>20260409-005244</version>
+		<name>Nintendo - Nintendo DS (Decrypted) (Aftermarket)</name>
+		<description>Nintendo - Nintendo DS (Decrypted) (Aftermarket)</description>
+		<version>20260410-211624</version>
 		<author>aci68, ajshell1, Arctic Circle System, Aringon, asapy, Baronluigi, Bent, buckwheat, C. V. Reynolds, chillerecke, Connie, coraz, darthcloud, Datman, DeadSkullzJr, Densetsu, DeriLoko3, diego-rbb, DirkDagger, einstein95, Flashfire42, Fonix, fuzzball, Gefflon, Hiccup, hydr0x, iAmGhost, Icyelut, InternalLoss, Jhon591, jimmsu, Just001Kim, kaos, kazumi213, Kirtai, leekindo, Lesserkuma, Liam, MaxG, MeguCocoa, michal99, MisterSheeple, Money_114, Mr.K, NGEfreak, nhlay, niemand, nnssxx, NovaAurora, number, NWPlayer123, omonim2007, Powerpuff, PPLToast, Prominos, Psychofox11, psykopat, rarenight, relax, RetroGamer, Rifu, root, scorp256, Sir VG, SonGoku, Tauwasser, TBemme, Tescu, ToeKnee, togemet2, Tori, u53r123, ufocrossing, UnlockerPT, Vallaine01, Vigi, Whovian9369, Xenirina, xprism, xuom2, zg</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
 		<clrmamepro forcenodump="required"/>
 	</header>
+	<game name="Anguna - Warriors of Virtue (World) (v1.02) (Aftermarket) (Unl)" id="z386">
+		<description>Anguna - Warriors of Virtue (World) (v1.02) (Aftermarket) (Unl)</description>
+		<rom name="Anguna - Warriors of Virtue (World) (v1.02) (Aftermarket) (Unl).nds" size="2675776" crc="9fbfa267" md5="eed03ce2c75ac65a720fa7c4150118fe" sha1="5546cb0ba8f1a16dc4b9ceca496d4709ae0e61ef" sha256="90617d4d3d2d363b08f99c369f4fa0691fae98917d5928fc4e3ac849b6d69d52" serial="####"/>
+	</game>
 	<game name="Darnell - Crystal Fever (World) (v1.2) (Aftermarket) (Unl)" id="6788">
 		<category>Games</category>
 		<description>Darnell - Crystal Fever (World) (v1.2) (Aftermarket) (Unl)</description>
-		<rom name="Darnell - Crystal Fever (World) (v1.2) (Aftermarket) (Unl).nds" size="4099480" crc="ac868e20" md5="dd87253b18648cceb62eb05d29a8aa9c" sha1="f1861170b5a1a0c74e4c08806b792fdd7f58b807" sha256="5da903fcb0c4c0abb32067123a52ac6df47dcd4f497288d96606cd40015c6ba0"/>
+		<rom name="Darnell - Crystal Fever (World) (v1.2) (Aftermarket) (Unl).nds" size="4099480" crc="bff7e0a8" md5="06cd433596725fca8f43612d0cbc7581" sha1="9b049ee6e00075967c6c9c842eb4e69c1e0847c5" sha256="46174e2e60f7c0f2021aea60d0b4900811085b48b7e00f5540a3526f924df699"/>
 	</game>
 	<game name="Donsol (World) (Aftermarket) (Unl)" id="6790">
 		<category>Games</category>
@@ -23,12 +27,12 @@
 	<game name="Gurgosus Bowling DS (World) (v1.1) (Aftermarket) (Unl)" id="6783">
 		<category>Games</category>
 		<description>Gurgosus Bowling DS (World) (v1.1) (Aftermarket) (Unl)</description>
-		<rom name="Gurgosus Bowling DS (World) (v1.1) (Aftermarket) (Unl).nds" size="1158144" crc="9ec0a4dd" md5="6dd0adb77df49b09b9f4602cbeca3beb" sha1="eb8b3772b7b4d8a7cf700047ba61caff90707e43" sha256="cdfde18accee59230b18fb3858d9a0f5944380506ca7626391d62b272339952a"/>
+		<rom name="Gurgosus Bowling DS (World) (v1.1) (Aftermarket) (Unl).nds" size="1158144" crc="0c5894c8" md5="af63ff7765eed613c00596bc54375eb4" sha1="494edfa7e28ef01a4d6eff83295b8cc4baaf5659" sha256="930ed3fe6d4558d384abf335832669c0733e2b604baef49a8b1cc3e97d68e611"/>
 	</game>
 	<game name="Gurgosus Bowling DS (World) (v1.1) (No Sound) (Aftermarket) (Unl)" id="6784" cloneofid="6783">
 		<category>Games</category>
 		<description>Gurgosus Bowling DS (World) (v1.1) (No Sound) (Aftermarket) (Unl)</description>
-		<rom name="Gurgosus Bowling DS (World) (v1.1) (No Sound) (Aftermarket) (Unl).nds" size="1056768" crc="850812bb" md5="98bce6cc52a692153cf00c8a1c48f405" sha1="a5e118285d47f7da8efb7874cd51557a62e88b93" sha256="d101ba5c0e4a9f06589999ca06bb43ebef7ffe2f9ddb86e5bedd1b3f2266e81a"/>
+		<rom name="Gurgosus Bowling DS (World) (v1.1) (No Sound) (Aftermarket) (Unl).nds" size="1056768" crc="c73a7a06" md5="0bfba3f13049f6160498997260cb31e4" sha1="8667d893f33bf6944125d4544106e237da0efe3e" sha256="12ac50179a55fcacc3610eacd2d9c657ebca6217ef33871cb7404fabace7c020"/>
 	</game>
 	<game name="Magic Battle NDS (World) (Aftermarket) (Unl)" id="6787">
 		<category>Games</category>
@@ -61,12 +65,12 @@
 	<game name="Pingwinek Kelvin DS (World) (Pl) (Aftermarket) (Unl)" id="6785">
 		<category>Games</category>
 		<description>Pingwinek Kelvin DS (World) (Pl) (Aftermarket) (Unl)</description>
-		<rom name="Pingwinek Kelvin DS (World) (Pl) (Aftermarket) (Unl).nds" size="8813456" crc="a10e78b1" md5="9dc32dbd8c136ac2ae1e12bd42cc2af6" sha1="e1c3405c0711eec2a012a9c0f1be9654e6a6ba48" sha256="88a29f4ce98bb0a24dae32689ef79a7c9a9d87448a6deaf2e76baf70e261ce0b"/>
+		<rom name="Pingwinek Kelvin DS (World) (Pl) (Aftermarket) (Unl).nds" size="8813456" crc="49716304" md5="300bc08ecf697f2d770f92b817535b88" sha1="ecdf88b8d09e81d913cd08883a3f610bb615bc0c" sha256="a8342028ae49be50093f15b940fbfe6342f36893e676a3b454378f39267e8c83"/>
 	</game>
 	<game name="Pingwinek Kelvin DS (World) (Pl) (No Sound) (Aftermarket) (Unl)" id="6786" cloneofid="6785">
 		<category>Games</category>
 		<description>Pingwinek Kelvin DS (World) (Pl) (No Sound) (Aftermarket) (Unl)</description>
-		<rom name="Pingwinek Kelvin DS (World) (Pl) (No Sound) (Aftermarket) (Unl).nds" size="8712080" crc="68c0d08e" md5="d8a71d49c0bf1b26342e020147bc11a0" sha1="ac52754db086753d5c497691fb938deb98809552" sha256="acb90894d043e3c45bf7a7f0d825307f521da60ab62b92753493dd758643f47a"/>
+		<rom name="Pingwinek Kelvin DS (World) (Pl) (No Sound) (Aftermarket) (Unl).nds" size="8712080" crc="e23e1a8d" md5="2a2036388ed095bf4a627c3d071b5bbb" sha1="02d9b63f6ce73a11d9760c1431068aac10eea964" sha256="8f25902ed158514e9c90748e8d579238c08a060c0ba201c26636343756f181ca"/>
 	</game>
 	<game name="Space Impakto (World) (BlocksDS) (Aftermarket) (Unl)" id="6772">
 		<category>Games</category>
@@ -76,7 +80,7 @@
 	<game name="Teddy Must Die (World) (Aftermarket) (Unl)" id="6789">
 		<category>Games</category>
 		<description>Teddy Must Die (World) (Aftermarket) (Unl)</description>
-		<rom name="Teddy Must Die (World) (Aftermarket) (Unl).nds" size="2904588" crc="0d9647a4" md5="d54ee08c925c72cc40538cb3a995b10e" sha1="e48a2cc2ca396ee973af61a4df0f77540d8c29ef" sha256="3d7ce5b8e86b59585d0d414c68dce6d37f82234438aaedbe08245ce7906dc9b2"/>
+		<rom name="Teddy Must Die (World) (Aftermarket) (Unl).nds" size="2904588" crc="fba60a3d" md5="cef4464334d7da691c384ca168fd28b8" sha1="507c6d398614a49262b825d0d74261d2eda888f8" sha256="aeff82641356c33e0b355b4e02090bc791d677cd78321dc45c616463d9f95ce4"/>
 	</game>
 	<game name="Terri-Fried (World) (Aftermarket) (Unl)" id="6791">
 		<category>Games</category>
@@ -102,7 +106,7 @@
 	</game>
 	<game name="Waimanu - Daring Slides (World) (Aftermarket) (Unl)" id="z529">
 		<description>Waimanu - Daring Slides (World) (Aftermarket) (Unl)</description>
-		<rom name="Waimanu - Daring Slides (World) (Aftermarket) (Unl).nds" size="1754176" crc="228cbb95" md5="d7d865288d77230f8d23d87fcb991d27" sha1="3abd3f461bfcfc2a475182e4ff08894916b7c469" sha256="27e30346154f2fe1655f472ebfca0a36e990cfb0a5ee5bc5719b51ba1039783b"/>
+		<rom name="Waimanu - Daring Slides (World) (Aftermarket) (Unl).nds" size="1754176" crc="67c2e4d7" md5="48703aa6887236c2424f06215616ba3f" sha1="941fe2661b370844460a96396f8bcac7a0559103" sha256="0e2ac89050b45a0e3852e59a9ad8fac1a685cf1f5f1fe6699ee47bcf606dfaf3"/>
 	</game>
 	<game name="WolveSlayer (World) (2024-07-31) (BlocksDS) (Aftermarket) (Unl)" id="6773">
 		<category>Games</category>

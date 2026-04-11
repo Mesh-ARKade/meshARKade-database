@@ -4,7 +4,7 @@
 		<id>42</id>
 		<name>Commodore - Commodore 64 (Headerless)</name>
 		<description>Commodore - Commodore 64 (Headerless)</description>
-		<version>20260315-021650</version>
+		<version>20260410-230500</version>
 		<author>baldjared, C. V. Reynolds, Hiccup, nnssxx, Psychofox11, psykopat, rarenight, SonGoku, xuom2</author>
 		<homepage>No-Intro</homepage>
 		<url>https://www.no-intro.org</url>
@@ -15,10 +15,10 @@
 		<description>Bis Plus Cartridge (Poland) (En) (Program) (2K)</description>
 		<rom name="Bis Plus Cartridge (Poland) (En) (Program) (2K).bin" size="2048" crc="5d4815e6" md5="b597edd2b02150f609b3c3d0fe3816c0" sha1="b4cf453a3f919b52ee0eca51a3e8e1e12ef04a0c" sha256="9684fac2055d37463166fda3ea46acf2b7dbe2d7a6191a42fe6e00eabe84cd85"/>
 	</game>
-	<game name="Black Box 4 (Poland) (De,Pl) (Program)" id="0349" cloneofid="0058">
+	<game name="Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program)" id="0349" cloneofid="0058">
 		<category>Applications</category>
-		<description>Black Box 4 (Poland) (De,Pl) (Program)</description>
-		<rom name="Black Box 4 (Poland) (De,Pl) (Program).bin" size="16384" crc="5a4f8a48" md5="ec01de00f6f96f78c4e1dfdbf7c0e84f" sha1="6e90afc1178c62571c97fe01d86fa99cb24ead70" sha256="e9491a8f23c1d86561eef72911ad9c81166f72ee13b8293057e87df75fc794e1"/>
+		<description>Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program)</description>
+		<rom name="Black Box 4 (Poland) (De,Pl) (ROMI-SOFT) (Program).bin" size="16384" crc="5a4f8a48" md5="ec01de00f6f96f78c4e1dfdbf7c0e84f" sha1="6e90afc1178c62571c97fe01d86fa99cb24ead70" sha256="e9491a8f23c1d86561eef72911ad9c81166f72ee13b8293057e87df75fc794e1"/>
 	</game>
 	<game name="Gorf (USA, Europe)" id="0183">
 		<description>Gorf (USA, Europe)</description>
